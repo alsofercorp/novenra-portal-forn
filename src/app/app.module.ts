@@ -8,6 +8,7 @@ import { pt_BR } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(pt);
 
@@ -15,6 +16,7 @@ registerLocaleData(pt);
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
   ],
