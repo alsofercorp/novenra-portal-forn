@@ -1,0 +1,224 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Inter'; // Escolha um nome para a fonte
+  src: url('./assets/font/Inter/Inter-VariableFont_slnt\,wght.ttf') format('truetype'); // Substitua o caminho e o formato da fonte conforme necessário
+  font-weight: normal; // Pode ser normal ou bold
+  font-style: normal; // Pode ser normal ou italic
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+nz-tag {
+  &.noventa-orange {
+    border: 1px solid #EC7000;
+    background-color: rgba(236, 112, 0, 0.15);
+    padding: 3px;
+
+    color: var(--Orange, #EC7000);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px;
+
+    span {
+      margin-right: 2.01px;
+    }
+  }
+}
+
+nz-layout,
+nz-sider {
+  min-height: calc(100vh - 80px) !important;
+}
+
+nz-sider {
+  background: #fff !important;
+  flex: 0 0 300px !important;
+  max-width: 300px !important;
+  width: 300px !important;
+
+  * {
+    background: #fff !important;
+  }
+}
+
+.alert-badge {
+  .ant-badge-dot {
+    background: #EC7000;
+    top: 8px !important;
+    right: 6px !important;
+  }
+}
+
+.status-circle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  p,
+  h3 {
+    margin: 0 !important;
+  }
+
+  svg {
+    margin-right: 10px;
+
+    circle {
+      &.enviada {
+        fill: var(--Orange, #EC7000) !important;
+      }
+
+      &.aprovada {
+        fill: var(--Sucess, #4CAF50) !important;
+      }
+
+      &.finalizada {
+        fill: #13CAE3 !important;
+      }
+
+      &.pendente {
+        fill: #FFB800 !important;
+      }
+    }
+  }
+}
+
+.ant-picker-separator {
+  span {
+    color: #EC7000;
+  }
+}
+
+nz-date-picker,
+nz-range-picker {
+  border-radius: 12px !important;
+  padding: 16px !important;
+  border: 1px solid var(--Light-Gray, #E9EEF6) !important;
+  background-color: var(--Light-Gray, #E9EEF6) !important;
+}
+
+nz-select {
+  border-radius: 12px !important;
+  padding: 11px !important;
+  border: 1px solid var(--Light-Gray, #E9EEF6) !important;
+  background-color: var(--Light-Gray, #E9EEF6) !important;
+
+  nz-select-top-control {
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: transparent !important;
+  }
+}
+
+input {
+  &.noventa-input {
+    border-radius: 12px !important;
+    padding: 16px !important;
+    border: 1px solid var(--Light-Gray, #E9EEF6) !important;
+    background-color: var(--Light-Gray, #E9EEF6) !important;
+    margin-top: 5px;
+  }
+}
+
+nz-input-group {
+  border-radius: 12px !important;
+  padding: 16px !important;
+  border: 1px solid var(--Light-Gray, #E9EEF6) !important;
+  background-color: var(--Light-Gray, #E9EEF6) !important;
+
+  input {
+    background-color: var(--Light-Gray, #E9EEF6) !important;
+    color: var(--medium-gray-input, #9297A1);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+}
+
+nz-table {
+  .ant-table-content {
+    table {
+      border-spacing: 0 16.22px;
+
+      tbody {
+        color: var(--Black, #282828);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        tr {
+          box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+          margin-bottom: 16.22px;
+        }
+      }
+
+      thead {
+        color: var(--dark-gray-label, #626262);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        tr {
+          box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
+          border-radius: 10px 10px 0 0;
+
+          th {
+            background-color: #E9EEF6;
+            border-bottom: none;
+
+            &:first-child {
+              border-top-left-radius: 10px !important;
+            }
+
+            &:last-child {
+              border-top-right-radius: 10px !important;
+            }
+
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .ant-pagination {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.pagination-container {
+  .ant-pagination-item {
+    border: none;
+  }
+
+  .ant-pagination-item-active {
+    background-color: #0074B0;
+
+    a {
+      color: #ffffff;
+    }
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    line-height: 0;
+
+    button {
+      border: none;
+    }
+  }
+}

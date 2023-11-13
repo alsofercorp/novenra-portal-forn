@@ -1,0 +1,60 @@
+<div class="auth-container h-100 w-100">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="title">Crie sua conta</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <p class="context">Agora, nos informe algumas informações sobre sua empresa:</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="complementationDataForm">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="input-label" for="cnpj">CNPJ</label>
+            <input id="cnpj" formControlName="cnpj" nz-input class="form-control noventa-input"
+              placeholder="00.000.000/0001-00" mask="00.000.000/0000-00" type="text" />
+
+            <label class="input-label" for="razao">Razão Social</label>
+            <input id="razao" formControlName="razaoSocial" nz-input class="form-control noventa-input"
+              placeholder="Insira a razão social" type="text" />
+
+            <label class="input-label" for="cep">CEP</label>
+            <input mask="00.000-000" (blur)="onCepChange()" id="cep" formControlName="cep" nz-input
+              class="form-control noventa-input" placeholder="Insira pelo menos 8 caracteres" type="text" />
+
+            <label class="input-label" for="rua">Logradouro</label>
+            <input id="rua" formControlName="logradouro" nz-input class="form-control noventa-input"
+              placeholder="Insira pelo menos 8 caracteres" type="text" />
+          </div>
+          <div class="col-md-6">
+            <label class="input-label" for="numero">Numero</label>
+            <input id="numero" formControlName="numero" nz-input class="form-control noventa-input"
+              placeholder="Insira o número" type="text" />
+          </div>
+          <div class="col-md-6">
+            <label class="input-label" for="complemento">Complemento</label>
+            <input id="complemento" formControlName="complemento" nz-input class="form-control noventa-input"
+              placeholder="(Se houver)" type="text" />
+          </div>
+          <div class="col-md-6">
+            <label class="input-label" for="cidade">Cidade</label>
+            <input id="cidade" formControlName="cidade" nz-input class="form-control noventa-input"
+              placeholder="Insira a cidade" type="text" />
+          </div>
+          <div class="col-md-6">
+            <label class="input-label" for="uf">UF</label>
+            <input id="uf" formControlName="uf" nz-input class="form-control noventa-input" placeholder="Insira a UF"
+              type="text" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <button (click)="createAccount()" nz-button nzType="primary">Criar Conta</button>
+  </div>
+</div>

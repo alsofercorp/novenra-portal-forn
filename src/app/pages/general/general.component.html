@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-md-12 pb-3 pt-3 header-info">
+    <div class="row mb-4 mt-3">
+      <div class="col-md-4">
+        <h3>Estatistica da <small>semana</small></h3>
+      </div>
+      <div class="col-md-8 d-flex justify-content-end">
+        <nz-radio-group>
+          <label nz-radio-button nzValue="1">Útima semana</label>
+          <label nz-radio-button nzValue="2">Últimos 15 dias</label>
+          <label nz-radio-button nzValue="3">Últimos 30 dias</label>
+          <label nz-radio-button nzValue="4">Últimos trimestre</label>
+          <label nz-radio-button nzValue="5">Últimos semestre</label>
+          <label nz-radio-button nzValue="6">Últimos ano</label>
+        </nz-radio-group>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-md-12 d-flex justify-content-between">
+        <div class="cotation-card">
+          <div class="logo">
+            <img src="./../../../assets/img/clock.png" alt="clock">
+          </div>
+          <div class="info">
+            <div class="status-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+                <circle cx="6" cy="6.05566" r="6" fill="#EC7000" class="pendente" />
+              </svg>
+              <p>Cotações pendentes</p>
+            </div>
+            <h3>{{infoData.pending}}</h3>
+          </div>
+        </div>
+        <div class="cotation-card">
+          <div class="logo">
+            <img src="./../../../assets/img/export.png" alt="clock">
+          </div>
+          <div class="info">
+            <div class="status-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+                <circle cx="6" cy="6.05566" r="6" fill="#EC7000" class="enviada" />
+              </svg>
+              <p>Cotações enviadas</p>
+            </div>
+            <h3>{{infoData.sented}}</h3>
+          </div>
+        </div>
+        <div class="cotation-card">
+          <div class="logo">
+            <img src="./../../../assets/img/market.png" alt="clock">
+          </div>
+          <div class="info">
+            <div class="status-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+                <circle cx="6" cy="6.05566" r="6" fill="#EC7000" class="aprovada" />
+              </svg>
+              <p>OCs aprovadas</p>
+            </div>
+            <h3>{{infoData.approved}}</h3>
+          </div>
+        </div>
+        <div class="cotation-card">
+          <div class="logo">
+            <img src="./../../../assets/img/fast-market.png" alt="clock">
+          </div>
+          <div class="info">
+            <div class="status-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+                <circle cx="6" cy="6.05566" r="6" fill="#EC7000" class="finalizada" />
+              </svg>
+              <p>OCs finalizadas</p>
+            </div>
+            <h3>{{infoData.finished}}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row body-info">
+  <div class="col-md-6 pedding-cotation">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Cotações <small>pendentes</small></h3>
+      </div>
+      <ngx-simplebar class="bar-adjust" #scrollRef>
+        <div *ngFor="let pedding of penddingInfo" class="col-md-12 card-container">
+          <div class="cotation-card">
+            <div class="row">
+              <div class="col-md-12 cotation-name">
+                {{pedding.name}}
+                <nz-tag [nzColor]="'orange'">
+                  <i class="ri-alert-line"></i>
+                  imediata
+                </nz-tag>
+              </div>
+              <div class="col-md-6">
+                <i class="ri-map-pin-2-line"></i>
+                {{pedding.location}}
+              </div>
+              <div class="col-md-6">
+                <i class="ri-calendar-line"></i>
+                Solicitação: {{pedding.solicitation}}
+              </div>
+            </div>
+            <div class="row" style="margin-bottom: 12.13px;">
+              <div class="col-md-6">
+                <i class="ri-instance-line"></i>
+                {{pedding.itens}}
+                itens requisitados
+              </div>
+              <div class="col-md-6 last-info">
+                <i class="ri-truck-line"></i>
+                Data de entrega: {{pedding.deliveryDate}}
+
+                <button nz-butto class="shared" (click)="answerRequest('id1234567')">
+                  <i class="ri-share-forward-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ngx-simplebar>
+    </div>
+  </div>
+  <div class="col-md-6 recentlyAct">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Atividades <small>recentes</small></h3>
+      </div>
+      <ngx-simplebar class="bar-adjust" #scrollRef>
+        <div *ngFor="let recently of recentlyActList" class="col-md-12 rec-info-container">
+          <div class="status-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+              <circle cx="6" cy="6.05566" r="6" fill="#EC7000" [ngClass]="recently.status === 0 ? 'enviada' : recently.status === 1 ? 'aprovada' : 'finalizada'" />
+            </svg>
+            <h3>{{recently.statusName}}</h3>
+          </div>
+          <label for="destiny">Solicitante: {{recently.requester}}</label>
+          <label for="destiny">Destination: {{recently.destiny}}</label>
+          <label class="rec-date" for="destiny">{{recently.date}}</label>
+          <nz-divider></nz-divider>
+        </div>
+      </ngx-simplebar>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<nz-layout class="app-layout">
+  <div class="app-header">
+    <div class="header-logo">
+      <img src="./../assets/img/logo.png" alt="logo">
+    </div>
+    <div class="user-container">
+      <button nz-button nzType="default" nzShape="circle" nzSize="large">
+        <nz-badge class="alert-badge" nzDot>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path
+              d="M20.7062 23.2289V24.1905C20.7062 25.2105 20.301 26.1888 19.5797 26.9101C18.8584 27.6314 17.8801 28.0366 16.86 28.0366C15.84 28.0366 14.8617 27.6314 14.1404 26.9101C13.4191 26.1888 13.0139 25.2105 13.0139 24.1905V23.2289M27.1774 21.2716C25.6341 19.3828 24.5445 18.4212 24.5445 13.2139C24.5445 8.44528 22.1094 6.74636 20.1052 5.92124C19.839 5.81186 19.5884 5.56066 19.5073 5.28722C19.1557 4.09071 18.1701 3.03662 16.86 3.03662C15.55 3.03662 14.5638 4.09131 14.2158 5.28842C14.1347 5.56487 13.8841 5.81186 13.6179 5.92124C11.6112 6.74756 9.17856 8.44047 9.17856 13.2139C9.17555 18.4212 8.08601 19.3828 6.54274 21.2716C5.90332 22.054 6.46341 23.2289 7.5818 23.2289H26.1443C27.2567 23.2289 27.8132 22.0504 27.1774 21.2716Z"
+              stroke="#282828" stroke-width="1.90798" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="1.55884" y="0.996832" width="29.4972" height="29.4972" stroke="white" stroke-width="1.27199" />
+          </svg>
+        </nz-badge>
+      </button>
+      <nz-divider class="styled-divider" nzType="vertical"></nz-divider>
+      <div class="user-info">
+        <img class="rounded-image" src="./../assets/img/profile.png" alt="avatar">
+        <div class="info">
+          <a class="dropdown" nz-dropdown [nzDropdownMenu]="menu">
+            Carolina Bessa
+            <span nz-icon nzType="down"></span>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>1st menu item</li>
+              <li nz-menu-item>2nd menu item</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item nzDisabled>3rd menu item（disabled）</li>
+            </ul>
+          </nz-dropdown-menu>
+          <nz-tag class="noventa-orange">
+            <span nz-icon nzType="shopping" nzTheme="outline"></span>
+            Gerdau
+          </nz-tag>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nz-layout>
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null">
+      <ul nz-menu nzMode="inline" class="menu" [nzInlineCollapsed]="isCollapsed">
+        <li routerLink="visao-geral" [class]="isRouteActive('/app/visao-geral')" nz-menu-item>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="29" viewBox="0 0 30 29" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M18.0996 3.90625C16.4428 3.90625 15.0996 5.2494 15.0996 6.90625V13.3062C15.0996 13.5824 15.3235 13.8062 15.5996 13.8062H21.9996C23.6565 13.8062 24.9996 12.4631 24.9996 10.8062V6.90625C24.9996 5.2494 23.6565 3.90625 21.9996 3.90625H18.0996Z"
+              stroke="#9297A2" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M9.90039 3.90625C11.5572 3.90625 12.9004 5.2494 12.9004 6.90625V13.3062C12.9004 13.5824 12.6765 13.8062 12.4004 13.8062H6.00039C4.34354 13.8062 3.00039 12.4631 3.00039 10.8062V6.90625C3.00039 5.2494 4.34354 3.90625 6.00039 3.90625H9.90039Z"
+              stroke="#9297A2" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M9.90039 25.9062C11.5572 25.9062 12.9004 24.5631 12.9004 22.9062V16.5063C12.9004 16.2301 12.6765 16.0063 12.4004 16.0063H6.00039C4.34354 16.0063 3.00039 17.3494 3.00039 19.0063V22.9063C3.00039 24.5631 4.34354 25.9062 6.00039 25.9062H9.90039Z"
+              stroke="#9297A2" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M18.0996 25.9062C16.4428 25.9062 15.0996 24.5631 15.0996 22.9062V16.5063C15.0996 16.2301 15.3235 16.0063 15.5996 16.0063H21.9996C23.6565 16.0063 24.9996 17.3494 24.9996 19.0063V22.9063C24.9996 24.5631 23.6565 25.9062 21.9996 25.9062H18.0996Z"
+              stroke="#9297A2" />
+          </svg>
+          Visão Geral
+        </li>
+        <li routerLink="cotacao" [class]="isRouteActive('/app/cotacao')" nz-menu-item>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+            <path
+              d="M26.583 8.15609V11.0803C26.583 12.9894 25.3747 14.1978 23.4655 14.1978H19.333V5.7515C19.333 4.41025 20.4326 3.32275 21.7738 3.32275C23.0909 3.33484 24.2993 3.8665 25.1693 4.7365C26.0393 5.61859 26.583 6.82692 26.583 8.15609Z"
+              stroke="#9297A2" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path
+              d="M2.41699 9.36442V26.2811C2.41699 27.284 3.55283 27.8519 4.35033 27.2478L6.41658 25.7011C6.89991 25.3386 7.57658 25.3869 8.01158 25.8219L10.0174 27.8398C10.4887 28.3111 11.262 28.3111 11.7332 27.8398L13.7632 25.8098C14.1862 25.3869 14.8628 25.3386 15.3341 25.7011L17.4003 27.2478C18.1978 27.8398 19.3337 27.2719 19.3337 26.2811V5.73942C19.3337 4.41025 20.4212 3.32275 21.7503 3.32275H8.45866H7.25033C3.62533 3.32275 2.41699 5.48567 2.41699 8.15609V9.36442Z"
+              stroke="#9297A2" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M10.875 16.6265H14.5" stroke="#9297A2" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M10.875 11.7935H14.5" stroke="#9297A2" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M7.24512 16.6147H7.25597" stroke="#9297A2" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M7.24512 11.7812H7.25597" stroke="#9297A2" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          Cotações
+        </li>
+        <li routerLink="" [class]="isRouteActive('')" nz-menu-item>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
+            <path
+              d="M21.9799 22.354H9.11115C7.9149 22.354 6.76698 21.8465 5.9574 20.9644C5.14782 20.0823 4.73699 18.8982 4.83366 17.7019L5.83658 5.66692C5.87283 5.29234 5.7399 4.92984 5.48615 4.65193C5.2324 4.37401 4.88199 4.229 4.5074 4.229H2.41699C1.92158 4.229 1.51074 3.81817 1.51074 3.32275C1.51074 2.82734 1.92158 2.4165 2.41699 2.4165H4.5195C5.40158 2.4165 6.23532 2.79108 6.8274 3.4315C7.15365 3.794 7.39532 4.21693 7.52824 4.68818H22.6203C23.8407 4.68818 24.9645 5.1715 25.7862 6.0415C26.5957 6.92359 27.0066 8.07151 26.9099 9.29192L26.2574 18.3544C26.1245 20.5657 24.1912 22.354 21.9799 22.354ZM7.58866 6.48858L6.64616 17.8469C6.58574 18.5477 6.81532 19.2123 7.28657 19.7319C7.75782 20.2515 8.41032 20.5294 9.11115 20.5294H21.9799C23.2366 20.5294 24.3724 19.4661 24.4691 18.2094L25.1216 9.14693C25.1699 8.43401 24.9403 7.75735 24.4691 7.26193C23.9978 6.75443 23.3453 6.47649 22.6324 6.47649H7.58866V6.48858Z"
+              fill="#9297A2" />
+            <path
+              d="M19.6354 28.3958C18.3063 28.3958 17.2188 27.3083 17.2188 25.9792C17.2188 24.65 18.3063 23.5625 19.6354 23.5625C20.9646 23.5625 22.0521 24.65 22.0521 25.9792C22.0521 27.3083 20.9646 28.3958 19.6354 28.3958ZM19.6354 25.375C19.2971 25.375 19.0313 25.6408 19.0313 25.9792C19.0313 26.3175 19.2971 26.5833 19.6354 26.5833C19.9738 26.5833 20.2396 26.3175 20.2396 25.9792C20.2396 25.6408 19.9738 25.375 19.6354 25.375Z"
+              fill="#9297A2" />
+            <path
+              d="M9.96842 28.3958C8.63926 28.3958 7.55176 27.3083 7.55176 25.9792C7.55176 24.65 8.63926 23.5625 9.96842 23.5625C11.2976 23.5625 12.3851 24.65 12.3851 25.9792C12.3851 27.3083 11.2976 28.3958 9.96842 28.3958ZM9.96842 25.375C9.63009 25.375 9.36426 25.6408 9.36426 25.9792C9.36426 26.3175 9.63009 26.5833 9.96842 26.5833C10.3068 26.5833 10.5726 26.3175 10.5726 25.9792C10.5726 25.6408 10.3068 25.375 9.96842 25.375Z"
+              fill="#9297A2" />
+            <path
+              d="M25.375 11.479H10.875C10.3796 11.479 9.96875 11.0682 9.96875 10.5728C9.96875 10.0773 10.3796 9.6665 10.875 9.6665H25.375C25.8704 9.6665 26.2812 10.0773 26.2812 10.5728C26.2812 11.0682 25.8704 11.479 25.375 11.479Z"
+              fill="#9297A2" />
+          </svg>
+          Ordens de Compra
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>

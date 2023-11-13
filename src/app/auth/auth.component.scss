@@ -1,0 +1,30 @@
+.login-container {
+  padding: 0;
+  margin: 0;
+
+  .login-photo-container {
+    padding: 0;
+    margin: 0;
+    background: url('./../../assets/img/login-bg.jpeg') center center no-repeat;
+    background-size: cover;
+
+    .dark-login-color {
+      background: rgba(0, 0, 0, 0.75);
+      height: 100vh;
+
+      .login-side-photo {
+        background: linear-gradient(180deg, rgba(3, 87, 130, 0.60) 7.95%, rgba(0, 116, 176, 0.00) 100%);
+
+        .logo {
+          padding: 89px;
+          padding-left: 123px;
+
+          img {
+            width: 103px;
+            height: 74px;
+          }
+        }
+      }
+    }
+  }
+}

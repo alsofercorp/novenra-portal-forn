@@ -1,0 +1,38 @@
+<div class="auth-container h-100 w-100">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 class="title">Crie sua conta</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="subtitle">Bem vindo à 90Compor!</h1>
+      <p class="context">Vamos criar sua conta em alguns passos simples.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form>
+        <label class="input-label" for="name">Nome completo</label>
+        <input id="name" nz-input class="form-control noventa-input" placeholder="Insira seu nome" type="text" />
+
+        <label class="input-label" for="email">E-mail</label>
+        <input id="email" nz-input class="form-control noventa-input" placeholder="nome@empresa.com.br" type="email" />
+
+        <label class="input-label" for="pass">Senha</label>
+        <input id="pass" nz-input class="form-control noventa-input" placeholder="Insira pelo menos 8 caracteres" type="password" />
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label nz-checkbox>Li e concordo com os <a>Termos de Uso</a> da 90TI</label>
+    </div>
+  </div>
+  <div class="row">
+    <button (click)="nextStep()" nz-button nzType="primary">Continuar</button>
+  </div>
+  <div class="row">
+    <p class="create-account">Já possui uma conta? <a [routerLink]="'/auth/login'">Entre</a></p>
+  </div>
+</div>
