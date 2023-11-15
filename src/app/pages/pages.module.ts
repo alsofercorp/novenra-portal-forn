@@ -25,6 +25,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
+import { ListCotationComponent } from './cotation/list-cotation/list-cotation.component';
+import { ListGeneralComponent } from './general/list-general/list-general.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { PagesComponent } from './pages.component';
     GeneralComponent,
     CotationComponent,
     CreateCotationComponent,
-    RequestAnswerComponent
+    RequestAnswerComponent,
+    ListCotationComponent,
+    ListGeneralComponent
   ],
   imports: [
     PagesRoutingModule,

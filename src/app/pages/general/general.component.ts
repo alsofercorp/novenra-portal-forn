@@ -1,5 +1,3 @@
-import { Router } from '@angular/router';
-import { headerInfoData, peddingCotation, recentlyAct } from '../../../assets/data/visao-geral';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,17 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
-  infoData: any = headerInfoData;
-  penddingInfo: any = peddingCotation;
-  recentlyActList: any = recentlyAct;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  answerRequest(id: string) {
-    this.router.navigate(['app', 'visao-geral', 'responder-solicitacao']);
   }
 
 }

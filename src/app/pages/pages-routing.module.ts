@@ -4,6 +4,9 @@ import { GeneralComponent } from './general/general.component';
 import { RequestAnswerComponent } from './general/request-answer/request-answer.component';
 import { CotationComponent } from './cotation/cotation.component';
 import { PagesComponent } from './pages.component';
+import { ListCotationComponent } from './cotation/list-cotation/list-cotation.component';
+import { CreateCotationComponent } from './cotation/create-cotation/create-cotation.component';
+import { ListGeneralComponent } from './general/list-general/list-general.component';
 
 const routes: Routes = [
   {
@@ -13,13 +16,28 @@ const routes: Routes = [
       {
         path: 'cotacao',
         component: CotationComponent,
-        title: 'Cotação'
+        children: [
+          {
+            path: '',
+            component: ListCotationComponent,
+            title: 'Cotação'
+          },
+          {
+            path: 'criar',
+            component: CreateCotationComponent,
+            title: 'Criar Cotação'
+          }
+        ]
       },
       {
         path: 'visao-geral',
         component: GeneralComponent,
-        title: 'Visão Geral',
         children: [
+          {
+            path: '',
+            component: ListGeneralComponent,
+            title: 'Visão Geral',
+          },
           {
             path: 'responder-solicitacao',
             component: RequestAnswerComponent,
