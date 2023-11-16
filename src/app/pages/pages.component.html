@@ -42,9 +42,7 @@
     <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
       [nzTrigger]="null">
       <ul nz-menu nzMode="inline" class="menu" [nzInlineCollapsed]="isCollapsed">
-        <li routerLink="visao-geral"
-          [class]="isRouteActive('/app/visao-geral') || isRouteActive('/app/visao-geral/responder-solicitacao')"
-          nz-menu-item>
+        <li routerLink="visao-geral" [ngClass]="linkClass['visao-geral']" nz-menu-item>
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="29" viewBox="0 0 30 29" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M18.0996 3.90625C16.4428 3.90625 15.0996 5.2494 15.0996 6.90625V13.3062C15.0996 13.5824 15.3235 13.8062 15.5996 13.8062H21.9996C23.6565 13.8062 24.9996 12.4631 24.9996 10.8062V6.90625C24.9996 5.2494 23.6565 3.90625 21.9996 3.90625H18.0996Z"
@@ -61,8 +59,7 @@
           </svg>
           Visão Geral
         </li>
-        <li routerLink="cotacao" [class]="isRouteActive('/app/cotacao') || isRouteActive('/app/cotacao/criar')"
-          nz-menu-item>
+        <li routerLink="cotacao" [ngClass]="linkClass.cotacao" nz-menu-item>
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <path
               d="M26.583 8.15609V11.0803C26.583 12.9894 25.3747 14.1978 23.4655 14.1978H19.333V5.7515C19.333 4.41025 20.4326 3.32275 21.7738 3.32275C23.0909 3.33484 24.2993 3.8665 25.1693 4.7365C26.0393 5.61859 26.583 6.82692 26.583 8.15609Z"
@@ -83,7 +80,7 @@
           </svg>
           Cotações
         </li>
-        <li routerLink="" [class]="isRouteActive('')" nz-menu-item>
+        <li routerLink="" [class]="" nz-menu-item>
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <path
               d="M21.9799 22.354H9.11115C7.9149 22.354 6.76698 21.8465 5.9574 20.9644C5.14782 20.0823 4.73699 18.8982 4.83366 17.7019L5.83658 5.66692C5.87283 5.29234 5.7399 4.92984 5.48615 4.65193C5.2324 4.37401 4.88199 4.229 4.5074 4.229H2.41699C1.92158 4.229 1.51074 3.81817 1.51074 3.32275C1.51074 2.82734 1.92158 2.4165 2.41699 2.4165H4.5195C5.40158 2.4165 6.23532 2.79108 6.8274 3.4315C7.15365 3.794 7.39532 4.21693 7.52824 4.68818H22.6203C23.8407 4.68818 24.9645 5.1715 25.7862 6.0415C26.5957 6.92359 27.0066 8.07151 26.9099 9.29192L26.2574 18.3544C26.1245 20.5657 24.1912 22.354 21.9799 22.354ZM7.58866 6.48858L6.64616 17.8469C6.58574 18.5477 6.81532 19.2123 7.28657 19.7319C7.75782 20.2515 8.41032 20.5294 9.11115 20.5294H21.9799C23.2366 20.5294 24.3724 19.4661 24.4691 18.2094L25.1216 9.14693C25.1699 8.43401 24.9403 7.75735 24.4691 7.26193C23.9978 6.75443 23.3453 6.47649 22.6324 6.47649H7.58866V6.48858Z"

@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralComponent } from './general/general.component';
 import { CotationComponent } from './cotation/cotation.component';
-import { CreateCotationComponent } from './cotation/create-cotation/create-cotation.component';
+import { DetailCotationComponent } from './cotation/create-cotation/detail-cotation.component';
 import { RequestAnswerComponent } from './general/request-answer/request-answer.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from '../icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -35,7 +34,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     PagesComponent,
     GeneralComponent,
     CotationComponent,
-    CreateCotationComponent,
+    DetailCotationComponent,
     RequestAnswerComponent,
     ListCotationComponent,
     ListGeneralComponent

@@ -1,0 +1,237 @@
+<ngx-simplebar class="bar-adjust p-2" #scrollRef>
+    <div class="row create-cotation">
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <div class="col-md-12 brad-page-header">
+                    <nz-breadcrumb [nzSeparator]="null">
+                        <nz-breadcrumb-item>
+                            <a routerLink="/app/cotacao">Cotação</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-separator>></nz-breadcrumb-separator>
+                        <nz-breadcrumb-item>Detalhes da Cotação</nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                    <div class="right-info">
+                        <span class="regional">RM 1251</span>
+                        <button class="btn btn-printer">
+                            <i class="ri-printer-line"></i>
+                            Imprimir OC
+                        </button>
+                        <nz-tag [nzColor]="'blue'">Enviada</nz-tag>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row user-info">
+                <h3>Dados de Faturamento</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Razão Social: <span>LB Serviços Mecânicos e Comércios de Peças LTDA</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Endereço: <span>Rua Padre Teixeira, 2384 - Centro - São Carlos (SP)</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>CNPJ: <span>57.848.632/0001-66</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Inscrição Estadual: <span>002.490.345/0055</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>CEP: <span>13.560-453</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Contato: <span>João Moreira</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Telefone: <span>(16) 3456-1234</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>E-mail: <span>comercial@lbpecas.com.br</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row user-info">
+                <h3>Dados do Fornecedor</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Nome do Fornecedor: <span>GERDAU S.A.</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Endereço: <span>Rua São Joaquim, 1780 - Centro - São Carlos (SP)</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>CNPJ: <span>57.848.632/0001-66</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Inscrição Estadual: <span>002.490.345/0055</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>CEP: <span>13.560-789</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Contato: <span>Carolina Bessa</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Telefone: <span>(16) 3456-1234</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>E-mail: <span>comercial@lbpecas.com.br</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont">
+                    <h3>Detalhes dos itens requisitos</h3>
+                    <button routerLink="/app/visao-geral/responder-solicitacao" class="btn btn-printer">
+                        <i class="ri-pencil-line"></i>
+                        Editar itens
+                    </button>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <table class="table noventa-table">
+                        <thead>
+                            <tr>
+                                <th>Item Disponiveis</th>
+                                <th>Marca</th>
+                                <th>Qtd. Req.</th>
+                                <th>Prç. Unit.</th>
+                                <th>% Desc.</th>
+                                <th>Incluso IPI?</th>
+                                <th>Valor IPI</th>
+                                <th>%ICMS</th>
+                                <th>Prazo Ent.</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of detailData">
+                                <td>{{ data.requestedItem }}</td>
+                                <td>{{ data.brand }}</td>
+                                <td>{{ data.requestedQtty }} UND</td>
+                                <td>{{ data.unityValue | currency : 'BRL' }}</td>
+                                <td>{{ data.discount | percent }}</td>
+                                <td>{{ data.hasIPI ? 'Sim' : 'Não' }}</td>
+                                <td>{{ data.ipiPercent | percent }}</td>
+                                <td>{{ data.icmsPercent | percent }}</td>
+                                <td>{{ data.deliveryDue | date : 'dd/MM/yy' }}</td>
+                                <td>{{ 2800 | currency : 'BRL' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12 unriched">
+                    <b>Itens insdisponiveis: <span>CABO FLEXÍVEL 2,5MM 100M VERM 750V</span></b>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont col-md-9">
+                    <h3>Detalhes de Pagamento</h3>
+                    <button routerLink="/app/visao-geral/responder-solicitacao" class="btn btn-printer">
+                        <i class="ri-pencil-line"></i>
+                        Editar itens
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <h3>Resumo</h3>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-9 details-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Formas de pagamento: <span>À vista (5% de desconto), Até 5x sem juros</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Descontos: <span>R$ 580,00</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Tipo de frete: <span>FOB</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Outras despesas: <span>-</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Valor do frete: <span>R$ 280,00</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Seguro: <span>-</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Frete fora da nota: <span>-</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Comentários: <span>-</span></b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 checkout-info">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Subtotal itens</span>
+                                    <span>(+) R$ 16.800,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Valor frete</span>
+                                    <span>(+) R$ 280,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Seguro</span>
+                                    <span>(+) R$ 0,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Descontos</span>
+                                    <span>(-) R$ 580,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Outras despesas</span>
+                                    <span>(+) R$ 0,00</span>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Valor total final</span>
+                                    <span>R$ 17.660,00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ngx-simplebar>
