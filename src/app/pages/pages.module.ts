@@ -27,7 +27,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { PagesComponent } from './pages.component';
 import { ListCotationComponent } from './cotation/list-cotation/list-cotation.component';
 import { ListGeneralComponent } from './general/list-general/list-general.component';
-
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,8 @@ import { ListGeneralComponent } from './general/list-general/list-general.compon
     NzPaginationModule,
     NzTableModule,
     SimplebarAngularModule,
+    NzBreadCrumbModule,
+    NzCheckboxModule,
   ],
   exports: [],
 })

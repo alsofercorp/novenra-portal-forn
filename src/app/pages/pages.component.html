@@ -42,7 +42,9 @@
     <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
       [nzTrigger]="null">
       <ul nz-menu nzMode="inline" class="menu" [nzInlineCollapsed]="isCollapsed">
-        <li routerLink="visao-geral" [class]="isRouteActive('/app/visao-geral')" nz-menu-item>
+        <li routerLink="visao-geral"
+          [class]="isRouteActive('/app/visao-geral') || isRouteActive('/app/visao-geral/responder-solicitacao')"
+          nz-menu-item>
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="29" viewBox="0 0 30 29" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M18.0996 3.90625C16.4428 3.90625 15.0996 5.2494 15.0996 6.90625V13.3062C15.0996 13.5824 15.3235 13.8062 15.5996 13.8062H21.9996C23.6565 13.8062 24.9996 12.4631 24.9996 10.8062V6.90625C24.9996 5.2494 23.6565 3.90625 21.9996 3.90625H18.0996Z"
@@ -59,7 +61,8 @@
           </svg>
           Visão Geral
         </li>
-        <li routerLink="cotacao" [class]="isRouteActive('/app/cotacao')" nz-menu-item>
+        <li routerLink="cotacao" [class]="isRouteActive('/app/cotacao') || isRouteActive('/app/cotacao/criar')"
+          nz-menu-item>
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
             <path
               d="M26.583 8.15609V11.0803C26.583 12.9894 25.3747 14.1978 23.4655 14.1978H19.333V5.7515C19.333 4.41025 20.4326 3.32275 21.7738 3.32275C23.0909 3.33484 24.2993 3.8665 25.1693 4.7365C26.0393 5.61859 26.583 6.82692 26.583 8.15609Z"
