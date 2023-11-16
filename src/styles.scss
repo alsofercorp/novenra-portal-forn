@@ -139,6 +139,19 @@ nz-input-group {
 }
 
 nz-table {
+
+  .answerTableInput {
+    width: 70px;
+    text-align: center;
+    border-radius: 10px;
+    background: var(--Light-Gray, #E9EEF6);
+    border: none;
+
+    &.date {
+      width: 85px;
+    }
+  }
+
   .ant-table-content {
     table {
       border-spacing: 0 16.22px;
@@ -153,6 +166,7 @@ nz-table {
         tr {
           box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
           margin-bottom: 16.22px;
+          border-spacing: 0;
         }
       }
 
@@ -166,6 +180,7 @@ nz-table {
         tr {
           box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.1);
           border-radius: 10px 10px 0 0;
+          border-spacing: 0;
 
           th {
             background-color: #E9EEF6;
@@ -181,6 +196,58 @@ nz-table {
 
             &::before {
               display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.answerTable {
+    .ant-table-content {
+      table {
+        padding: 0 4px;
+
+        tbody {
+          font-size: 12px;
+
+          tr {
+            box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.1);
+
+            &.disabled-line {
+              background-color: #F3F3F3;
+
+              input {
+                background-color: #E5E5E5;
+              }
+
+              * {
+                color: rgba(98, 98, 98, 0.50);
+              }
+            }
+
+            &:last-child {
+              border-radius: 0 0 20px 20px;
+            }
+
+            td {
+              &.ant-table-selection-column {
+                .ant-checkbox-inner {
+                  background-color: #1890ff;
+                  border-color: #1890ff !important;
+
+                  &::after {
+                    border-color: #fff;
+                  }
+                }
+
+                &.disabled-chck {
+                  .ant-checkbox-inner {
+                    background-color: #f5f5f5;
+                    border-color: #d9d9d9 !important;
+                  }
+                }
+              }
             }
           }
         }
@@ -221,4 +288,54 @@ nz-table {
       border: none;
     }
   }
+}
+
+.brad-page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .regional {
+    color: var(--Blue, #0074B0);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  nz-breadcrumb {
+    color: var(--Blue, #0074B0) !important;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  nz-breadcrumb-separator {
+    span {
+      color: var(--Blue, #0074B0) !important;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+
+  .ant-breadcrumb>nz-breadcrumb-item:last-child {
+    color: var(--Blue, #0074B0) !important;
+    font-weight: 700;
+  }
+}
+
+.bar-adjust {
+  height: calc(100vh - 400px);
+  padding: 12px 12px 0 12px;
+  margin-bottom: 58px;
+}
+
+.noventa-box-shadow {
+  box-shadow: 0 0 5px 1px rgba($color: #000000, $alpha: 0.2);
+  border-radius: 10px;
+  padding: 1rem;
 }
