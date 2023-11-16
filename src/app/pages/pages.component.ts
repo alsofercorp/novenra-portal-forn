@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from '../services/common.service';
+import { ILinkClass, LinkClass } from '../interface/ILinkClass';
 
 @Component({
   selector: 'app-pages',
@@ -9,14 +11,19 @@ import { Router } from '@angular/router';
 export class PagesComponent implements OnInit {
   isCollapsed = false;
 
-  constructor(private router: Router) { }
+  linkClass: any = new LinkClass;
+
+  constructor(private commonService: CommonService, private router: Router) { }
 
   ngOnInit(): void {
-  }
+    this.commonService.isSelectedLink.subscribe((hasClass: any) => {
+      this.linkClass = new LinkClass;
 
-  isRouteActive(route: string): string {
-    const isActive = this.router.isActive(route, true);
-    return isActive ? 'ant-menu-item ant-menu-item-selected' : '';
-  }
+      this.linkClass[hasClass.route] = hasClass.class
+    });
 
+    this.router.events.subscribe((route: any) => {
+      this.commonService.isRouteActive(route.url);
+    });
+  }
 }

@@ -5,7 +5,7 @@ import { RequestAnswerComponent } from './general/request-answer/request-answer.
 import { CotationComponent } from './cotation/cotation.component';
 import { PagesComponent } from './pages.component';
 import { ListCotationComponent } from './cotation/list-cotation/list-cotation.component';
-import { CreateCotationComponent } from './cotation/create-cotation/create-cotation.component';
+import { DetailCotationComponent } from './cotation/create-cotation/detail-cotation.component';
 import { ListGeneralComponent } from './general/list-general/list-general.component';
 
 const routes: Routes = [
@@ -23,9 +23,9 @@ const routes: Routes = [
             title: 'Cotação'
           },
           {
-            path: 'criar',
-            component: CreateCotationComponent,
-            title: 'Criar Cotação'
+            path: 'detalhe',
+            component: DetailCotationComponent,
+            title: 'Detalhe da Cotação'
           }
         ]
       },
