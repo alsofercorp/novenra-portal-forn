@@ -73,14 +73,17 @@ export class CreateUserExtraComponent implements OnInit {
       });
 
       const input: ISupplier = this.complementationDataForm.value;
-      debugger
-      // this.supplierService
-      //   .registerSupplier(input)
-      //   .subscribe((supplier: ISupplier) => {
-      //     this.router.navigate(['auth', 'login'])
-      //   }, (err: HttpErrorResponse) => {
-      //     this.commonService.ToastError(err.error);
-      //   });
+      
+      this.supplierService
+        .registerSupplier(input)
+        .subscribe((supplier: ISupplier) => {
+          localStorage.removeItem('userInfo');
+          
+          this.commonService.ToastSucess('Cadastro Realizado com');
+          this.router.navigate(['auth', 'login'])
+        }, (err: HttpErrorResponse) => {
+          this.commonService.ToastError(err.error);
+        });
     }
   }
 
