@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-  authPath: string = `${environment.noventaApi}/Acesso`
+  private authPath: string = `${environment.noventaApi}/Acesso`
 
   constructor(private http: HttpClient) { }
 

@@ -37,7 +37,7 @@ export class CreateUserComponent implements OnInit {
         .passwordValidation(this.userForm.get('password')?.value)
         .pipe(switchMap(() => this.authService.register(this.userForm.value)))
         .subscribe((userLogin: IUserRegister) => {
-          localStorage.setItem('userId', userLogin.id.toString());
+          localStorage.setItem('userInfo', JSON.stringify(userLogin));
           this.nextStep();
         }, (err: HttpErrorResponse) => {
           this.commonService.ToastError(err.error)

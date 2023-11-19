@@ -1,9 +1,14 @@
+import { StateService } from './../../services/state.service';
+import { IState } from './../../interface/IState';
+import { IUserRegister } from './../../interface/IUserRegister';
+import { SupplierService } from './../../services/supplier.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IViaCep } from './../../interface/IViaCep';
 import { CommonService } from './../../services/common.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ISupplier } from 'src/app/interface/ISupplier';
 
 @Component({
   selector: 'app-create-user-extra',
@@ -13,6 +18,7 @@ import { Router } from '@angular/router';
 export class CreateUserExtraComponent implements OnInit {
 
   complementationDataForm: FormGroup = new FormGroup({
+    id: new FormControl(0, [Validators.required, Validators.min(1)]),
     cnpj: new FormControl('', []),
     razaoSocial: new FormControl('', []),
     cep: new FormControl('', []),
@@ -21,19 +27,61 @@ export class CreateUserExtraComponent implements OnInit {
     complemento: new FormControl('', []),
     cidade: new FormControl('', []),
     uf: new FormControl('', []),
+    idEstado: new FormControl(0, []),
+    nomeUsuarioCadastrado: new FormControl('SYS', []),
+    dataCadastro: new FormControl(new Date(), []),
+    nomeUsuarioAlteracao: new FormControl('SYS', []),
+    dataAlteracao: new FormControl(new Date(), [])
   });
 
-  constructor(private commonService: CommonService, private router: Router) { }
+  stateList: IState[] = [];
+
+  constructor(private commonService: CommonService, private router: Router, private supplierService: SupplierService, private stateService: StateService) { }
 
   ngOnInit(): void {
     this.complementationDataForm.get('logradouro')?.disable();
     this.complementationDataForm.get('complemento')?.disable();
     this.complementationDataForm.get('cidade')?.disable();
     this.complementationDataForm.get('uf')?.disable();
+
+    this.stateService
+      .getStates()
+      .subscribe((states: IState[]) => {
+        debugger
+        this.stateList = states;
+      }, (err: HttpErrorResponse) => {
+        this.commonService.ToastError(err.error);
+      })
   }
 
   createAccount() {
-    this.router.navigate(['auth', 'login'])
+    const storage: string | null = localStorage.getItem('userInfo');
+
+    if (storage) {
+      const userInfo: IUserRegister = JSON.parse(storage);
+
+      this.complementationDataForm.patchValue({
+        id: userInfo.id
+      });
+
+      this.stateList.forEach((state: IState) => {
+        if (this.complementationDataForm.get('uf')?.value === state.siglaEstado) {
+          this.complementationDataForm.patchValue({
+            idEstado: state.id
+          });
+        }
+      });
+
+      const input: ISupplier = this.complementationDataForm.value;
+      debugger
+      // this.supplierService
+      //   .registerSupplier(input)
+      //   .subscribe((supplier: ISupplier) => {
+      //     this.router.navigate(['auth', 'login'])
+      //   }, (err: HttpErrorResponse) => {
+      //     this.commonService.ToastError(err.error);
+      //   });
+    }
   }
 
   onCepChange() {
