@@ -4,6 +4,15 @@ import { environment } from 'src/environments/environment';
 import { IViaCep } from '../interface/IViaCep';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal, { SweetAlertOptions } from 'sweetalert2';
+
+const ToastObj = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true
+});
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +36,26 @@ export class CommonService {
       route: route.split('/')[2],
       class: selectedClass
     });
+  }
+
+  ToastWarning(message: string) {
+    ToastObj.fire({
+      text: message,
+      icon: 'warning'
+    })
+  }
+
+  ToastError(message: string) {
+    ToastObj.fire({
+      text: message,
+      icon: 'error'
+    })
+  }
+
+  ToastSucess(message: string) {
+    ToastObj.fire({
+      text: message,
+      icon: 'success'
+    })
   }
 }
