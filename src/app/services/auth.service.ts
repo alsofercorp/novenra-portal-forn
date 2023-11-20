@@ -24,4 +24,16 @@ export class AuthService {
   authenticate(user: IUserLoginDto): Observable<IUserRegister> {
     return this.http.post<IUserRegister>(`${this.authPath}/AutenticarAcesso`, user);
   }
+
+  isAuthenticated(): boolean {
+    const storage: string | null = localStorage.getItem('userData');
+
+    if (storage) {
+      const userInfo: IUserRegister = JSON.parse(storage);
+
+      return (userInfo.id > 0 && userInfo.ativo) ? true : false;
+    } else {
+      return false;
+    }
+  }
 }
