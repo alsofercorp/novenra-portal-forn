@@ -11,6 +11,8 @@
 }
 
 nz-tag {
+  border-radius: 4px !important;
+
   &.noventa-orange {
     border: 1px solid #EC7000;
     background-color: rgba(236, 112, 0, 0.15);
@@ -383,6 +385,45 @@ nz-table {
       width: 50px;
       color: #0074B0;
       margin: 28px 18px 0 0;
+    }
+  }
+}
+
+.btn {
+  &.noventa-btn-outline {
+    border: 1px solid #EC7000;
+    color: #EC7000;
+
+    &:hover {
+      background-color: #EC7000;
+      color: #fff;
+    }
+  }
+
+  &.noventa-btn {
+    background-color: #EC7000;
+    color: #fff;
+
+    &:hover {
+      border: 1px solid #EC7000;
+      background-color: #fff;
+      color: #EC7000;
+    }
+  }
+}
+
+.ant-steps-item {
+  &.ant-steps-item-active {
+    &.ant-steps-item-process {
+      .ant-steps-item-container {
+        .ant-steps-item-icon {
+          span {
+            span {
+              background: #4CAF50;
+            }
+          }
+        }
+      }
     }
   }
 }

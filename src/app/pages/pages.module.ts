@@ -31,6 +31,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { PurchaseOrderDetailComponent } from './purchase-order/purchase-order-detail/purchase-order-detail.component';
 import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list/purchase-order-list.component';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list
     SimplebarAngularModule,
     NzBreadCrumbModule,
     NzCheckboxModule,
+    NzStepsModule,
   ],
   exports: [],
 })

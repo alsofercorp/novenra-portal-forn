@@ -1,1 +1,361 @@
-<p>purchase-order-detail works!</p>
+<ngx-simplebar class="bar-adjust p-2" #scrollRef>
+    <div class="row create-cotation">
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <div class="col-md-12 brad-page-header">
+                    <nz-breadcrumb [nzSeparator]="null">
+                        <nz-breadcrumb-item>
+                            <a routerLink="/app/ordem-de-compra">Ordem de Compra</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-separator>></nz-breadcrumb-separator>
+                        <nz-breadcrumb-item>Detalhes da Ordem de Compra</nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                    <div class="right-info">
+                        <span class="regional">RM 1251</span>
+                        <button class="btn btn-printer">
+                            <i class="ri-printer-line"></i>
+                            Imprimir OC
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row user-info">
+                <h3>Dados de Faturamento</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Razão Social: <span>LB Serviços Mecânicos e Comércios de Peças LTDA</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Endereço: <span>Rua Padre Teixeira, 2384 - Centro - São Carlos (SP)</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>CNPJ: <span>57.848.632/0001-66</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Inscrição Estadual: <span>002.490.345/0055</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>CEP: <span>13.560-453</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Contato: <span>João Moreira</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Telefone: <span>(16) 3456-1234</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>E-mail: <span>comercial@lbpecas.com.br</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row user-info">
+                <h3>Dados do Fornecedor</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Nome do Fornecedor: <span>GERDAU S.A.</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Endereço: <span>Rua São Joaquim, 1780 - Centro - São Carlos (SP)</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>CNPJ: <span>57.848.632/0001-66</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Inscrição Estadual: <span>002.490.345/0055</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>CEP: <span>13.560-789</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Contato: <span>Carolina Bessa</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Telefone: <span>(16) 3456-1234</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>E-mail: <span>comercial@lbpecas.com.br</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row user-info">
+                <h3>Dados do Entrega</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Endereço: <span>Rua São Joaquim, 1780 - Centro - São Carlos (SP)</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Referencia: <span>Ao lado da Fábrica da Faber Castell</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>CEP: <span>13.560-789</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>E-mail: <span>comercial@lbpecas.com.br</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Contato: <span>Paulo Teixeira</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Telefone: <span>(16) 3456-1234</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont">
+                    <h3>Itens da Ordem de Compra</h3>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <table class="table noventa-table">
+                        <thead>
+                            <tr>
+                                <th>Item Disponiveis</th>
+                                <th>Marca</th>
+                                <th>Qtd. Req.</th>
+                                <th>Prç. Unit.</th>
+                                <th>% Desc.</th>
+                                <th>Incluso IPI?</th>
+                                <th>Valor IPI</th>
+                                <th>%ICMS</th>
+                                <th>Prazo Ent.</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of detailData">
+                                <td>{{ data.requestedItem }}</td>
+                                <td>{{ data.brand }}</td>
+                                <td>{{ data.requestedQtty }} UND</td>
+                                <td>{{ data.unityValue | currency : 'BRL' }}</td>
+                                <td>{{ data.discount | percent }}</td>
+                                <td>{{ data.hasIPI ? 'Sim' : 'Não' }}</td>
+                                <td>{{ data.ipiPercent | percent }}</td>
+                                <td>{{ data.icmsPercent | percent }}</td>
+                                <td>{{ data.deliveryDue | date : 'dd/MM/yy' }}</td>
+                                <td>{{ 2800 | currency : 'BRL' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12 unriched">
+                    <b>Itens insdisponiveis: <span>CABO FLEXÍVEL 2,5MM 100M VERM 750V</span></b>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont col-md-9">
+                    <h3>Detalhes de Pagamento</h3>
+                </div>
+                <div class="col-md-3">
+                    <h3>Resumo</h3>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-9 details-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Formas de pagamento: <span>À vista (5% de desconto), Até 5x sem juros</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Descontos: <span>R$ 580,00</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Tipo de frete: <span>FOB</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Outras despesas: <span>-</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Valor do frete: <span>R$ 280,00</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Seguro: <span>-</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Frete fora da nota: <span>-</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Comentários: <span>-</span></b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 checkout-info">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Subtotal itens</span>
+                                    <span>(+) R$ 16.800,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Valor frete</span>
+                                    <span>(+) R$ 280,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Seguro</span>
+                                    <span>(+) R$ 0,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Descontos</span>
+                                    <span>(-) R$ 580,00</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Outras despesas</span>
+                                    <span>(+) R$ 0,00</span>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Valor total final</span>
+                                    <span>R$ 17.660,00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont col-md-4">
+                    <h3>Anexos</h3>
+                </div>
+                <div class="col-md-8" style="padding-left: 188px;">
+                    <h3>Status OC</h3>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4 details-info">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn noventa-btn custom-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                            viewBox="0 0 25 25" fill="none">
+                                            <path
+                                                d="M9.26898 18.5766C8.85898 18.5766 8.51898 18.2366 8.51898 17.8266V13.6366L7.79898 14.3566C7.50898 14.6466 7.02898 14.6466 6.73898 14.3566C6.44898 14.0666 6.44898 13.5866 6.73898 13.2966L8.73898 11.2966C8.94898 11.0866 9.27898 11.0166 9.55898 11.1366C9.83898 11.2466 10.019 11.5266 10.019 11.8266V17.8266C10.019 18.2366 9.67898 18.5766 9.26898 18.5766Z"
+                                                fill="white" />
+                                            <path
+                                                d="M11.269 14.5766C11.079 14.5766 10.889 14.5066 10.739 14.3566L8.73898 12.3566C8.44898 12.0666 8.44898 11.5866 8.73898 11.2966C9.02898 11.0066 9.50898 11.0066 9.79898 11.2966L11.799 13.2966C12.089 13.5866 12.089 14.0666 11.799 14.3566C11.649 14.5066 11.459 14.5766 11.269 14.5766Z"
+                                                fill="white" />
+                                            <path
+                                                d="M15.269 23.5762H9.26904C3.83904 23.5762 1.51904 21.2562 1.51904 15.8262V9.82617C1.51904 4.39617 3.83904 2.07617 9.26904 2.07617H14.269C14.679 2.07617 15.019 2.41617 15.019 2.82617C15.019 3.23617 14.679 3.57617 14.269 3.57617H9.26904C4.65904 3.57617 3.01904 5.21617 3.01904 9.82617V15.8262C3.01904 20.4362 4.65904 22.0762 9.26904 22.0762H15.269C19.879 22.0762 21.519 20.4362 21.519 15.8262V10.8262C21.519 10.4162 21.859 10.0762 22.269 10.0762C22.679 10.0762 23.019 10.4162 23.019 10.8262V15.8262C23.019 21.2562 20.699 23.5762 15.269 23.5762Z"
+                                                fill="white" />
+                                            <path
+                                                d="M22.269 11.5766H18.269C14.849 11.5766 13.519 10.2466 13.519 6.82665V2.82665C13.519 2.52665 13.699 2.24665 13.979 2.13665C14.259 2.01665 14.579 2.08665 14.799 2.29665L22.799 10.2966C23.009 10.5066 23.079 10.8366 22.959 11.1166C22.839 11.3966 22.569 11.5766 22.269 11.5766ZM15.019 4.63665V6.82665C15.019 9.40665 15.689 10.0766 18.269 10.0766H20.459L15.019 4.63665Z"
+                                                fill="white" />
+                                        </svg>
+                                        Anexar Arquivos
+                                    </button>
+                                    <div class="attach-container">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21"
+                                                viewBox="0 0 21 21" fill="none">
+                                                <path
+                                                    d="M17.4355 2.47461H7.43555C6.51888 2.47461 5.76888 3.22461 5.76888 4.14128V14.1413C5.76888 15.0579 6.51888 15.8079 7.43555 15.8079H17.4355C18.3522 15.8079 19.1022 15.0579 19.1022 14.1413V4.14128C19.1022 3.22461 18.3522 2.47461 17.4355 2.47461ZM10.3522 8.72461C10.3522 9.41628 9.79388 9.97461 9.10221 9.97461H8.26888V11.6413H7.01888V6.64128H9.10221C9.79388 6.64128 10.3522 7.19961 10.3522 7.89128V8.72461ZM14.5189 10.3913C14.5189 11.0829 13.9605 11.6413 13.2689 11.6413H11.1855V6.64128H13.2689C13.9605 6.64128 14.5189 7.19961 14.5189 7.89128V10.3913ZM17.8522 7.89128H16.6022V8.72461H17.8522V9.97461H16.6022V11.6413H15.3522V6.64128H17.8522V7.89128ZM8.26888 8.72461H9.10221V7.89128H8.26888V8.72461ZM4.10221 5.80794H2.43555V17.4746C2.43555 18.3913 3.18555 19.1413 4.10221 19.1413H15.7689V17.4746H4.10221V5.80794ZM12.4355 10.3913H13.2689V7.89128H12.4355V10.3913Z"
+                                                    fill="#F0550F" />
+                                            </svg>
+                                            <span>Nota Fiscal.pdf</span>
+                                        </div>
+                                        <i class="ri-delete-bin-6-fill"></i>
+                                    </div>
+                                    <div class="attach-container">
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21"
+                                                viewBox="0 0 21 21" fill="none">
+                                                <g clip-path="url(#clip0_2040_2441)">
+                                                    <path
+                                                        d="M18.4857 11.4891H15.305V9.89867H18.4857V11.4891ZM18.4857 12.3978H15.305V13.9882H18.4857V12.3978ZM18.4857 4.90039H15.305V6.49074H18.4857V4.90039ZM18.4857 7.39953H15.305V8.98988H18.4857V7.39953ZM18.4857 14.897H15.305V16.4873H18.4857V14.8969V14.897ZM20.6827 18.0323C20.5918 18.5048 20.0238 18.5162 19.6444 18.5321H12.5787V20.5768H11.1678L0.769043 18.7593V2.85793L11.2291 1.03809H12.5787V2.84883H19.4013C19.7853 2.86473 20.2079 2.83746 20.5418 3.06691C20.7758 3.40316 20.7531 3.83031 20.769 4.21652L20.7599 16.0443C20.7486 16.7054 20.8213 17.3802 20.6827 18.0323ZM9.10025 14.4676C8.47322 13.1953 7.83482 11.9321 7.21002 10.6598C7.82799 9.42156 8.43689 8.17883 9.0435 6.93605C8.52775 6.96105 8.01201 6.99285 7.49857 7.02922C7.11459 7.96297 6.66701 8.87176 6.36713 9.83734C6.08768 8.92629 5.71736 8.0493 5.37885 7.16098C4.879 7.18824 4.37916 7.21777 3.87936 7.2473C4.40643 8.41059 4.96764 9.55785 5.47881 10.7279C4.87674 11.8639 4.3133 13.0158 3.72939 14.1586C4.22693 14.179 4.72451 14.1995 5.22205 14.2063C5.5765 13.3021 6.01725 12.4319 6.32623 11.5095C6.60342 12.5001 7.07369 13.4157 7.45994 14.363C8.00748 14.4017 8.55272 14.4358 9.10025 14.4676ZM19.6854 3.92785H12.5787V4.90039H14.3962V6.49074H12.5787V7.39953H14.3962V8.98988H12.5787V9.89867H14.3962V11.4891H12.5787V12.3978H14.3962V13.9882H12.5787V14.897H14.3962V16.4873H12.5787V17.538H19.6854V3.92785Z"
+                                                        fill="#138147" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_2040_2441">
+                                                        <rect width="20" height="20" fill="white"
+                                                            transform="translate(0.769043 0.807617)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                            <span>Lista de insumos.pdf</span>
+                                        </div>
+                                        <i class="ri-delete-bin-6-fill"></i>
+                                    </div>
+                                    <div class="attach-container">
+                                        <div>
+                                            <img src="./../../../../assets/img/frete.png" alt="frete">
+                                            <span>Nota Fiscal.pdf</span>
+                                        </div>
+                                        <i class="ri-delete-bin-6-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 checkout-info">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="statusContainer">
+                                        <div class="currentStatus">
+                                            <h3>Status Atual:</h3>
+                                            <nz-tag nzColor="orange">
+                                                Em Separação
+                                                <i class="ri-arrow-down-s-line"></i>
+                                            </nz-tag>
+                                        </div>
+                                        <div class="history">
+                                            <h3>Historico:</h3>
+                                            <nz-steps [nzCurrent]="0" nzProgressDot nzDirection="vertical">
+                                                <nz-step nzTitle="Pedido em separação (06/10/23 às 13:15)"></nz-step>
+                                                <nz-step
+                                                    nzDescription="Ordem de compra aprovada (05/10/23 às 14:20)"></nz-step>
+                                                <nz-step nzDescription="Cotação enviada (01/10/23 às 17:27)"></nz-step>
+                                                <nz-step nzDescription="Cotação recebida (01/10/23 às 14:00)"></nz-step>
+                                            </nz-steps>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ngx-simplebar>

@@ -51,7 +51,7 @@ export const answerDataList: IAnswerRequest[] = [
         requestedItem: 'CABO FLEXÍVEL 2,5MM 100M VERM 750V',
         equivalence: null,
         manufacturer: 'INCA',
-        requestedQtty: 1000,
+        requestedQtty: 0,
         unityValue: 0,
         discount: 0,
         hasIPI: false,
