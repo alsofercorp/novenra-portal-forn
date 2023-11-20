@@ -13,6 +13,10 @@ export class SupplierService {
   constructor(private http: HttpClient) { }
 
   registerSupplier(supplier: ISupplier): Observable<ISupplier> {
-    return this.http.post<ISupplier>(`${this.supplierPath}/AdicionarCadastroFornecedor`, supplier);
+    const input: any = {
+      fornecedor: supplier
+    }
+
+    return this.http.post<ISupplier>(`${this.supplierPath}/AdicionarCadastroFornecedor`, input);
   }
 }
