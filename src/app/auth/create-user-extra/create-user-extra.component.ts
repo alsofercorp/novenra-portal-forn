@@ -19,14 +19,14 @@ export class CreateUserExtraComponent implements OnInit {
 
   complementationDataForm: FormGroup = new FormGroup({
     id: new FormControl(0, [Validators.required, Validators.min(1)]),
-    cnpj: new FormControl('', []),
-    razaoSocial: new FormControl('', []),
-    cep: new FormControl('', []),
-    logradouro: new FormControl('', []),
-    numero: new FormControl('', []),
+    cnpj: new FormControl('', [Validators.required]),
+    razaoSocial: new FormControl('', [Validators.required]),
+    cep: new FormControl('', [Validators.required]),
+    logradouro: new FormControl('', [Validators.required]),
+    numero: new FormControl('', [Validators.required]),
     complemento: new FormControl('', []),
-    cidade: new FormControl('', []),
-    uf: new FormControl('', []),
+    cidade: new FormControl('', [Validators.required]),
+    uf: new FormControl('', [Validators.required]),
     idEstado: new FormControl(0, []),
     nomeUsuarioCadastro: new FormControl('SYS', []),
     dataCadastro: new FormControl(new Date(), []),
@@ -39,17 +39,33 @@ export class CreateUserExtraComponent implements OnInit {
   constructor(private commonService: CommonService, private router: Router, private supplierService: SupplierService, private stateService: StateService) { }
 
   ngOnInit(): void {
-    this.complementationDataForm.get('logradouro')?.disable();
-    this.complementationDataForm.get('cidade')?.disable();
-    this.complementationDataForm.get('uf')?.disable();
+    const storage: string | null = localStorage.getItem('userInfo');
 
-    this.stateService
-      .getStates()
-      .subscribe((states: IState[]) => {
-        this.stateList = states;
-      }, (err: HttpErrorResponse) => {
-        this.commonService.ToastError(err.error);
-      })
+    if (storage) {
+      const userInfo: IUserRegister = JSON.parse(storage);
+
+      if (userInfo.id > 0) {
+        this.complementationDataForm.patchValue({
+          id: userInfo.id
+        });
+
+        this.complementationDataForm.get('logradouro')?.disable();
+        this.complementationDataForm.get('cidade')?.disable();
+        this.complementationDataForm.get('uf')?.disable();
+
+        this.stateService
+          .getStates()
+          .subscribe((states: IState[]) => {
+            this.stateList = states;
+          }, (err: HttpErrorResponse) => {
+            this.commonService.ToastError(err.error);
+          });
+      } else {
+        this.router.navigate(['criar-usuario', 'dados-basicos']);
+      }
+    } else {
+      this.router.navigate(['criar-usuario', 'dados-basicos']);
+    }
   }
 
   createAccount() {
@@ -71,20 +87,18 @@ export class CreateUserExtraComponent implements OnInit {
       });
     }
 
-    if (this.complementationDataForm.valid) {
-      const input: ISupplier = this.complementationDataForm.getRawValue();
+    const input: ISupplier = this.complementationDataForm.getRawValue();
 
-      this.supplierService
-        .registerSupplier(input)
-        .subscribe((supplier: ISupplier) => {
-          localStorage.removeItem('userInfo');
+    this.supplierService
+      .registerSupplier(input)
+      .subscribe((supplier: ISupplier) => {
+        localStorage.removeItem('userInfo');
 
-          this.commonService.ToastSucess('Cadastro Realizado com');
-          this.router.navigate(['auth', 'login'])
-        }, (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error);
-        });
-    }
+        this.commonService.ToastSucess('Cadastro Realizado com');
+        this.router.navigate(['auth', 'login'])
+      }, (err: HttpErrorResponse) => {
+        this.commonService.ToastError(err.error);
+      });
   }
 
   onCepChange() {
@@ -99,15 +113,23 @@ export class CreateUserExtraComponent implements OnInit {
             cidade: address.localidade,
             uf: address.uf
           });
+
+          this.complementationDataForm.get('logradouro')?.disable();
+          this.complementationDataForm.get('cidade')?.disable();
+          this.complementationDataForm.get('uf')?.disable();
         } else {
           this.complementationDataForm.get('logradouro')?.enable();
           this.complementationDataForm.get('cidade')?.enable();
           this.complementationDataForm.get('uf')?.enable();
+
+          this.commonService.ToastWarning('Atenção: Não conseguimos encontrar o CEP informado, favor preencher manualmente o endereço.');
         }
       }, (err: HttpErrorResponse) => {
         this.complementationDataForm.get('logradouro')?.enable();
         this.complementationDataForm.get('cidade')?.enable();
         this.complementationDataForm.get('uf')?.enable();
+
+        this.commonService.ToastWarning('Atenção: Não conseguimos encontrar o CEP informado, favor preencher manualmente o endereço.');
       });
   }
 

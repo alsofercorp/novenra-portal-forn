@@ -1,4 +1,3 @@
-
 .auth-container {
   padding: 0 72px;
   display: flex;
@@ -38,10 +37,6 @@
     line-height: normal;
   }
 
-  input {
-    margin-bottom: 30px;
-  }
-
   .lost-pass {
     color: var(--Blue, #0074B0);
     text-align: right;
@@ -65,6 +60,11 @@
     font-weight: 600;
     line-height: normal;
     margin: 65px 0;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: no-drop;
+    }
   }
 
   label {

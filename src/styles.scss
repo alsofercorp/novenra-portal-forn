@@ -112,6 +112,10 @@ nz-select {
   }
 }
 
+.input-container {
+  margin-bottom: 30px;
+}
+
 input {
   &.noventa-input {
     border-radius: 12px !important;
@@ -119,6 +123,10 @@ input {
     border: 1px solid var(--Light-Gray, #E9EEF6) !important;
     background-color: var(--Light-Gray, #E9EEF6) !important;
     margin-top: 5px;
+  }
+
+  &.hasError {
+    border: 1px solid red !important;
   }
 }
 

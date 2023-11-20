@@ -14,9 +14,9 @@ import { IUserRegister } from '../../interface/IUserRegister';
 })
 export class CreateUserComponent implements OnInit {
   userForm: FormGroup = new FormGroup({
+    nome: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
-    nome: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 
   acceptedPolicy: boolean = false;
@@ -31,20 +31,39 @@ export class CreateUserComponent implements OnInit {
   }
 
   createUser() {
-    if (this.acceptedPolicy) {
-      if (this.userForm.valid) {
-        this.authService
-        .passwordValidation(this.userForm.get('password')?.value)
-        .pipe(switchMap(() => this.authService.register(this.userForm.value)))
-        .subscribe((userLogin: IUserRegister) => {
-          localStorage.setItem('userInfo', JSON.stringify(userLogin));
-          this.nextStep();
-        }, (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error)
-        });
+    this.authService
+      .passwordValidation(this.userForm.get('password')?.value)
+      .pipe(switchMap(() => this.authService.register(this.userForm.value)))
+      .subscribe((userLogin: IUserRegister) => {
+        localStorage.setItem('userInfo', JSON.stringify(userLogin));
+        this.nextStep();
+      }, (err: HttpErrorResponse) => {
+        this.commonService.ToastError(err.error)
+      });
+  }
+
+  ValidateFormError(controlName: string): any {
+    const error: any = {
+      hasError: this.userForm.get(controlName)?.invalid &&
+        this.userForm.get(controlName)?.errors &&
+        (this.userForm.get(controlName)?.dirty || this.userForm.get(controlName)?.touched),
+      errorMsg: ''
+    };
+
+    if (error.hasError) {
+      if (this.userForm.get(controlName)?.hasError('required')) {
+        error.errorMsg = `O campo é obrigatorio.`
       }
-    } else {
-      this.commonService.ToastWarning('Você deve aceitar as termos de uso.')
+
+      if (this.userForm.get(controlName)?.hasError('email')) {
+        error.errorMsg = `O campo deve ser um e-mail valido.`
+      }
+
+      if (this.userForm.get(controlName)?.hasError('minlength')) {
+        error.errorMsg = `O campo deve ter no minimo ${this.userForm.get(controlName)?.errors?.['minlength'].requiredLength} caracteres.`
+      }
+
+      return error;
     }
   }
 }

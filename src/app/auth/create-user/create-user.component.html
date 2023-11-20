@@ -13,14 +13,48 @@
   <div class="row">
     <div class="col-md-12">
       <form [formGroup]="userForm">
-        <label class="input-label" for="name">Nome completo</label>
-        <input id="name" formControlName="nome" nz-input class="form-control noventa-input" placeholder="Insira seu nome" type="text" />
+        <div class="input-container">
+          <label class="input-label" for="name">Nome completo</label>
+          <input id="name" formControlName="nome" nz-input class="form-control noventa-input"
+            placeholder="Insira seu nome" type="text"
+            [class]="(userForm.get('nome')?.invalid && userForm.get('nome')?.errors && (userForm.get('nome')?.dirty || userForm.get('nome')?.touched)) ? 'hasError' : ''" />
+          <div
+            *ngIf="userForm.get('nome')?.invalid && userForm.get('nome')?.errors && (userForm.get('nome')?.dirty || userForm.get('nome')?.touched)">
+            <small class="text-danger" *ngIf="userForm.get('nome')?.hasError('required')">
+              * O campo nome é obrigatorio.
+            </small>
+          </div>
+        </div>
 
-        <label class="input-label" for="email">E-mail</label>
-        <input id="email" formControlName="email" nz-input class="form-control noventa-input" placeholder="nome@empresa.com.br" type="email" />
+        <div class="input-container">
+          <label class="input-label" for="email">E-mail</label>
+          <input id="email" formControlName="email" nz-input class="form-control noventa-input"
+            placeholder="nome@empresa.com.br" type="email"
+            [class]="(userForm.get('email')?.invalid && userForm.get('email')?.errors && (userForm.get('email')?.dirty || userForm.get('email')?.touched)) ? 'hasError' : ''" />
+          <div
+            *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.errors && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+            <small class="text-danger" *ngIf="userForm.get('email')?.hasError('required')">
+              * O campo e-mail é obrigatorio.
+            </small>
+          </div>
+        </div>
 
-        <label class="input-label" for="pass">Senha</label>
-        <input id="pass" formControlName="password" nz-input class="form-control noventa-input" placeholder="Insira pelo menos 8 caracteres" type="password" />
+        <div class="input-container">
+          <label class="input-label" for="pass">Senha</label>
+          <input id="pass" formControlName="password" nz-input class="form-control noventa-input"
+            placeholder="Insira pelo menos 8 caracteres" type="password"
+            [class]="(userForm.get('password')?.invalid && userForm.get('password')?.errors && (userForm.get('password')?.dirty || userForm.get('password')?.touched)) ? 'hasError' : ''" />
+          <div
+            *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.errors && (userForm.get('password')?.dirty || userForm.get('password')?.touched)">
+            <small class="text-danger" *ngIf="userForm.get('password')?.hasError('required')">
+              * O campo senha é obrigatorio.
+            </small>
+            <small class="text-danger" *ngIf="userForm.get('password')?.hasError('minlength')">
+              * O campo senha deve conter no minimo {{userForm.get('password')?.errors?.['minlength'].requiredLength}}
+              caracteres.
+            </small>
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -30,7 +64,8 @@
     </div>
   </div>
   <div class="row">
-    <button (click)="createUser()" nz-button nzType="primary">Continuar</button>
+    <button (click)="createUser()" [disabled]="!userForm.valid && !acceptedPolicy" nz-button
+      nzType="primary">Continuar</button>
   </div>
   <div class="row">
     <p class="create-account">Já possui uma conta? <a [routerLink]="'/auth/login'">Entre</a></p>
