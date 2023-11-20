@@ -28,7 +28,7 @@ export class CreateUserExtraComponent implements OnInit {
     cidade: new FormControl('', []),
     uf: new FormControl('', []),
     idEstado: new FormControl(0, []),
-    nomeUsuarioCadastrado: new FormControl('SYS', []),
+    nomeUsuarioCadastro: new FormControl('SYS', []),
     dataCadastro: new FormControl(new Date(), []),
     nomeUsuarioAlteracao: new FormControl('SYS', []),
     dataAlteracao: new FormControl(new Date(), [])
@@ -40,14 +40,12 @@ export class CreateUserExtraComponent implements OnInit {
 
   ngOnInit(): void {
     this.complementationDataForm.get('logradouro')?.disable();
-    this.complementationDataForm.get('complemento')?.disable();
     this.complementationDataForm.get('cidade')?.disable();
     this.complementationDataForm.get('uf')?.disable();
 
     this.stateService
       .getStates()
       .subscribe((states: IState[]) => {
-        debugger
         this.stateList = states;
       }, (err: HttpErrorResponse) => {
         this.commonService.ToastError(err.error);
@@ -72,13 +70,13 @@ export class CreateUserExtraComponent implements OnInit {
         }
       });
 
-      const input: ISupplier = this.complementationDataForm.value;
+      const input: ISupplier = this.complementationDataForm.getRawValue();
       
       this.supplierService
         .registerSupplier(input)
         .subscribe((supplier: ISupplier) => {
           localStorage.removeItem('userInfo');
-          
+
           this.commonService.ToastSucess('Cadastro Realizado com');
           this.router.navigate(['auth', 'login'])
         }, (err: HttpErrorResponse) => {
