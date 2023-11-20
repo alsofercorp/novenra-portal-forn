@@ -2,5 +2,7 @@ export enum cotationStatusEnum {
     approved,
     sented,
     pending,
-    NotApproved
+    notApproved,
+    inSeparetion,
+    recived,
 }

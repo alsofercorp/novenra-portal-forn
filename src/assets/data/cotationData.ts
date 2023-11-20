@@ -46,7 +46,7 @@ export const cotationData: ICotationModel[] = [
         wishedDelivery: '23/10/23',
         reason: 'Estoque',
         contact: '(16) 98765-4321',
-        status: getStatus(cotationStatusEnum.NotApproved)
+        status: getStatus(cotationStatusEnum.notApproved)
     },
     {
         requester: 'LB Serviços Mecânicos e Comércios de Peças',
@@ -82,7 +82,7 @@ export const cotationData: ICotationModel[] = [
         wishedDelivery: '23/10/23',
         reason: 'Estoque',
         contact: '(16) 98765-4321',
-        status: getStatus(cotationStatusEnum.NotApproved)
+        status: getStatus(cotationStatusEnum.notApproved)
     },
 ];
 
@@ -106,7 +106,7 @@ function getStatus(status: cotationStatusEnum): any {
                 name: 'Pendente',
                 tag: 'green'
             }
-        case cotationStatusEnum.NotApproved:
+        case cotationStatusEnum.notApproved:
             return {
                 status: 3,
                 name: 'Não Aprovado',

@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-md-12 pb-3 pt-3 header-info">
+      <div class="row mb-4 mt-3">
+        <div class="col-md-12 filter">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="search">
+                Pesquisar
+              </label>
+              <nz-input-group [nzPrefix]="prefixTemplateUser">
+                <input type="text" class="form-control" nz-input placeholder="Solicitante ou local de destino" />
+              </nz-input-group>
+              <ng-template #prefixTemplateUser>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M18.7249 16.4253L14.3566 12.0449C15.0988 10.8601 15.5296 9.45975 15.5296 7.95689C15.5296 3.7051 12.0921 0.258789 7.85203 0.258789C3.61193 0.258789 0.174805 3.7051 0.174805 7.95689C0.174805 12.2088 3.61177 15.6548 7.85203 15.6548C9.4831 15.6548 10.9939 15.1435 12.2371 14.2747L16.5533 18.603C16.8532 18.9034 17.2464 19.053 17.6391 19.053C18.0322 19.053 18.4249 18.9034 18.7253 18.603C19.3247 18.0013 19.3247 17.0268 18.7249 16.4253ZM7.85203 13.1608C4.98611 13.1608 2.66259 10.8311 2.66259 7.95721C2.66259 5.08333 4.98611 2.7535 7.85203 2.7535C10.7181 2.7535 13.0415 5.08333 13.0415 7.95721C13.0415 10.8311 10.7181 13.1608 7.85203 13.1608Z"
+                    fill="#9297A2" />
+                </svg>
+              </ng-template>
+            </div>
+            <div class="col-md-3">
+              <label for="search">
+                Status
+              </label>
+              <nz-select class="form-control" nzPlaceHolder="Selecione um status" nzMode="multiple" [(ngModel)]="status">
+                <nz-option *ngFor="let item of statusList" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+              </nz-select>
+            </div>
+            <div class="col-md-3">
+              <label for="search">
+                Destino
+              </label>
+              <nz-select class="form-control" nzMode="multiple" nzPlaceHolder="Selecione um destino" [(ngModel)]="destination">
+                <nz-option *ngFor="let item of destinationList" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+              </nz-select>
+            </div>
+            <div class="col-md-2">
+              <label for="search">
+                Periodo
+              </label>
+              <nz-range-picker class="form-control"></nz-range-picker>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 header-info mt-3" style="padding: 2rem 2rem 0 2rem;">
+      <div class="row cotation-body">
+        <ngx-simplebar class="bar-adjust" #scrollRef>
+          <nz-table #purchaseTable [nzData]="purchaseData" [nzShowPagination]="false">
+            <thead>
+              <tr>
+                <th>Código OC</th>
+                <th>Solicitante</th>
+                <th>Local de Destino</th>
+                <th>Data de Entrega</th>
+                <th>Valor total final</th>
+                <th>Anexo</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of purchaseTable.data">
+                <td>{{data.PurcahseOrderCode}}</td>
+                <td>{{data.requester}}</td>
+                <td>{{data.destination}}</td>
+                <td>{{data.deliveryDate | date: 'dd/MM/yy'}}</td>
+                <td>{{data.totalValue | currency: 'BRL'}}</td>
+                <td>
+                    <i class="ri-attachment-2" *ngIf="data.attachments > 0"></i>
+                    {{data.attachments > 0 ? data.attachments : ''}}
+                </td>
+                <td>
+                  <nz-tag [nzColor]="data.status.tag">
+                    {{data.status.name}} <i class="ri-arrow-down-s-line" *ngIf="data.status.status === 4 || data.status.status === 5"></i>
+                  </nz-tag>
+                </td>
+                <td class="btn-function">
+                  <button class="eye" routerLink="/app/ordem-de-compra/detalhes" nz-button nzType="default" nzShape="circle">
+                    <i class="ri-eye-line"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </ngx-simplebar>
+      </div>
+      <div class="row pagination-container">
+        <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+      </div>
+    </div>
+  </div>

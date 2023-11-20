@@ -28,6 +28,9 @@ import { ListCotationComponent } from './cotation/list-cotation/list-cotation.co
 import { ListGeneralComponent } from './general/list-general/list-general.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
+import { PurchaseOrderDetailComponent } from './purchase-order/purchase-order-detail/purchase-order-detail.component';
+import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list/purchase-order-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
     DetailCotationComponent,
     RequestAnswerComponent,
     ListCotationComponent,
-    ListGeneralComponent
+    ListGeneralComponent,
+    PurchaseOrderComponent,
+    PurchaseOrderDetailComponent,
+    PurchaseOrderListComponent
   ],
   imports: [
     PagesRoutingModule,

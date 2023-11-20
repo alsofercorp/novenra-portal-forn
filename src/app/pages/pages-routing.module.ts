@@ -7,6 +7,9 @@ import { PagesComponent } from './pages.component';
 import { ListCotationComponent } from './cotation/list-cotation/list-cotation.component';
 import { DetailCotationComponent } from './cotation/create-cotation/detail-cotation.component';
 import { ListGeneralComponent } from './general/list-general/list-general.component';
+import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
+import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list/purchase-order-list.component';
+import { PurchaseOrderDetailComponent } from './purchase-order/purchase-order-detail/purchase-order-detail.component';
 
 const routes: Routes = [
   {
@@ -42,6 +45,22 @@ const routes: Routes = [
             path: 'responder-solicitacao',
             component: RequestAnswerComponent,
             title: 'Responder Solicitação'
+          }
+        ],
+      },
+      {
+        path: 'ordem-de-compra',
+        component: PurchaseOrderComponent,
+        children: [
+          {
+            path: '',
+            component: PurchaseOrderListComponent,
+            title: 'Lista de Ordens de Compra',
+          },
+          {
+            path: 'detalhes',
+            component: PurchaseOrderDetailComponent,
+            title: 'Detalhe da Ordem de Compra'
           }
         ],
       }
