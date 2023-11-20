@@ -26,6 +26,14 @@ export class PagesComponent implements OnInit {
       this.authService.userInfo.subscribe((user: IUserRegister) => {
         this.userInfo = user;
       });
+
+      const storage = localStorage.getItem('userData');
+
+      if (storage) {
+        const userDt: IUserRegister = JSON.parse(storage);
+
+        this.authService.userInfo.emit(userDt);
+      }
     });
 
     this.router.events.subscribe((route: any) => {
