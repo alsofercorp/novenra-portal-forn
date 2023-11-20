@@ -53,37 +53,37 @@ export class CreateUserExtraComponent implements OnInit {
   }
 
   createAccount() {
-    if (this.complementationDataForm.valid) {
-      const storage: string | null = localStorage.getItem('userInfo');
+    const storage: string | null = localStorage.getItem('userInfo');
 
-      if (storage) {
-        const userInfo: IUserRegister = JSON.parse(storage);
+    if (storage) {
+      const userInfo: IUserRegister = JSON.parse(storage);
 
-        this.complementationDataForm.patchValue({
-          id: userInfo.id
-        });
+      this.complementationDataForm.patchValue({
+        id: userInfo.id
+      });
 
-        this.stateList.forEach((state: IState) => {
-          if (this.complementationDataForm.get('uf')?.value === state.siglaEstado) {
-            this.complementationDataForm.patchValue({
-              idEstado: state.id
-            });
-          }
-        });
-
-        const input: ISupplier = this.complementationDataForm.getRawValue();
-
-        this.supplierService
-          .registerSupplier(input)
-          .subscribe((supplier: ISupplier) => {
-            localStorage.removeItem('userInfo');
-
-            this.commonService.ToastSucess('Cadastro Realizado com');
-            this.router.navigate(['auth', 'login'])
-          }, (err: HttpErrorResponse) => {
-            this.commonService.ToastError(err.error);
+      this.stateList.forEach((state: IState) => {
+        if (this.complementationDataForm.get('uf')?.value === state.siglaEstado) {
+          this.complementationDataForm.patchValue({
+            idEstado: state.id
           });
-      }
+        }
+      });
+    }
+
+    if (this.complementationDataForm.valid) {
+      const input: ISupplier = this.complementationDataForm.getRawValue();
+
+      this.supplierService
+        .registerSupplier(input)
+        .subscribe((supplier: ISupplier) => {
+          localStorage.removeItem('userInfo');
+
+          this.commonService.ToastSucess('Cadastro Realizado com');
+          this.router.navigate(['auth', 'login'])
+        }, (err: HttpErrorResponse) => {
+          this.commonService.ToastError(err.error);
+        });
     }
   }
 
