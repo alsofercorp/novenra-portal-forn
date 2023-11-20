@@ -92,15 +92,20 @@ export class CreateUserExtraComponent implements OnInit {
     this.commonService
       .getAddressByCep(cep)
       .subscribe((address: IViaCep) => {
-        this.complementationDataForm.patchValue({
-          logradouro: address.logradouro,
-          complemento: address.complemento,
-          cidade: address.localidade,
-          uf: address.uf
-        });
+        if (address.cep) {
+          this.complementationDataForm.patchValue({
+            logradouro: address.logradouro,
+            complemento: address.complemento,
+            cidade: address.localidade,
+            uf: address.uf
+          });
+        } else {
+          this.complementationDataForm.get('logradouro')?.enable();
+          this.complementationDataForm.get('cidade')?.enable();
+          this.complementationDataForm.get('uf')?.enable();
+        }
       }, (err: HttpErrorResponse) => {
         this.complementationDataForm.get('logradouro')?.enable();
-        this.complementationDataForm.get('complemento')?.enable();
         this.complementationDataForm.get('cidade')?.enable();
         this.complementationDataForm.get('uf')?.enable();
       });
