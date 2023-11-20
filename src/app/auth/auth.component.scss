@@ -10,7 +10,8 @@
 
     .dark-login-color {
       background: rgba(0, 0, 0, 0.75);
-      height: 100vh;
+      height: 100%;
+      min-height: 100vh;
 
       .login-side-photo {
         background: linear-gradient(180deg, rgba(3, 87, 130, 0.60) 7.95%, rgba(0, 116, 176, 0.00) 100%);
