@@ -10,3 +10,8 @@ export interface IUserRegister {
     nome: string,
     ativo: boolean
 }
+
+export interface IUserLoginDto {
+    password: number,
+    email: string
+}

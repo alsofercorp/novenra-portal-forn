@@ -12,12 +12,12 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <form id="login">
+      <form [formGroup]="loginForm" id="login">
         <label class="input-label" for="user">Usuário</label>
-        <input id="user" nz-input class="form-control noventa-input" placeholder="CNPJ ou e-mail cadastrado" type="text" />
+        <input id="user" formControlName="email" nz-input class="form-control noventa-input" placeholder="CNPJ ou e-mail cadastrado" type="text" />
 
         <label class="input-label" for="pass">Senha</label>
-        <input id="pass" nz-input class="form-control noventa-input" placeholder="Digite sua senha" type="password" />
+        <input id="pass" formControlName="password" nz-input class="form-control noventa-input" placeholder="Digite sua senha" type="password" />
       </form>
     </div>
   </div>
