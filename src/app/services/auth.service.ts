@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IUserLoginDto, IUserRegister, IUserRegisterDto } from '../interface/IUserRegister';
@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   private authPath: string = `${environment.noventaApi}/Acesso`
+  userInfo: EventEmitter<IUserRegister> = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 

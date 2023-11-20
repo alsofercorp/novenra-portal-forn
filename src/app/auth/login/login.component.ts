@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
       .authenticate(this.loginForm.value)
       .subscribe((user: IUserRegister) => {
         localStorage.setItem('userData', JSON.stringify(user));
+        this.authService.userInfo.emit(user);
+        
         this.router.navigate(['app', 'visao-geral']);
       }, (err: HttpErrorResponse) => {
         this.commonService.ToastError(err.error);
