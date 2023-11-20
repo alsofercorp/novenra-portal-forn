@@ -26,9 +26,9 @@ const routes: Routes = [
             title: 'Cotação'
           },
           {
-            path: 'detalhe',
+            path: 'detalhes',
             component: DetailCotationComponent,
-            title: 'Detalhe da Cotação'
+            title: 'Detalhes da Cotação'
           }
         ]
       },
