@@ -5,6 +5,7 @@ import { IViaCep } from '../interface/IViaCep';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
+import { ISerpro } from '../interface/ISerpro';
 
 const ToastObj = Swal.mixin({
   toast: true,
@@ -20,12 +21,18 @@ const ToastObj = Swal.mixin({
 export class CommonService {
 
   viacep: string = environment.viacepApi;
+  serpro: string = environment.serproApi;
+
   isSelectedLink: EventEmitter<any> = new EventEmitter;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   getAddressByCep(cep: string): Observable<IViaCep> {
     return this.http.get<IViaCep>(`${this.viacep}/${cep}/json`);
+  }
+
+  getCompanyInfo(cnpj: string): Observable<ISerpro>  {
+    return this.http.jsonp<ISerpro>(`${this.serpro}/cnpj/${cnpj}?callback=JSONP_CALLBACK`, 'callback');
   }
 
   isRouteActive(route: string): void {

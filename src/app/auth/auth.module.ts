@@ -6,7 +6,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { CreateUserExtraComponent } from './create-user-extra/create-user-extra.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { NgxMaskModule } from 'ngx-mask';
 
@@ -26,6 +26,7 @@ import { NgxMaskModule } from 'ngx-mask';
     HttpClientModule,
     CommonModule,
     NzCheckboxModule,
+    HttpClientJsonpModule,
     NgxMaskModule.forRoot(),
   ]
 })

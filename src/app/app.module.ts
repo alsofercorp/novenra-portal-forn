@@ -7,7 +7,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { pt_BR } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 registerLocaleData(pt);
@@ -19,6 +19,7 @@ registerLocaleData(pt);
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpClientJsonpModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR }

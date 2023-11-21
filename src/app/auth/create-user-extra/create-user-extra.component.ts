@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ISupplier } from 'src/app/interface/ISupplier';
+import { of, switchMap } from 'rxjs';
+import { ISerpro } from 'src/app/interface/ISerpro';
 
 @Component({
   selector: 'app-create-user-extra',
@@ -66,6 +68,51 @@ export class CreateUserExtraComponent implements OnInit {
     } else {
       this.router.navigate(['criar-usuario', 'dados-basicos']);
     }
+  }
+
+  fillCompanyData() {
+
+    this.commonService
+      .getCompanyInfo(this.complementationDataForm.controls['cnpj'].value)
+      .pipe(switchMap((companyInfo: ISerpro) => {
+        if (companyInfo.status !== "ERROR") {
+          const cep: string = companyInfo.cep.replace('.', '').replace('.', '').replace('-', '');
+
+          this.complementationDataForm.patchValue({
+            razaoSocial: companyInfo.nome,
+            numero: companyInfo.numero,
+            complemento: companyInfo.complemento,
+            cep: cep
+          });
+
+          return this.commonService.getAddressByCep(cep);
+        } else {
+          this.commonService.ToastWarning('O CNPJ é invalido');
+
+          this.clearForm();
+
+          return of({} as IViaCep);
+        }
+      }))
+      .subscribe((address: IViaCep) => {
+        if (address.cep) {
+          this.complementationDataForm.patchValue({
+            logradouro: address.logradouro,
+            cidade: address.localidade,
+            uf: address.uf
+          });
+
+          this.complementationDataForm.get('logradouro')?.disable();
+          this.complementationDataForm.get('cidade')?.disable();
+          this.complementationDataForm.get('uf')?.disable();
+        } else {
+          this.complementationDataForm.get('logradouro')?.enable();
+          this.complementationDataForm.get('cidade')?.enable();
+          this.complementationDataForm.get('uf')?.enable();
+        }
+      }, (err: HttpErrorResponse) => {
+        this.clearForm();
+      });
   }
 
   createAccount() {
@@ -133,4 +180,15 @@ export class CreateUserExtraComponent implements OnInit {
       });
   }
 
+  clearForm() {
+    this.complementationDataForm.patchValue({
+      logradouro: '',
+      cidade: '',
+      uf: '',
+      razaoSocial: '',
+      numero: '',
+      complemento: '',
+      cep: ''
+    });
+  }
 }

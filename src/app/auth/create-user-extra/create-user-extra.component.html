@@ -18,6 +18,7 @@
               <label class="input-label" for="cnpj">CNPJ</label>
               <input id="cnpj" formControlName="cnpj" nz-input class="form-control noventa-input"
                 placeholder="00.000.000/0001-00" mask="00.000.000/0000-00" type="text"
+                (blur)="fillCompanyData()"
                 [class]="(complementationDataForm.get('cnpj')?.invalid && complementationDataForm.get('cnpj')?.errors && (complementationDataForm.get('cnpj')?.dirty || complementationDataForm.get('cnpj')?.touched)) ? 'hasError' : ''" />
               <div
                 *ngIf="complementationDataForm.get('cnpj')?.invalid && complementationDataForm.get('cnpj')?.errors && (complementationDataForm.get('cnpj')?.dirty || complementationDataForm.get('cnpj')?.touched)">

@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   viacepApi: 'https://viacep.com.br/ws/',
-  noventaApi: 'https://localhost:7021/api'
+  noventaApi: 'https://localhost:7021/api',
+  serproApi: 'https://receitaws.com.br/v1'
 };
 
 /*
