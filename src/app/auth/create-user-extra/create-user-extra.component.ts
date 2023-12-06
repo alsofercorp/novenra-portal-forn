@@ -21,7 +21,7 @@ export class CreateUserExtraComponent implements OnInit {
 
   complementationDataForm: FormGroup = new FormGroup({
     id: new FormControl(0, [Validators.required, Validators.min(1)]),
-    cnpj: new FormControl('', [Validators.required]),
+    cpfcnpj: new FormControl('', [Validators.required]),
     razaoSocial: new FormControl('', [Validators.required]),
     cep: new FormControl('', [Validators.required]),
     logradouro: new FormControl('', [Validators.required]),
@@ -178,6 +178,12 @@ export class CreateUserExtraComponent implements OnInit {
 
         this.commonService.ToastWarning('Atenção: Não conseguimos encontrar o CEP informado, favor preencher manualmente o endereço.');
       });
+  }
+
+  countMaskMinLenght(validator: any): number {
+    const valueNoMask: string = validator.mask.requiredMask.replace('^[0-9]', '');
+
+    return valueNoMask.length;
   }
 
   clearForm() {

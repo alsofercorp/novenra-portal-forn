@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ForgottenPasswordComponent implements OnInit {
   forgottenForm: FormGroup = new FormGroup({
-    cnpj: new FormControl('', [Validators.required]),
+    cpfcnpj: new FormControl('', [Validators.required]),
   });
 
 
@@ -22,4 +22,9 @@ export class ForgottenPasswordComponent implements OnInit {
     this.router.navigate(['esqueci-minha-senha', 'confirmar-dados'])
   }
 
+  countMaskMinLenght(validator: any): number {
+    const valueNoMask: string = validator.mask.requiredMask.replace('^[0-9]', '');
+
+    return valueNoMask.length;
+  }
 }
