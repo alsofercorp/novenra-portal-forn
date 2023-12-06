@@ -9,6 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { ConfirmDataComponent } from './confirm-data/confirm-data.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ConfirmPasswordChangeComponent } from './confirm-password-change/confirm-password-change.component';
 
 
 @NgModule({
@@ -16,7 +20,11 @@ import { NgxMaskModule } from 'ngx-mask';
     AuthComponent,
     CreateUserComponent,
     CreateUserExtraComponent,
-    LoginComponent
+    LoginComponent,
+    ForgottenPasswordComponent,
+    ConfirmDataComponent,
+    ChangePasswordComponent,
+    ConfirmPasswordChangeComponent
   ],
   imports: [
     AuthRoutingModule,

@@ -14,6 +14,11 @@ const routes: Routes = [
       import('src/app/auth/auth.module').then(m => m.AuthModule),
   },
   {
+    path: 'esqueci-minha-senha',
+    loadChildren: () =>
+      import('src/app/auth/auth.module').then(m => m.AuthModule),
+  },
+  {
     path: 'app',
     canActivate: [AuthGuard],
     loadChildren: () => import('src/app/pages/pages.module').then(m => m.PagesModule),

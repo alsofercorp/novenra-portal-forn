@@ -7,7 +7,7 @@
 }
 
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 nz-tag {
@@ -129,6 +129,28 @@ input {
 
   &.hasError {
     border: 1px solid red !important;
+  }
+}
+
+.input-group {
+  align-items: flex-end !important;
+
+  .noventa-input {
+    border-radius: 12px 0 0 12px !important;
+  }
+
+  span {
+    height: 58px;
+    background-color: #E9EEF6;
+    border: none;
+
+    button {
+      background-color: #E9EEF6 !important;
+      
+      i {
+        color: #7B7B7B;
+      }
+    }
   }
 }
 
