@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { IUserRegister } from '../../interface/IUserRegister';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NoventaLoaderComponent } from 'src/app/components/noventa-loader/noventa-loader.component';
+import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 
 @Component({
   selector: 'app-login',
@@ -17,22 +19,28 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private authService: AuthService, private commonService: CommonService) { }
+  constructor(private router: Router, private authService: AuthService, private commonService: CommonService, private loaderService: NoventaLoaderService) { }
 
   ngOnInit(): void {
     localStorage.clear();
   }
 
   login() {
+    this.loaderService.show(null);
+
     this.authService
       .authenticate(this.loginForm.value)
-      .subscribe((user: IUserRegister) => {
-        localStorage.setItem('userData', JSON.stringify(user));
-        this.authService.userInfo.emit(user);
-        
-        this.router.navigate(['app', 'visao-geral']);
-      }, (err: HttpErrorResponse) => {
-        this.commonService.ToastError(err.error);
+      .subscribe({
+        next: (user: IUserRegister) => {
+          localStorage.setItem('userData', JSON.stringify(user));
+          this.authService.userInfo.emit(user);
+          this.loaderService.hidde();
+          this.router.navigate(['app', 'visao-geral']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.commonService.ToastError(err.error);
+          this.loaderService.hidde();
+        }
       });
   }
 

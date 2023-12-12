@@ -8,6 +8,7 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
 import { ConfirmDataComponent } from './confirm-data/confirm-data.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ConfirmPasswordChangeComponent } from './confirm-password-change/confirm-password-change.component';
+import { ActiveUserComponent } from './active-user/active-user.component';
 
 const routes: Routes = [
   {
@@ -17,10 +18,11 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent, title: 'Login' },
       { path: 'dados-basicos', component: CreateUserComponent, title: 'Cadastro - Dados Basicos' },
       { path: 'dados-complementares', component: CreateUserExtraComponent, title: 'Cadastro - Dados Complementares' },
-      { path: 'validar-usuario', component: ForgottenPasswordComponent, title: 'Senha - Validação de usuario' },
+      { path: 'validar', component: ForgottenPasswordComponent, title: 'Senha - Validação de usuario' },
       { path: 'confirmar-dados', component: ConfirmDataComponent, title: 'Senha - Validação de usuario' },
       { path: 'alterar-senha/:id', component: ChangePasswordComponent, title: 'Senha - Validação de usuario' },
-      { path: 'confirmacao', component: ConfirmPasswordChangeComponent, title: 'Senha - Validação de usuario' }
+      { path: 'ativacao/:id', component: ActiveUserComponent, title: 'Ativação - Ativar usuário' },
+      { path: 'confirmacao', component: ConfirmPasswordChangeComponent, title: 'Senha - Validação de usuario' },
     ]
   }
 ];

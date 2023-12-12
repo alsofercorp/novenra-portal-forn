@@ -1,7 +1,11 @@
+import { CommonService } from './../../services/common.service';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormValidations } from 'src/app/validators/form-validations';
+import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-change-password',
@@ -17,9 +21,14 @@ export class ChangePasswordComponent implements OnInit {
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
 
-  constructor(private router: Router) { }
+  private userEmail: string = '';
+
+  constructor(private router: Router, private route: ActivatedRoute, private service: AuthService, private commonService: CommonService, private loaderService: NoventaLoaderService) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: any) => {
+      this.userEmail = params.id;
+    });
   }
 
   showPassword() {
@@ -31,11 +40,19 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    this.router.navigate(['esqueci-minha-senha', 'confirmacao']);
-  }
+    this.loaderService.show('Efetuando a alteração de senha, aguarde!');
 
-  teste() {
-    debugger
-    this.recoverForm
+    this.service
+      .changePassword(this.recoverForm.get('password')?.value, this.userEmail)
+      .subscribe({
+        next: () => {
+          this.loaderService.hidde();
+          this.router.navigate(['usuario', 'confirmacao']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.commonService.ToastError(err.error);
+          this.loaderService.hidde();
+        }
+      });
   }
 }

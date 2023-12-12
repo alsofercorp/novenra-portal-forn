@@ -15,17 +15,17 @@
         <div class="row">
           <div class="col-md-12">
             <div class="input-container">
-              <label class="input-label" for="cpfcnpj">CPF / CNPJ</label>
-              <input id="cpfcnpj" formControlName="cpfcnpj" nz-input class="form-control noventa-input"
+              <label class="input-label" for="cnpjCpf">CPF / CNPJ</label>
+              <input id="cnpjCpf" formControlName="cnpjCpf" nz-input class="form-control noventa-input"
                 placeholder="Insira o CPF ou CNPJ" mask="000.000.000-00||00.000.000/0000-00" type="text" (blur)="fillCompanyData()"
-                [class]="(complementationDataForm.get('cpfcnpj')?.invalid && complementationDataForm.get('cpfcnpj')?.errors && (complementationDataForm.get('cpfcnpj')?.dirty || complementationDataForm.get('cpfcnpj')?.touched)) ? 'hasError' : ''" />
+                [class]="(complementationDataForm.get('cnpjCpf')?.invalid && complementationDataForm.get('cnpjCpf')?.errors && (complementationDataForm.get('cnpjCpf')?.dirty || complementationDataForm.get('cnpjCpf')?.touched)) ? 'hasError' : ''" />
               <div
-                *ngIf="complementationDataForm.get('cpfcnpj')?.invalid && complementationDataForm.get('cpfcnpj')?.errors && (complementationDataForm.get('cpfcnpj')?.dirty || complementationDataForm.get('cpfcnpj')?.touched)">
-                <small class="text-danger" *ngIf="complementationDataForm.get('cpfcnpj')?.hasError('required')">
+                *ngIf="complementationDataForm.get('cnpjCpf')?.invalid && complementationDataForm.get('cnpjCpf')?.errors && (complementationDataForm.get('cnpjCpf')?.dirty || complementationDataForm.get('cnpjCpf')?.touched)">
+                <small class="text-danger" *ngIf="complementationDataForm.get('cnpjCpf')?.hasError('required')">
                   * O campo CPF / CNPJ é obrigatorio.
                 </small>
-                <small class="text-danger" *ngIf="complementationDataForm.get('cpfcnpj')?.hasError('mask')">
-                  * O Campo CPF / CNPJ deve ter no minimo {{countMaskMinLenght(complementationDataForm.get('cpfcnpj')?.errors)}}
+                <small class="text-danger" *ngIf="complementationDataForm.get('cnpjCpf')?.hasError('mask')">
+                  * O Campo CPF / CNPJ deve ter no minimo {{countMaskMinLenght(complementationDataForm.get('cnpjCpf')?.errors)}}
                   caracteres.
                 </small>
               </div>

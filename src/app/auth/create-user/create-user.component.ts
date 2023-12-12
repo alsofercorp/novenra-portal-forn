@@ -27,18 +27,21 @@ export class CreateUserComponent implements OnInit {
   }
 
   nextStep() {
-    this.router.navigate(['criar-usuario', 'dados-complementares']);
+    this.router.navigate(['usuario', 'dados-complementares']);
   }
 
   createUser() {
     this.authService
       .passwordValidation(this.userForm.get('password')?.value)
       .pipe(switchMap(() => this.authService.register(this.userForm.value)))
-      .subscribe((userLogin: IUserRegister) => {
-        localStorage.setItem('userInfo', JSON.stringify(userLogin));
-        this.nextStep();
-      }, (err: HttpErrorResponse) => {
-        this.commonService.ToastError(err.error)
+      .subscribe({
+        next: (userLogin: IUserRegister) => {
+          localStorage.setItem('userInfo', JSON.stringify(userLogin));
+          this.nextStep();
+        },
+        error: (err: HttpErrorResponse) => {
+          this.commonService.ToastError(err.error)
+        }
       });
   }
 

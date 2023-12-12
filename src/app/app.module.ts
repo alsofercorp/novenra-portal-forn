@@ -19,7 +19,7 @@ registerLocaleData(pt);
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientJsonpModule,
+    HttpClientJsonpModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR }

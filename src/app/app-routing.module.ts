@@ -9,12 +9,7 @@ const routes: Routes = [
       import('src/app/auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'criar-usuario',
-    loadChildren: () =>
-      import('src/app/auth/auth.module').then(m => m.AuthModule),
-  },
-  {
-    path: 'esqueci-minha-senha',
+    path: 'usuario',
     loadChildren: () =>
       import('src/app/auth/auth.module').then(m => m.AuthModule),
   },

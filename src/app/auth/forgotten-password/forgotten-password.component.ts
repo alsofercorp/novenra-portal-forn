@@ -1,6 +1,10 @@
+import { CommonService } from './../../services/common.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IUserRegister } from 'src/app/interface/IUserRegister';
 
 @Component({
   selector: 'app-forgotten-password',
@@ -13,13 +17,22 @@ export class ForgottenPasswordComponent implements OnInit {
   });
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private service: AuthService, private commonService: CommonService) { }
 
   ngOnInit(): void {
   }
 
   requestPasswordNewKey() {
-    this.router.navigate(['esqueci-minha-senha', 'confirmar-dados'])
+    this.service.recoverAccess(this.forgottenForm.get('cpfcnpj')?.value)
+      .subscribe({
+        next: (user: IUserRegister) => {
+          localStorage.setItem('recoverData', JSON.stringify(user));
+          this.router.navigate(['usuario', 'confirmar-dados']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.commonService.ToastError(err.error);
+        }
+      })
   }
 
   countMaskMinLenght(validator: any): number {

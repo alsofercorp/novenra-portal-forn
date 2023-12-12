@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { IUserLoginDto, IUserRegister, IUserRegisterDto } from '../interface/IUserRegister';
 import { environment } from 'src/environments/environment';
 
@@ -23,6 +23,28 @@ export class AuthService {
 
   authenticate(user: IUserLoginDto): Observable<IUserRegister> {
     return this.http.post<IUserRegister>(`${this.authPath}/AutenticarAcesso`, user);
+  }
+
+  activeUser(userId: string) {
+    return this.http.post<any>(`${this.authPath}/AtivarAcesso?idUsuario=${userId}`, {});
+  }
+
+  recoverAccess(document: string): Observable<any> {
+    return this.http.post<any>(`${this.authPath}/RecuperarAcesso?CnpjCpf=${document}`, {})
+      .pipe(map((data: any) => {
+        return {
+          id: data.login.id,
+          email: data.login.email
+        }
+      }));
+  }
+
+  confirmRecoverEmail(email: string) {
+    return this.http.post<any>(`${this.authPath}/ConfirmarRecuperacaoDadosAcesso?Email=${email}`, {});
+  }
+
+  changePassword(password: string, email: string) {
+    return this.http.post<any>(`${this.authPath}/AtualizarPassword?email=${email}&password=${password}`, {});
   }
 
   isAuthenticated(): boolean {

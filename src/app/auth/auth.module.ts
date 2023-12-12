@@ -13,7 +13,9 @@ import { ForgottenPasswordComponent } from './forgotten-password/forgotten-passw
 import { ConfirmDataComponent } from './confirm-data/confirm-data.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ConfirmPasswordChangeComponent } from './confirm-password-change/confirm-password-change.component';
-
+import { ActiveUserComponent } from './active-user/active-user.component';
+import { NoventaLoaderComponent } from '../components/noventa-loader/noventa-loader.component';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { ConfirmPasswordChangeComponent } from './confirm-password-change/confir
     ForgottenPasswordComponent,
     ConfirmDataComponent,
     ChangePasswordComponent,
-    ConfirmPasswordChangeComponent
+    ConfirmPasswordChangeComponent,
+    ActiveUserComponent,
+    NoventaLoaderComponent
   ],
   imports: [
     AuthRoutingModule,
@@ -35,6 +39,7 @@ import { ConfirmPasswordChangeComponent } from './confirm-password-change/confir
     CommonModule,
     NzCheckboxModule,
     HttpClientJsonpModule,
+    NzSpinModule,
     NgxMaskModule.forRoot(),
   ]
 })
