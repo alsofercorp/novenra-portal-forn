@@ -60,6 +60,11 @@
     font-weight: 600;
     line-height: normal;
     margin: 65px 0;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: no-drop;
+    }
   }
 
   .create-account {

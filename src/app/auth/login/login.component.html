@@ -26,6 +26,9 @@
               <small class="text-danger" *ngIf="loginForm.get('email')?.hasError('maxlength')">
                 * O campo e-mail deve conter no maximo {{loginForm.get('email')?.errors?.['maxlength'].requiredLength}}
               </small>
+              <small class="text-danger" *ngIf="loginForm.get('email')?.hasError('pattern')">
+                * Por favor, digite um e-mail valido
+              </small>
             </div>
           </div>
           <div class="col-md-12 mb-5">
@@ -54,7 +57,7 @@
     </div>
   </div>
   <div class="row">
-    <button (click)="login()" nz-button nzType="primary">Entrar</button>
+    <button (click)="login()" [disabled]="!loginForm.valid" nz-button nzType="primary">Entrar</button>
   </div>
   <div class="row">
     <p class="create-account">Ainda não tem uma conta? <a [routerLink]="'/usuario/dados-basicos'">Cadastra-se</a>
