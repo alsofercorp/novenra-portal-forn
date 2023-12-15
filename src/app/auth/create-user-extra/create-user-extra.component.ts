@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ISupplier } from 'src/app/interface/ISupplier';
 import { of, switchMap } from 'rxjs';
 import { ISerpro } from 'src/app/interface/ISerpro';
+import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 
 @Component({
   selector: 'app-create-user-extra',
@@ -38,7 +39,7 @@ export class CreateUserExtraComponent implements OnInit {
 
   stateList: IState[] = [];
 
-  constructor(private commonService: CommonService, private router: Router, private supplierService: SupplierService, private stateService: StateService) { }
+  constructor(private commonService: CommonService, private router: Router, private supplierService: SupplierService, private stateService: StateService, private loadService: NoventaLoaderService) { }
 
   ngOnInit(): void {
     const storage: string | null = localStorage.getItem('userInfo');
@@ -71,54 +72,77 @@ export class CreateUserExtraComponent implements OnInit {
   }
 
   fillCompanyData() {
+    if (this.complementationDataForm.controls['cnpjCpf'].value.length > 11) {
+      this.loadService.show('Estamos consultando seu CNPJ, por favor, aguarde!');
 
-    this.commonService
-      .getCompanyInfo(this.complementationDataForm.controls['cnpjCpf'].value)
-      .pipe(switchMap((companyInfo: ISerpro) => {
-        if (companyInfo.status !== "ERROR") {
-          const cep: string = companyInfo.cep.replace('.', '').replace('.', '').replace('-', '');
+      this.complementationDataForm.controls['razaoSocial'].enable();
 
-          this.complementationDataForm.patchValue({
-            razaoSocial: companyInfo.nome,
-            numero: companyInfo.numero,
-            complemento: companyInfo.complemento,
-            cep: cep
-          });
+      this.commonService
+        .getCompanyInfo(this.complementationDataForm.controls['cnpjCpf'].value)
+        .pipe(switchMap((companyInfo: ISerpro) => {
+          if (companyInfo.status !== "ERROR") {
+            const cep: string = companyInfo.cep.replace('.', '').replace('.', '').replace('-', '');
 
-          return this.commonService.getAddressByCep(cep);
-        } else {
-          this.commonService.ToastWarning('O CNPJ é invalido');
-
-          this.clearForm();
-
-          return of({} as IViaCep);
-        }
-      }))
-      .subscribe({
-        next: (address: IViaCep) => {
-          if (address.cep) {
             this.complementationDataForm.patchValue({
-              logradouro: address.logradouro,
-              cidade: address.localidade,
-              uf: address.uf
+              razaoSocial: companyInfo.nome,
+              numero: companyInfo.numero,
+              complemento: companyInfo.complemento,
+              cep: cep
             });
 
-            this.complementationDataForm.get('logradouro')?.disable();
-            this.complementationDataForm.get('cidade')?.disable();
-            this.complementationDataForm.get('uf')?.disable();
+            return this.commonService.getAddressByCep(cep);
           } else {
-            this.complementationDataForm.get('logradouro')?.enable();
-            this.complementationDataForm.get('cidade')?.enable();
-            this.complementationDataForm.get('uf')?.enable();
+            this.commonService.ToastWarning('O CNPJ é invalido');
+
+            this.clearForm();
+
+            return of({} as IViaCep);
           }
-        },
-        error: (err: HttpErrorResponse) => {
-          this.clearForm();
-        }
+        }))
+        .subscribe({
+          next: (address: IViaCep) => {
+            if (address.cep) {
+              this.complementationDataForm.patchValue({
+                logradouro: address.logradouro,
+                cidade: address.localidade,
+                uf: address.uf
+              });
+
+              this.complementationDataForm.get('logradouro')?.disable();
+              this.complementationDataForm.get('cidade')?.disable();
+              this.complementationDataForm.get('uf')?.disable();
+            } else {
+              this.complementationDataForm.get('logradouro')?.enable();
+              this.complementationDataForm.get('cidade')?.enable();
+              this.complementationDataForm.get('uf')?.enable();
+            }
+
+            this.loadService.hidde();
+          },
+          error: (err: HttpErrorResponse) => {
+            this.clearForm();
+            this.loadService.hidde();
+          }
+        });
+    } else {
+      this.complementationDataForm.patchValue({
+        razaoSocial: 'Não se aplica',
+        cep: '',
+        logradouro: '',
+        numero: '',
+        complemento: '',
+        cidade: '',
+        uf: '',
+        idEstado: 0
       });
+
+      this.complementationDataForm.controls['razaoSocial'].disable();
+    }
   }
 
   createAccount() {
+    this.loadService.show(null);
+
     const storage: string | null = localStorage.getItem('userInfo');
 
     if (storage) {
@@ -146,16 +170,21 @@ export class CreateUserExtraComponent implements OnInit {
           localStorage.removeItem('userInfo');
 
           this.commonService.ToastSucess('Cadastro realizado com sucesso');
-          this.router.navigate(['auth', 'login'])
+          this.router.navigate(['auth', 'login']);
+          this.loadService.hidde();
         },
         error: (err: HttpErrorResponse) => {
           this.commonService.ToastError(err.error);
+          this.loadService.hidde();
         }
       });
   }
 
   onCepChange() {
+    this.loadService.show('Consultando o CEP, aguarde!');
+
     const cep: string = this.complementationDataForm.get('cep')?.value;
+
     this.commonService
       .getAddressByCep(cep)
       .subscribe({
@@ -178,6 +207,8 @@ export class CreateUserExtraComponent implements OnInit {
 
             this.commonService.ToastWarning('Atenção: Não conseguimos encontrar o CEP informado, favor preencher manualmente o endereço.');
           }
+
+          this.loadService.hidde();
         },
         error: (err: HttpErrorResponse) => {
           this.complementationDataForm.get('logradouro')?.enable();
@@ -185,6 +216,8 @@ export class CreateUserExtraComponent implements OnInit {
           this.complementationDataForm.get('uf')?.enable();
 
           this.commonService.ToastWarning('Atenção: Não conseguimos encontrar o CEP informado, favor preencher manualmente o endereço.');
+
+          this.loadService.hidde();
         }
       });
   }

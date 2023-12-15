@@ -23,6 +23,9 @@
             <small class="text-danger" *ngIf="userForm.get('nome')?.hasError('required')">
               * O campo nome é obrigatorio.
             </small>
+            <small class="text-danger" *ngIf="userForm.get('nome')?.hasError('maxlength')">
+              * O campo nome deve conter no maximo {{userForm.get('nome')?.errors?.['maxlength'].requiredLength}}
+            </small>
           </div>
         </div>
 
@@ -35,6 +38,9 @@
             *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.errors && (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
             <small class="text-danger" *ngIf="userForm.get('email')?.hasError('required')">
               * O campo e-mail é obrigatorio.
+            </small>
+            <small class="text-danger" *ngIf="userForm.get('email')?.hasError('maxlength')">
+              * O campo e-mail deve conter no maximo {{userForm.get('email')?.errors?.['maxlength'].requiredLength}}
             </small>
           </div>
         </div>
@@ -53,6 +59,9 @@
               * O campo senha deve conter no minimo {{userForm.get('password')?.errors?.['minlength'].requiredLength}}
               caracteres.
             </small>
+            <small class="text-danger" *ngIf="userForm.get('password')?.hasError('maxlength')">
+              * O campo senha deve conter no maximo {{userForm.get('password')?.errors?.['maxlength'].requiredLength}}
+            </small>
           </div>
         </div>
       </form>
@@ -64,7 +73,7 @@
     </div>
   </div>
   <div class="row">
-    <button (click)="createUser()" [disabled]="!userForm.valid && !acceptedPolicy" nz-button
+    <button (click)="createUser()" [disabled]="(!userForm.valid && !acceptedPolicy) || (userForm.valid && !acceptedPolicy) || (!userForm.valid && acceptedPolicy)" nz-button
       nzType="primary">Continuar</button>
   </div>
   <div class="row">

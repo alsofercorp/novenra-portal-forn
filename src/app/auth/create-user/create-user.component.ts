@@ -14,9 +14,9 @@ import { IUserRegister } from '../../interface/IUserRegister';
 })
 export class CreateUserComponent implements OnInit {
   userForm: FormGroup = new FormGroup({
-    nome: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    nome: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(50)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(50)]),
   });
 
   acceptedPolicy: boolean = false;

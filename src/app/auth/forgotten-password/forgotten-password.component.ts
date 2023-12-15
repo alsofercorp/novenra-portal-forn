@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUserRegister } from 'src/app/interface/IUserRegister';
+import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 
 @Component({
   selector: 'app-forgotten-password',
@@ -17,20 +18,24 @@ export class ForgottenPasswordComponent implements OnInit {
   });
 
 
-  constructor(private router: Router, private service: AuthService, private commonService: CommonService) { }
+  constructor(private router: Router, private service: AuthService, private commonService: CommonService, private loadService: NoventaLoaderService) { }
 
   ngOnInit(): void {
   }
 
   requestPasswordNewKey() {
+    this.loadService.show(null);
+
     this.service.recoverAccess(this.forgottenForm.get('cpfcnpj')?.value)
       .subscribe({
         next: (user: IUserRegister) => {
           localStorage.setItem('recoverData', JSON.stringify(user));
+          this.loadService.hidde();
           this.router.navigate(['usuario', 'confirmar-dados']);
         },
         error: (err: HttpErrorResponse) => {
           this.commonService.ToastError(err.error);
+          this.loadService.hidde();
         }
       })
   }
