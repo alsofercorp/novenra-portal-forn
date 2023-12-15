@@ -28,6 +28,9 @@
                   * O Campo CPF / CNPJ deve ter no minimo {{countMaskMinLenght(complementationDataForm.get('cnpjCpf')?.errors)}}
                   caracteres.
                 </small>
+                <small class="text-danger" *ngIf="complementationDataForm.get('cnpjCpf')?.hasError('pattern')">
+                  * O campo CPF / CNPJ é obrigatorio.
+                </small>
               </div>
             </div>
 

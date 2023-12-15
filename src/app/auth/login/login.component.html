@@ -13,11 +13,37 @@
   <div class="row">
     <div class="col-md-12">
       <form [formGroup]="loginForm" id="login">
-        <label class="input-label" for="user">Usuário</label>
-        <input id="user" formControlName="email" nz-input class="form-control noventa-input" placeholder="CNPJ ou e-mail cadastrado" type="text" />
-
-        <label class="input-label" for="pass">Senha</label>
-        <input id="pass" formControlName="password" nz-input class="form-control noventa-input" placeholder="Digite sua senha" type="password" />
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="input-label" for="user">Usuário</label>
+            <input id="user" formControlName="email" nz-input class="form-control noventa-input"
+              placeholder="E-mail cadastrado" type="email" [email]="true" />
+            <div
+              *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.errors && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+              <small class="text-danger" *ngIf="loginForm.get('email')?.hasError('required')">
+                * O campo e-mail é obrigatorio.
+              </small>
+              <small class="text-danger" *ngIf="loginForm.get('email')?.hasError('maxlength')">
+                * O campo e-mail deve conter no maximo {{loginForm.get('email')?.errors?.['maxlength'].requiredLength}}
+              </small>
+            </div>
+          </div>
+          <div class="col-md-12 mb-5">
+            <label class="input-label" for="pass">Senha</label>
+            <input id="pass" formControlName="password" nz-input class="form-control noventa-input"
+              placeholder="Digite sua senha" type="password" />
+            <div
+              *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+              <small class="text-danger" *ngIf="loginForm.get('password')?.hasError('required')">
+                * O campo senha é obrigatorio.
+              </small>
+              <small class="text-danger" *ngIf="loginForm.get('password')?.hasError('maxlength')">
+                * O campo senha deve conter no maximo
+                {{loginForm.get('password')?.errors?.['maxlength'].requiredLength}}
+              </small>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   </div>
