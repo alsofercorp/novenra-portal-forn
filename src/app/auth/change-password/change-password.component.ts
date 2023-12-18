@@ -14,8 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ChangePasswordComponent implements OnInit {
   recoverForm: FormGroup = new FormGroup({
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), FormValidations.equalsTo('password')]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(15)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(15), FormValidations.equalsTo('password')]),
   });
 
   passwordFieldType: string = 'password';
@@ -41,9 +41,9 @@ export class ChangePasswordComponent implements OnInit {
 
   resetPassword() {
     this.loaderService.show('Efetuando a alteração de senha, aguarde!');
-
+    debugger
     this.service
-      .changePassword(this.recoverForm.get('password')?.value, this.userEmail)
+      .changePassword({password: this.recoverForm.get('password')?.value, email: this.userEmail})
       .subscribe({
         next: () => {
           this.loaderService.hidde();

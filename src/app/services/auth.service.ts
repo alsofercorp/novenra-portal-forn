@@ -43,8 +43,8 @@ export class AuthService {
     return this.http.post<any>(`${this.authPath}/ConfirmarRecuperacaoDadosAcesso?Email=${email}`, {});
   }
 
-  changePassword(password: string, email: string) {
-    return this.http.post<any>(`${this.authPath}/AtualizarPassword?email=${email}&password=${password}`, {});
+  changePassword(changePasswordObj: any) {
+    return this.http.post<any>(`${this.authPath}/AtualizarPassword`, changePasswordObj);
   }
 
   isAuthenticated(): boolean {
