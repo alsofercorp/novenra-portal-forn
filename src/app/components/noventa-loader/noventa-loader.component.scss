@@ -5,5 +5,14 @@
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    background-color: rgba($color: #000000, $alpha: 0.2);
+    align-items: center;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+
+    img {
+        position: absolute;
+
+        &.nov-logo {
+            width: 70px;
+        }
+    }
 }

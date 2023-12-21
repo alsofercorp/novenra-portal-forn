@@ -212,3 +212,12 @@ nz-content {
   border-left: 1px solid rgba(0, 0, 0, 0.3);
   margin: 0 15px;
 }
+
+.main-bar-adjust {
+  height: calc(100vh - 7rem);
+}
+
+noventa-loader {
+  width: 100%;
+  height: 100vh;
+}

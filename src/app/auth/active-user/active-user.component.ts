@@ -16,8 +16,6 @@ export class ActiveUserComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private service: AuthService, private loaderService: NoventaLoaderService, private commonService: CommonService) { }
 
   ngOnInit(): void {
-    let userId: string;
-
     this.route.params
       .subscribe((params: any) => {
         this.tryActiveUser(params.id);

@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { ISerpro } from '../interface/ISerpro';
+import { IUserRegister } from '../interface/IUserRegister';
 
 const ToastObj = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 10000,
+  timer: 3000,
   timerProgressBar: true
 });
 
@@ -33,6 +34,18 @@ export class CommonService {
 
   getCompanyInfo(cnpj: string): Observable<ISerpro>  {
     return this.http.jsonp<ISerpro>(`${this.serpro}/cnpj/${cnpj}?callback=JSONP_CALLBACK`, 'callback');
+  }
+
+  getUserInfo(): IUserRegister {
+    let userData: IUserRegister = {} as IUserRegister;
+
+    const storage: string | null = localStorage.getItem('userData');
+
+    if (storage) {
+      userData = JSON.parse(storage);
+    }
+
+    return userData
   }
 
   isRouteActive(route: string): void {

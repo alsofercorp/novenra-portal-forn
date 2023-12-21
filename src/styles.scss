@@ -146,7 +146,7 @@ input {
 
     button {
       background-color: #E9EEF6 !important;
-      
+
       i {
         color: #7B7B7B;
       }
@@ -450,8 +450,18 @@ nz-table {
   }
 }
 
-.loader {
-  .ant-spin-text {
-    font-size: 18px !important;
+.ant-picker-preset {
+  .ant-tag {
+    border-radius: 20px;
+    border-color: var(--Orange, #EC7000) !important;
+    background: var(--Orange, #EC7000) !important;
+    color: #fff !important;
   }
+}
+
+noventa-loader {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
 }

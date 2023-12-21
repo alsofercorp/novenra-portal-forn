@@ -1,9 +1,10 @@
 export interface ICotationModel {
-  requester: string,
-  destination: string,
-  requestDate: string,
-  wishedDelivery: string,
-  reason: string,
-  contact: string,
+  id: string
+  solicitante: string,
+  localDestino: string,
+  dataSolicitacao: string,
+  dataEntrega: string,
+  motivo: string,
+  contato: string,
   status: any
 }

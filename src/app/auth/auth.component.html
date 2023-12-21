@@ -1,3 +1,4 @@
+<noventa-loader [style]="isLoading ? 'display: block' : 'display: none'"></noventa-loader>
 <div class="row login-container">
   <div class="col-md-8 login-photo-container">
     <div class="dark-login-color">
@@ -9,10 +10,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4" [style]="!isLoading ? 'display: block' : 'display: none'">
+  <div class="col-md-4">
     <router-outlet></router-outlet>
-  </div>
-  <div class="col-md-4 p-0" [style]="isLoading ? 'display: block' : 'display: none'">
-    <noventa-loader></noventa-loader>
   </div>
 </div>

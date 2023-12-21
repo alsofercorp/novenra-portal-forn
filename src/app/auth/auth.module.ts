@@ -1,3 +1,4 @@
+import { NoventaLoaderModule } from './../components/noventa-loader/noventa-loader.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthComponent } from './auth.component';
@@ -14,7 +15,6 @@ import { ConfirmDataComponent } from './confirm-data/confirm-data.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ConfirmPasswordChangeComponent } from './confirm-password-change/confirm-password-change.component';
 import { ActiveUserComponent } from './active-user/active-user.component';
-import { NoventaLoaderComponent } from '../components/noventa-loader/noventa-loader.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
@@ -27,13 +27,13 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     ConfirmDataComponent,
     ChangePasswordComponent,
     ConfirmPasswordChangeComponent,
-    ActiveUserComponent,
-    NoventaLoaderComponent
+    ActiveUserComponent
   ],
   imports: [
     AuthRoutingModule,
     CommonModule,
     FormsModule,
+    NoventaLoaderModule,
     ReactiveFormsModule,
     HttpClientModule,
     CommonModule,

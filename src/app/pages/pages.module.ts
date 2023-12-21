@@ -1,3 +1,4 @@
+import { NoventaLoaderModule } from './../components/noventa-loader/noventa-loader.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralComponent } from './general/general.component';
@@ -52,6 +53,7 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
     FormsModule,
     HttpClientModule,
     IconsProviderModule,
+    NoventaLoaderModule,
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,

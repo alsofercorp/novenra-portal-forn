@@ -17,5 +17,4 @@ export class NoventaLoaderComponent implements OnInit {
         this.loaderMsg = msg;
       });
   }
-
 }

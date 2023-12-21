@@ -4,6 +4,7 @@ import { CommonService } from '../services/common.service';
 import { ILinkClass, LinkClass } from '../interface/ILinkClass';
 import { AuthService } from '../services/auth.service';
 import { IUserRegister } from '../interface/IUserRegister';
+import { NoventaLoaderService } from '../components/noventa-loader/noventa-loader.service';
 
 @Component({
   selector: 'app-pages',
@@ -20,13 +21,22 @@ export class PagesComponent implements OnInit {
     id: 0
   } as IUserRegister;
 
-  constructor(private commonService: CommonService, private router: Router, private authService: AuthService) { }
+  isLoading: boolean = false;
+
+  constructor(private commonService: CommonService, private router: Router, private authService: AuthService, private loadService: NoventaLoaderService) { }
 
   ngOnInit(): void {
     this.authService.userInfo
       .subscribe((user: IUserRegister) => {
         this.userInfo = user;
       });
+
+    this.loadService.isLoading
+      .subscribe({
+        next: (loading: boolean) => {
+          this.isLoading = loading
+        }
+      })
 
     this.router.events.subscribe((route: any) => {
       this.commonService.isRouteActive(route.url);

@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   activeUser(userId: string) {
-    return this.http.post<any>(`${this.authPath}/AtivarAcesso?idUsuario=${userId}`, {});
+    return this.http.get<any>(`${this.authPath}/AtivarAcesso?idUsuario=${userId}`);
   }
 
   recoverAccess(document: string): Observable<any> {

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { IUserRegister } from '../../interface/IUserRegister';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NoventaLoaderComponent } from 'src/app/components/noventa-loader/noventa-loader.component';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 
 @Component({

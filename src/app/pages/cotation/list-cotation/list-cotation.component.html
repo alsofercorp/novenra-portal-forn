@@ -8,7 +8,7 @@
               Pesquisar
             </label>
             <nz-input-group [nzPrefix]="prefixTemplateUser">
-              <input type="text" class="form-control" nz-input placeholder="Solicitante ou local de destino" />
+              <input type="text" class="form-control" [(ngModel)]="filter.solicitacao" nz-input placeholder="Solicitante ou local de destino" (keyup)="getCotationFilter()" />
             </nz-input-group>
             <ng-template #prefixTemplateUser>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -22,7 +22,7 @@
             <label for="search">
               Status
             </label>
-            <nz-select class="form-control" nzPlaceHolder="Selecione um status" nzMode="multiple" [(ngModel)]="status">
+            <nz-select class="form-control" nzPlaceHolder="Selecione um status" [nzMaxTagCount]="2" nzMode="multiple" [(ngModel)]="filter.statusId" (ngModelChange)="onErase()">
               <nz-option *ngFor="let item of statusList" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
             </nz-select>
           </div>
@@ -30,7 +30,7 @@
             <label for="search">
               Motivo
             </label>
-            <nz-select class="form-control" nzMode="multiple" nzPlaceHolder="Selecione um motivo" [(ngModel)]="reason">
+            <nz-select class="form-control" nzMode="multiple" nzPlaceHolder="Selecione um motivo" [nzMaxTagCount]="2" [(ngModel)]="filter.motivoId" (ngModelChange)="onErase()">
               <nz-option *ngFor="let item of reasonList" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
             </nz-select>
           </div>
@@ -38,7 +38,7 @@
             <label for="search">
               Periodo
             </label>
-            <nz-range-picker class="form-control"></nz-range-picker>
+            <nz-range-picker class="form-control" [nzFormat]="brazilianFormat" [nzRanges]="range" [(ngModel)]="selectedDate" (ngModelChange)="onDateSelected($event)"></nz-range-picker>
           </div>
         </div>
       </div>
@@ -62,12 +62,12 @@
           </thead>
           <tbody>
             <tr *ngFor="let data of cotationTable.data">
-              <td>{{data.requester}}</td>
-              <td>{{data.destination}}</td>
-              <td>{{data.requestDate}}</td>
-              <td>{{data.wishedDelivery}}</td>
-              <td>{{data.reason}}</td>
-              <td>{{data.contact}}</td>
+              <td>{{data.solicitante}}</td>
+              <td>{{data.localDestino}}</td>
+              <td>{{data.dataSolicitacao | date: "dd/MM/yy 'às' HH:mm"}}</td>
+              <td>{{data.dataEntrega | date: "dd/MM/yy"}}</td>
+              <td>{{data.motivo}}</td>
+              <td>{{data.contato}}</td>
               <td>
                 <nz-tag [nzColor]="data.status.tag">
                   {{data.status.name}}

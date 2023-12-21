@@ -1,8 +1,8 @@
 export enum cotationStatusEnum {
-    approved,
-    sented,
-    pending,
-    notApproved,
-    inSeparetion,
-    recived,
+    approved = 'aprovada',
+    sented = 'enviada',
+    pending = 'pendente',
+    notApproved = 'não aprovada',
+    inSeparetion = 'em separacão',
+    recived = 'recebida',
 }
