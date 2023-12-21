@@ -33,6 +33,7 @@ import { PurchaseOrderComponent } from './purchase-order/purchase-order.componen
 import { PurchaseOrderDetailComponent } from './purchase-order/purchase-order-detail/purchase-order-detail.component';
 import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list/purchase-order-list.component';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
     HttpClientModule,
     IconsProviderModule,
     NoventaLoaderModule,
+    NgxMaskModule.forRoot(),
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,
