@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row w-100">
   <div class="col-md-12 pb-3 pt-3 header-info">
     <div class="row mb-4 mt-3">
       <div class="col-md-4">
@@ -77,13 +77,13 @@
     </div>
   </div>
 </div>
-<div class="row body-info">
+<div class="row  w-100 body-info">
   <div class="col-md-6 pedding-cotation">
     <div class="row">
       <div class="col-md-12">
         <h3>Cotações <small>pendentes</small></h3>
       </div>
-      <div class="bar-adjust" #scrollRef>
+      <div class="bar-adjust" *ngIf="penddingInfo.length > 0">
         <div *ngFor="let pedding of penddingInfo" class="col-md-12 card-container">
           <div class="cotation-card">
             <div class="row">
@@ -120,6 +120,9 @@
             </div>
           </div>
         </div>
+        <div class="bar-adjust" *ngIf="penddingInfo.length === 0">
+          <nz-empty nzNotFoundImage="simple"></nz-empty>
+        </div>
       </div>
     </div>
   </div>
@@ -128,7 +131,7 @@
       <div class="col-md-12">
         <h3>Atividades <small>recentes</small></h3>
       </div>
-      <div class="bar-adjust" #scrollRef *ngIf="recentlyActList.length > 0">
+      <div class="bar-adjust" *ngIf="recentlyActList.length > 0">
         <div *ngFor="let recently of recentlyActList" class="col-md-12 rec-info-container">
           <div class="status-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
@@ -144,9 +147,7 @@
         </div>
       </div>
       <div class="col-md-12 rec-info-container" *ngIf="recentlyActList.length === 0">
-        <div class="status-circle p-1">
-          <h3>Não existem atividades recentes</h3>
-        </div>
+        <nz-empty nzNotFoundImage="simple"></nz-empty>
       </div>
     </div>
   </div>

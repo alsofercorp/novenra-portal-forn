@@ -34,6 +34,7 @@ import { PurchaseOrderDetailComponent } from './purchase-order/purchase-order-de
 import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list/purchase-order-list.component';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NgxMaskModule } from 'ngx-mask';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NzBreadCrumbModule,
     NzCheckboxModule,
     NzStepsModule,
+    NzEmptyModule
   ],
   exports: [],
 })
