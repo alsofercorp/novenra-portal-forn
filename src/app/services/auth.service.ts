@@ -51,7 +51,7 @@ export class AuthService {
     const storage: string | null = localStorage.getItem('userData');
 
     if (storage) {
-      const userInfo: IUserRegister = JSON.parse(storage);
+      const userInfo: IUserRegister = JSON.parse(storage).user;
 
       return (userInfo.id > 0 && userInfo.ativo) ? true : false;
     } else {

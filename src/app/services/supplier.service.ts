@@ -1,7 +1,7 @@
+import { ISupplier } from './../interface/ISupplier';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ISupplier } from '../interface/ISupplier';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,5 +18,9 @@ export class SupplierService {
     }
 
     return this.http.post<ISupplier>(`${this.supplierPath}/AdicionarCadastroFornecedor`, input);
+  }
+
+  getSupplierById(id: number): Observable<ISupplier> {
+    return this.http.get<ISupplier>(`${this.supplierPath}/ListarCadastroFornecedor?id=${id}`);
   }
 }

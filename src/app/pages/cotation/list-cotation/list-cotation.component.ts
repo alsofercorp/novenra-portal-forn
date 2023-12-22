@@ -1,3 +1,4 @@
+import { IUserData } from './../../../interface/IUserRegister';
 import { ranges } from './../../../../assets/data/rangeDate';
 import { cotationStatusEnum } from './../../../../assets/Enum/cotationStatusEnum';
 import { IUserRegister } from 'src/app/interface/IUserRegister';
@@ -13,6 +14,7 @@ import { IStatus } from '../../../interface/IStatus';
 import { IReason } from 'src/app/interface/IReason';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-cotation',
@@ -24,7 +26,7 @@ export class ListCotationComponent implements OnInit {
   statusList: ISelectionItems[] = [];
   brazilianFormat: string = 'dd/MM/yy'
   range: any = ranges;
-  userData: IUserRegister = {} as IUserRegister;
+  userData: IUserData = {} as IUserData;
   filter: ICotationFilter = {
     idFornecedor: 0,
     motivoId: null,
@@ -37,12 +39,12 @@ export class ListCotationComponent implements OnInit {
 
   selectedDate: any = null;
 
-  constructor(private i18p: NzI18nService, private service: CotationService, private commonService: CommonService, private loaderService: NoventaLoaderService) {
+  constructor(private i18p: NzI18nService, private service: CotationService, private commonService: CommonService, private loaderService: NoventaLoaderService, private router: Router) {
     this.i18p.setLocale(pt_BR);
   }
 
   ngOnInit(): void {
-    this.loaderService.show(null);
+    this.loaderService.show();
 
     this.userData = this.commonService.getUserInfo();
 
@@ -55,7 +57,7 @@ export class ListCotationComponent implements OnInit {
       .pipe(switchMap((reason: IReason[]) => {
         this.reasonList = reason.map((rea: IReason) => ({ name: rea.nomeMotivo, value: rea.id }));
         
-        this.filter.idFornecedor = this.userData.id;
+        this.filter.idFornecedor = this.userData.user.id;
         
         return this.service.getCotation(this.filter);
       }))
@@ -95,8 +97,8 @@ export class ListCotationComponent implements OnInit {
   }
 
   getCotationFilter() {
-    this.loaderService.show(null);
-    this.filter.idFornecedor = this.userData.id;
+    this.loaderService.show();
+    this.filter.idFornecedor = this.userData.user.id;
 
     this.service.getCotation(this.filter)
       .subscribe({
@@ -114,7 +116,12 @@ export class ListCotationComponent implements OnInit {
       })
   }
 
+  getCotationDetail(id: string) {
+    this.router.navigate(['app', 'cotacao', 'detalhes', id]);
+  }
+
   private getStatus(status: string): any {
+    debugger
     switch (status) {
         case cotationStatusEnum.approved:
             return {

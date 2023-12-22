@@ -24,7 +24,7 @@ export class ForgottenPasswordComponent implements OnInit {
   }
 
   requestPasswordNewKey() {
-    this.loadService.show(null);
+    this.loadService.show();
 
     this.service.recoverAccess(this.forgottenForm.get('cpfcnpj')?.value)
       .subscribe({

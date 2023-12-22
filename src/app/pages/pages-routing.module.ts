@@ -5,7 +5,7 @@ import { RequestAnswerComponent } from './general/request-answer/request-answer.
 import { CotationComponent } from './cotation/cotation.component';
 import { PagesComponent } from './pages.component';
 import { ListCotationComponent } from './cotation/list-cotation/list-cotation.component';
-import { DetailCotationComponent } from './cotation/create-cotation/detail-cotation.component';
+import { DetailCotationComponent } from './cotation/detail-cotation/detail-cotation.component';
 import { ListGeneralComponent } from './general/list-general/list-general.component';
 import { PurchaseOrderComponent } from './purchase-order/purchase-order.component';
 import { PurchaseOrderListComponent } from './purchase-order/purchase-order-list/purchase-order-list.component';
@@ -26,7 +26,7 @@ const routes: Routes = [
             title: 'Cotação'
           },
           {
-            path: 'detalhes',
+            path: 'detalhes/:id',
             component: DetailCotationComponent,
             title: 'Detalhes da Cotação'
           }

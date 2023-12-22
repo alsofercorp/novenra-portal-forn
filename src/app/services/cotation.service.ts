@@ -1,4 +1,4 @@
-import { ICotationModel } from './../interface/ICotation';
+import { ICotationModel, ICotationById } from './../interface/ICotation';
 import { IStatus } from './../interface/IStatus';
 import { IReason } from './../interface/IReason';
 import { HttpClient } from '@angular/common/http';
@@ -31,5 +31,9 @@ export class CotationService {
 
   getCotation(filter: ICotationFilter): Observable<ICotationModel[]> {
     return this.http.post<ICotationModel[]>(`${this.apiUrl}/Cotacao/ListarCotacaoFornecedor`, filter);
+  }
+
+  getCotationById(id: string): Observable<ICotationById> {
+    return this.http.post<ICotationById>(`${this.apiUrl}/Cotacao/ListarCotacaoId?Id=${id}`, {});
   }
 }

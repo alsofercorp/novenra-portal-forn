@@ -10,7 +10,7 @@ export class NoventaLoaderService {
 
   constructor() { }
 
-  show(loadMessage: string | null) {
+  show(loadMessage: string | null = null) {
     
     if (loadMessage) {
       this.loadMessage.emit(loadMessage);

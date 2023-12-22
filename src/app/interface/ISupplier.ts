@@ -1,15 +1,17 @@
 export interface ISupplier {
     id: number,
-    cnpj: string,
-    razaosocial: string,
-    cep: string,
+    cnpjCpf: number,
+    razaoSocial: string,
+    cep: number,
     logradouro: string,
-    numero: string,
+    numero: number,
     complemento: string,
     cidade: string,
     idEstado: number,
     nomeUsuarioCadastro: string,
-    dataCadastro: Date | string,
+    dataCadastro: string | Date,
     nomeUsuarioAlteracao: string,
-    dataAltercacao: Date | string
+    dataAlteracao: string | Date,
+    telefone: number,
+    inscricaoEstadual: number | null
 }

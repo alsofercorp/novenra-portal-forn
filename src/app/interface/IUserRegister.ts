@@ -1,3 +1,5 @@
+import { ISupplier } from "./ISupplier"
+
 export interface IUserRegisterDto {
     password: number,
     email: string,
@@ -14,4 +16,9 @@ export interface IUserRegister {
 export interface IUserLoginDto {
     password: number,
     email: string
+}
+
+export interface IUserData {
+    user: IUserRegister,
+    supplier: ISupplier
 }

@@ -1,3 +1,4 @@
+import { IUserData } from './../../../interface/IUserRegister';
 import { IRecentlyActive } from './../../../interface/IRecentlyActive';
 import { IWeekFilter, IStatistic } from './../../../interface/IFilter';
 import { CommonService } from './../../../services/common.service';
@@ -18,7 +19,7 @@ import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-
 })
 export class ListGeneralComponent implements OnInit {
   weekDashboardSelection: any = DashboardWeek;
-  userData: IUserRegister = {} as IUserRegister;
+  userData: IUserData = {} as IUserData;
   selectedRadioWeek: string = '1';
 
   infoData: IStatistic = {} as IStatistic;
@@ -45,9 +46,9 @@ export class ListGeneralComponent implements OnInit {
   }
 
   getWeekDashboard(weekSelected: DashboardWeek) {
-    this.loaderService.show(null);
+    this.loaderService.show();
 
-    this.service.getDashboardByWeek(this.userData.id, weekSelected)
+    this.service.getDashboardByWeek(this.userData.user.id, weekSelected)
       .subscribe({
         next: (filter: IWeekFilter) => {
           this.penddingInfo = filter.pending;

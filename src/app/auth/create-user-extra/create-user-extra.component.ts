@@ -141,7 +141,7 @@ export class CreateUserExtraComponent implements OnInit {
   }
 
   createAccount() {
-    this.loadService.show(null);
+    this.loadService.show();
 
     const storage: string | null = localStorage.getItem('userInfo');
 

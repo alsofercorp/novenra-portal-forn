@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GeneralComponent } from './general/general.component';
 import { CotationComponent } from './cotation/cotation.component';
-import { DetailCotationComponent } from './cotation/create-cotation/detail-cotation.component';
+import { DetailCotationComponent } from './cotation/detail-cotation/detail-cotation.component';
 import { RequestAnswerComponent } from './general/request-answer/request-answer.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';

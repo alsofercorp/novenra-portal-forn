@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { ISerpro } from '../interface/ISerpro';
-import { IUserRegister } from '../interface/IUserRegister';
+import { IUserData, IUserRegister } from '../interface/IUserRegister';
 
 const ToastObj = Swal.mixin({
   toast: true,
@@ -36,8 +36,8 @@ export class CommonService {
     return this.http.jsonp<ISerpro>(`${this.serpro}/cnpj/${cnpj}?callback=JSONP_CALLBACK`, 'callback');
   }
 
-  getUserInfo(): IUserRegister {
-    let userData: IUserRegister = {} as IUserRegister;
+  getUserInfo(): IUserData {
+    let userData: IUserData = {} as IUserData;
 
     const storage: string | null = localStorage.getItem('userData');
 
