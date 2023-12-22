@@ -88,7 +88,6 @@ export class CreateUserExtraComponent implements OnInit {
 
             this.complementationDataForm.patchValue({
               razaoSocial: companyInfo.nome,
-              telefone: companyInfo.telefone,
               numero: companyInfo.numero,
               complemento: companyInfo.complemento,
               cep: cep
@@ -133,6 +132,7 @@ export class CreateUserExtraComponent implements OnInit {
         razaoSocial: 'Não se aplica',
         inscricaoEstadual: '',
         cep: '',
+        telefone: '',
         logradouro: '',
         numero: '',
         complemento: '',
