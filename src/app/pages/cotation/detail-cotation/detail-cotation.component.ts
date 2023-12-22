@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 import { ActivatedRoute } from '@angular/router';
-import { ISupplier } from 'src/app/interface/ISupplier';
 import { IUserData } from 'src/app/interface/IUserRegister';
 import { switchMap } from 'rxjs';
 

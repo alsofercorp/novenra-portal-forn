@@ -23,6 +23,8 @@ export class CreateUserExtraComponent implements OnInit {
   complementationDataForm: FormGroup = new FormGroup({
     id: new FormControl(0, [Validators.required, Validators.min(1)]),
     cnpjCpf: new FormControl('', [Validators.required]),
+    inscricaoEstadual: new FormControl('', []),
+    telefone: new FormControl('', [Validators.required]),
     razaoSocial: new FormControl('', [Validators.required]),
     cep: new FormControl('', [Validators.required]),
     logradouro: new FormControl('', [Validators.required]),
@@ -73,9 +75,10 @@ export class CreateUserExtraComponent implements OnInit {
 
   fillCompanyData() {
     if (this.complementationDataForm.controls['cnpjCpf'].value.length > 11) {
-      this.loadService.show('Estamos consultando seu CNPJ, por favor, aguarde!');
+      this.loadService.show();
 
       this.complementationDataForm.controls['razaoSocial'].enable();
+      this.complementationDataForm.controls['inscricaoEstadual'].enable();
 
       this.commonService
         .getCompanyInfo(this.complementationDataForm.controls['cnpjCpf'].value)
@@ -85,6 +88,7 @@ export class CreateUserExtraComponent implements OnInit {
 
             this.complementationDataForm.patchValue({
               razaoSocial: companyInfo.nome,
+              telefone: companyInfo.telefone,
               numero: companyInfo.numero,
               complemento: companyInfo.complemento,
               cep: cep
@@ -127,6 +131,7 @@ export class CreateUserExtraComponent implements OnInit {
     } else {
       this.complementationDataForm.patchValue({
         razaoSocial: 'Não se aplica',
+        inscricaoEstadual: '',
         cep: '',
         logradouro: '',
         numero: '',
@@ -137,6 +142,7 @@ export class CreateUserExtraComponent implements OnInit {
       });
 
       this.complementationDataForm.controls['razaoSocial'].disable();
+      this.complementationDataForm.controls['inscricaoEstadual'].disable();
     }
   }
 

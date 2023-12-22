@@ -110,6 +110,7 @@ export class ListCotationComponent implements OnInit {
           this.loaderService.hidde();
         },
         error: (err: HttpErrorResponse) => {
+          debugger
           this.commonService.ToastError(err.error);
           this.loaderService.hidde();
         }

@@ -5,6 +5,7 @@ import { ILinkClass, LinkClass } from '../interface/ILinkClass';
 import { AuthService } from '../services/auth.service';
 import { IUserRegister } from '../interface/IUserRegister';
 import { NoventaLoaderService } from '../components/noventa-loader/noventa-loader.service';
+import { ISupplier } from '../interface/ISupplier';
 
 @Component({
   selector: 'app-pages',
@@ -20,17 +21,13 @@ export class PagesComponent implements OnInit {
     email: '',
     id: 0
   } as IUserRegister;
+  companyData: ISupplier = {} as ISupplier;
 
   isLoading: boolean = false;
 
   constructor(private commonService: CommonService, private router: Router, private authService: AuthService, private loadService: NoventaLoaderService) { }
 
   ngOnInit(): void {
-    this.authService.userInfo
-      .subscribe((user: IUserRegister) => {
-        this.userInfo = user;
-      });
-
     this.loadService.isLoading
       .subscribe({
         next: (loading: boolean) => {
@@ -38,8 +35,13 @@ export class PagesComponent implements OnInit {
         }
       })
 
+    this.userInfo = this.commonService.getUserInfo().user;
+    this.companyData = this.commonService.getUserInfo().supplier;
+
     this.router.events.subscribe((route: any) => {
-      this.commonService.isRouteActive(route.url);
+      if (route?.url) {
+        this.commonService.isRouteActive(route.url); 
+      }
     });
 
     const storage = localStorage.getItem('userData');
@@ -60,5 +62,9 @@ export class PagesComponent implements OnInit {
 
       clearInterval(asd);
     }, 1000)
+  }
+
+  captalizeCompanyName(companyName: string) {
+    return companyName.charAt(0).toUpperCase() + companyName.substring(1, 8).toLowerCase();
   }
 }

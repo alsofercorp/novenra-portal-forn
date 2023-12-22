@@ -10,14 +10,14 @@ export interface ICotationModel {
 }
 
 export interface ICotationById {
-  cotacao: ICotation,
-  dadosSolicitante: IRequesterData,
-  material: IMaterial[],
-  resumoCotacao: IResume
+  cotacao: ICotation | null | undefined,
+  dadosSolicitante: IRequesterData | null | undefined,
+  material: IMaterial[] | null | undefined,
+  resumoCotacao: IResume | null | undefined,
 }
 
 interface IResume {
-  formaPagamento: string,
+  formaPagamento: string
   outrasDespesas: number,
   subTotalItens: number,
   valorDesconto: number,

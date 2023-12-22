@@ -1,4 +1,4 @@
-<div class="row create-cotation">
+<div class="row create-cotation">.cotacao?.
     <div class="col-md-12">
         <div class="row mb-3">
             <div class="col-md-12 brad-page-header">
@@ -10,12 +10,12 @@
                     <nz-breadcrumb-item>Detalhes da Cotação</nz-breadcrumb-item>
                 </nz-breadcrumb>
                 <div class="right-info">
-                    <span class="regional">RM {{cotationDetail.cotacao.idCotacao}}</span>
+                    <span class="regional">RM {{cotationDetail.cotacao?.idCotacao}}</span>
                     <button class="btn btn-printer">
                         <i class="ri-printer-line"></i>
                         Imprimir OC
                     </button>
-                    <nz-tag [nzColor]="'blue'">{{cotationDetail.cotacao.nomeStatus}}</nz-tag>
+                    <nz-tag [nzColor]="'blue'">{{cotationDetail.cotacao?.nomeStatus}}</nz-tag>
                 </div>
             </div>
         </div>
@@ -26,22 +26,22 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <b>Razão Social: <span>{{cotationDetail.dadosSolicitante.nome}}</span></b>
+                        <b>Razão Social: <span>{{cotationDetail.dadosSolicitante?.nome}}</span></b>
                     </div>
                     <div class="col-md-6">
-                        <b>Endereço: <span>{{cotationDetail.dadosSolicitante.endereco}}</span></b>
+                        <b>Endereço: <span>{{cotationDetail.dadosSolicitante?.endereco}}</span></b>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <b>CNPJ: <span>{{cotationDetail.dadosSolicitante.cnpj | mask:
+                        <b>CNPJ: <span>{{cotationDetail.dadosSolicitante?.cnpj ? cotationDetail.dadosSolicitante?.cnpj : '00000000000000' | mask:
                                 '00.000.000/00000-00'}}</span></b>
                     </div>
                     <div class="col-md-4">
                         <b>Inscrição Estadual: <span>-</span></b>
                     </div>
                     <div class="col-md-4">
-                        <b>CEP: <span>{{cotationDetail.dadosSolicitante.cep}}</span></b>
+                        <b>CEP: <span>{{cotationDetail.dadosSolicitante?.cep}}</span></b>
                     </div>
                 </div>
                 <div class="row">
@@ -49,11 +49,11 @@
                         <b>Contato: <span>-</span></b>
                     </div>
                     <div class="col-md-4">
-                        <b>Telefone: <span>{{cotationDetail.dadosSolicitante.contato | mask: '(00) 0000-0000||(00) 0
+                        <b>Telefone: <span>{{cotationDetail.dadosSolicitante?.contato ? cotationDetail.dadosSolicitante?.contato : '0000000000' | mask: '(00) 0000-0000||(00) 0
                                 0000-0000'}}</span></b>
                     </div>
                     <div class="col-md-4">
-                        <b>E-mail: <span>{{cotationDetail.dadosSolicitante.email}}</span></b>
+                        <b>E-mail: <span>{{cotationDetail.dadosSolicitante?.email}}</span></b>
                     </div>
                 </div>
             </div>
@@ -164,49 +164,49 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <b>Formas de pagamento:
-                                    <span>{{cotationDetail.resumoCotacao.formaPagamento}}</span></b>
+                                    <span>{{cotationDetail.resumoCotacao?.formaPagamento}}</span></b>
                             </div>
                             <div class="col-md-6">
-                                <b>Descontos: <span>{{cotationDetail.resumoCotacao.valorDesconto | currency:
+                                <b>Descontos: <span>{{cotationDetail.resumoCotacao?.valorDesconto | currency:
                                         'BRL'}}</span></b>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <b>Tipo de frete: <span>{{cotationDetail.cotacao.nomeFrete}}</span></b>
+                                <b>Tipo de frete: <span>{{cotationDetail.cotacao?.nomeFrete}}</span></b>
                             </div>
                             <div class="col-md-6">
-                                <b>Outras despesas: <span>{{cotationDetail.resumoCotacao.outrasDespesas | currency:
+                                <b>Outras despesas: <span>{{cotationDetail.resumoCotacao?.outrasDespesas | currency:
                                         'BRL'}}</span></b>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <b>Valor do frete: <span>{{cotationDetail.resumoCotacao.valorFrete | currency:
+                                <b>Valor do frete: <span>{{cotationDetail.resumoCotacao?.valorFrete | currency:
                                         'BRL'}}</span></b>
                             </div>
                             <div class="col-md-6">
-                                <b>Seguro: <span>{{cotationDetail.resumoCotacao.valorSeguro | currency:
+                                <b>Seguro: <span>{{cotationDetail.resumoCotacao?.valorSeguro | currency:
                                         'BRL'}}</span></b>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <b>Data de entrega desejado: <span>{{cotationDetail.cotacao.dataEntregaDesejavel | date:
+                                <b>Data de entrega desejado: <span>{{cotationDetail.cotacao?.dataEntregaDesejavel | date:
                                         'dd/MM/yy'}}</span></b>
                             </div>
                             <div class="col-md-6">
-                                <b>Prazo maximo da cotação: <span>{{cotationDetail.cotacao.prazoMaximoCotacao |
+                                <b>Prazo maximo da cotação: <span>{{cotationDetail.cotacao?.prazoMaximoCotacao |
                                         date: 'dd/MM/yy'}}</span></b>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <b>Frete fora da nota: <span>{{cotationDetail.cotacao.valorFreteForaNota | currency:
+                                <b>Frete fora da nota: <span>{{cotationDetail.cotacao?.valorFreteForaNota ? cotationDetail.cotacao?.valorFreteForaNota : 0 | currency:
                                         'BRL'}}</span></b>
                             </div>
                             <div class="col-md-6">
-                                <b>Comentários: <span>{{cotationDetail.cotacao.observacao}}</span></b>
+                                <b>Comentários: <span>{{cotationDetail.cotacao?.observacao}}</span></b>
                             </div>
                         </div>
                     </div>
@@ -214,31 +214,31 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <span>Subtotal itens</span>
-                                <span>(+) {{cotationDetail.resumoCotacao.subTotalItens | currency: 'BRL'}}</span>
+                                <span>(+) {{cotationDetail.resumoCotacao?.subTotalItens ? cotationDetail.resumoCotacao?.subTotalItens : 0 | currency: 'BRL'}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <span>Valor frete</span>
-                                <span>(+) {{cotationDetail.resumoCotacao.valorFrete | currency: 'BRL'}}</span>
+                                <span>(+) {{cotationDetail.resumoCotacao?.valorFrete ? cotationDetail.resumoCotacao?.valorFrete : 0 | currency: 'BRL'}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <span>Seguro</span>
-                                <span>(+) {{cotationDetail.resumoCotacao.valorSeguro | currency: 'BRL'}}</span>
+                                <span>(+) {{cotationDetail.resumoCotacao?.valorSeguro ? cotationDetail.resumoCotacao?.valorSeguro : 0 | currency: 'BRL'}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <span>Descontos</span>
-                                <span>(-) {{cotationDetail.resumoCotacao.valorDesconto | currency: 'BRL'}}</span>
+                                <span>(-) {{cotationDetail.resumoCotacao?.valorDesconto ? cotationDetail.resumoCotacao?.valorDesconto : 0 | currency: 'BRL'}}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <span>Outras despesas</span>
-                                <span>(+) R$ {{cotationDetail.resumoCotacao.outrasDespesas | currency:
+                                <span>(+) R$ {{cotationDetail.resumoCotacao?.outrasDespesas ? cotationDetail.resumoCotacao?.outrasDespesas : 0 | currency:
                                     'BRL'}}</span>
                             </div>
                         </div>
@@ -246,7 +246,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <span>Valor total final</span>
-                                <span>{{cotationDetail.resumoCotacao.valorFinalCotacao | currency: 'BRL'}}</span>
+                                <span>{{cotationDetail.resumoCotacao?.valorFinalCotacao ? cotationDetail.resumoCotacao?.valorFinalCotacao : 0 | currency: 'BRL'}}</span>
                             </div>
                         </div>
                     </div>

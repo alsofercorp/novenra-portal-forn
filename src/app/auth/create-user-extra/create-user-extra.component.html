@@ -17,7 +17,8 @@
             <div class="input-container">
               <label class="input-label" for="cnpjCpf">CPF / CNPJ</label>
               <input id="cnpjCpf" formControlName="cnpjCpf" nz-input class="form-control noventa-input"
-                placeholder="Insira o CPF ou CNPJ" mask="000.000.000-00||00.000.000/0000-00" type="text" (blur)="fillCompanyData()"
+                placeholder="Insira o CPF ou CNPJ" mask="000.000.000-00||00.000.000/0000-00" type="text"
+                (blur)="fillCompanyData()"
                 [class]="(complementationDataForm.get('cnpjCpf')?.invalid && complementationDataForm.get('cnpjCpf')?.errors && (complementationDataForm.get('cnpjCpf')?.dirty || complementationDataForm.get('cnpjCpf')?.touched)) ? 'hasError' : ''" />
               <div
                 *ngIf="complementationDataForm.get('cnpjCpf')?.invalid && complementationDataForm.get('cnpjCpf')?.errors && (complementationDataForm.get('cnpjCpf')?.dirty || complementationDataForm.get('cnpjCpf')?.touched)">
@@ -25,10 +26,17 @@
                   * O campo CPF / CNPJ é obrigatorio.
                 </small>
                 <small class="text-danger" *ngIf="complementationDataForm.get('cnpjCpf')?.hasError('mask')">
-                  * O Campo CPF / CNPJ deve ter no minimo {{countMaskMinLenght(complementationDataForm.get('cnpjCpf')?.errors)}}
+                  * O Campo CPF / CNPJ deve ter no minimo
+                  {{countMaskMinLenght(complementationDataForm.get('cnpjCpf')?.errors)}}
                   caracteres.
                 </small>
               </div>
+            </div>
+
+            <div class="input-container">
+              <label class="input-label" for="ie">Inscrião Estadual</label>
+              <input id="ie" formControlName="inscricaoEstadual" nz-input class="form-control noventa-input"
+                placeholder="Insira a inscricao estadual" mask="999.999.999/9999" type="text" />
             </div>
 
             <div class="input-container">
@@ -40,6 +48,21 @@
                 *ngIf="complementationDataForm.get('razaoSocial')?.invalid && complementationDataForm.get('razaoSocial')?.errors && (complementationDataForm.get('razaoSocial')?.dirty || complementationDataForm.get('razaoSocial')?.touched)">
                 <small class="text-danger" *ngIf="complementationDataForm.get('razaoSocial')?.hasError('required')">
                   * O campo razão social é obrigatorio.
+                </small>
+              </div>
+            </div>
+
+            <div class="input-container">
+              <label class="input-label" for="tel">Telefone</label>
+              <input id="tel" formControlName="telefone" nz-input class="form-control noventa-input"
+                placeholder="Insira o telefone" mask="(00) 0000-0000||(00) 0 0000-0000" type="tel" />
+              <div
+                *ngIf="complementationDataForm.get('telefone')?.invalid && complementationDataForm.get('telefone')?.errors && (complementationDataForm.get('telefone')?.dirty || complementationDataForm.get('telefone')?.touched)">
+                <small class="text-danger" *ngIf="complementationDataForm.get('telefone')?.hasError('required')">
+                  * O campo telefone é obrigatorio.
+                </small>
+                <small class="text-danger" *ngIf="complementationDataForm.get('telefone')?.hasError('mask')">
+                  * O campo telefone deve conter entre 10 a 11 Caracteres.
                 </small>
               </div>
             </div>
