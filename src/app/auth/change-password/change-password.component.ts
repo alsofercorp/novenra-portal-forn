@@ -41,7 +41,6 @@ export class ChangePasswordComponent implements OnInit {
 
   resetPassword() {
     this.loaderService.show('Efetuando a alteração de senha, aguarde!');
-    debugger
     this.service
       .changePassword({password: this.recoverForm.get('password')?.value, email: this.userEmail})
       .subscribe({

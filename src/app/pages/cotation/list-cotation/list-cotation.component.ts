@@ -110,7 +110,6 @@ export class ListCotationComponent implements OnInit {
           this.loaderService.hidde();
         },
         error: (err: HttpErrorResponse) => {
-          debugger
           this.commonService.ToastError(err.error);
           this.loaderService.hidde();
         }
@@ -122,7 +121,6 @@ export class ListCotationComponent implements OnInit {
   }
 
   private getStatus(status: string): any {
-    debugger
     switch (status) {
         case cotationStatusEnum.approved:
             return {
