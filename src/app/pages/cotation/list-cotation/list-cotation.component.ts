@@ -7,7 +7,7 @@ import { CommonService } from './../../../services/common.service';
 import { CotationService } from './../../../services/cotation.service';
 import { NzI18nService, pt_BR } from 'ng-zorro-antd/i18n';
 import { ISelectionItems } from './../../../interface/ISelectionItems';
-import { ICotationModel } from './../../../interface/ICotation';
+import { ICotationList, ICotationModel } from './../../../interface/ICotation';
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs';
 import { IStatus } from '../../../interface/IStatus';
@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-cotation.component.scss']
 })
 export class ListCotationComponent implements OnInit {
-  cotationData: ICotationModel[] = [];
+  cotationData: ICotationList[] = [];
   statusList: ISelectionItems[] = [];
   brazilianFormat: string = 'dd/MM/yy'
   range: any = ranges;
@@ -33,8 +33,10 @@ export class ListCotationComponent implements OnInit {
     statusId: null,
     solicitacao: null,
     dataInicio: null,
-    dataTermino: null
+    dataTermino: null,
+    page: 1
   };
+  totalItens: number = 0;
   reasonList: ISelectionItems[] = [];
 
   selectedDate: any = null;
@@ -62,8 +64,10 @@ export class ListCotationComponent implements OnInit {
         return this.service.getCotation(this.filter);
       }))
       .subscribe({
-        next: (cotation: ICotationModel[]) => {
-          this.cotationData = cotation.map((cot: ICotationModel) => {
+        next: (cotation: ICotationModel) => {
+          this.totalItens = cotation.totalPage;
+
+          this.cotationData = cotation.cotacoes.map((cot: ICotationList) => {
             cot.status = this.getStatus(cot.status.toLocaleLowerCase())
             return cot;
           });
@@ -102,8 +106,10 @@ export class ListCotationComponent implements OnInit {
 
     this.service.getCotation(this.filter)
       .subscribe({
-        next: (cotation: ICotationModel[]) => {
-          this.cotationData = cotation.map((cot: ICotationModel) => {
+        next: (cotation: ICotationModel) => {
+          this.totalItens = cotation.totalPage;
+          
+          this.cotationData = cotation.cotacoes.map((cot: ICotationList) => {
             cot.status = this.getStatus(cot.status.toLocaleLowerCase())
             return cot;
           });
@@ -118,6 +124,12 @@ export class ListCotationComponent implements OnInit {
 
   getCotationDetail(id: string) {
     this.router.navigate(['app', 'cotacao', 'detalhes', id]);
+  }
+
+  getNextPreviousPage(pageNumber: number) {
+    this.filter.page = pageNumber;
+
+    this.getCotationFilter();
   }
 
   private getStatus(status: string): any {

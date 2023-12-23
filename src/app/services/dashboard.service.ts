@@ -12,8 +12,8 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-  getDashboardByWeek(idFornecedor: number, id: number): Observable<IWeekFilter> {
-    return this.http.get<IWeekFilter>(`${this.apiUrl}/Filtros/ListarDadosDashBoard?idFornecedor=${idFornecedor}&idData=${id}`)
+  getDashboardByWeek(idFornecedor: number, id: number, peddingPage: number, currentPage: number): Observable<IWeekFilter> {
+    return this.http.get<IWeekFilter>(`${this.apiUrl}/Filtros/ListarDadosDashBoard?idFornecedor=${idFornecedor}&idData=${id}&peddingPage=${peddingPage}&currentlyPage=${currentPage}`)
       .pipe(map((res: any) => {
         return {
           pending: res.data.listaCotacoesPendentesDashBoards ? res.data.listaCotacoesPendentesDashBoards : [],
@@ -23,7 +23,9 @@ export class DashboardService {
             cotacoesPendentes: res.data.cotacoesPendentes,
             ocsAprovadas: res.data.ocsAprovadas,
             ocsFinalizadas: res.data.ocsFinalizadas
-          }
+          },
+          totalPendingCotationPage: res.data.cotacoesPendentesPageCount,
+          totalRecentlyCotationPage: res.data.CotacoesRecentesPageCount
         } as IWeekFilter;
       }));
   }

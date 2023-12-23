@@ -1,4 +1,9 @@
 export interface ICotationModel {
+  cotacoes: ICotationList[],
+  totalPage: number
+}
+
+export interface ICotationList {
   id: string
   solicitante: string,
   localDestino: string,
@@ -6,14 +11,15 @@ export interface ICotationModel {
   dataEntrega: string,
   motivo: string,
   contato: string,
-  status: any
+  status: any,
+  cotacoesPendentesPageCount: number
 }
 
 export interface ICotationById {
-  cotacao: ICotation | null | undefined,
-  dadosSolicitante: IRequesterData | null | undefined,
-  material: IMaterial[] | null | undefined,
-  resumoCotacao: IResume | null | undefined,
+  cotacao: ICotation,
+  dadosSolicitante: IRequesterData,
+  material: IMaterial[],
+  resumoCotacao: IResume,
 }
 
 interface IResume {

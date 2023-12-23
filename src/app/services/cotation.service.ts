@@ -29,8 +29,8 @@ export class CotationService {
       }))
   }
 
-  getCotation(filter: ICotationFilter): Observable<ICotationModel[]> {
-    return this.http.post<ICotationModel[]>(`${this.apiUrl}/Cotacao/ListarCotacaoFornecedor`, filter);
+  getCotation(filter: ICotationFilter): Observable<ICotationModel> {
+    return this.http.post<ICotationModel>(`${this.apiUrl}/Cotacao/ListarCotacaoFornecedor`, filter);
   }
 
   getCotationById(id: string): Observable<ICotationById> {

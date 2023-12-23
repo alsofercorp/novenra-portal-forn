@@ -93,7 +93,7 @@
       </ngx-simplebar>
     </div>
     <div class="row pagination-container">
-      <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+      <nz-pagination (nzPageIndexChange)="getNextPreviousPage($event)" [nzPageIndex]="filter.page" [nzTotal]="totalItens" [nzPageSize]="10"></nz-pagination>
     </div>
   </div>
 </div>

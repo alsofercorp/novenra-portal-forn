@@ -361,9 +361,8 @@ nz-table {
 }
 
 .bar-adjust {
-  height: calc(100vh - 400px);
   padding: 12px 12px 0 12px;
-  margin-bottom: 58px;
+  overflow: hidden;
 }
 
 .noventa-box-shadow {

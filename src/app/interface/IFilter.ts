@@ -4,7 +4,9 @@ import { IRecentlyActive } from "./IRecentlyActive";
 export interface IWeekFilter {
     pending: IPeddingCotation[],
     recently: IRecentlyActive[],
-    statistic: IStatistic
+    statistic: IStatistic,
+    totalPendingCotationPage: number,
+    totalRecentlyCotationPage: number
 }
 
 export interface IStatistic {
@@ -21,4 +23,5 @@ export interface ICotationFilter {
     motivoId: number[] | null,
     dataInicio: string | Date | null,
     dataTermino: string | Date | null
+    page: number
   }

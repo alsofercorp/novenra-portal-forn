@@ -6,12 +6,12 @@
       </div>
       <div class="col-md-8 d-flex justify-content-end">
         <nz-radio-group [(ngModel)]="selectedRadioWeek">
-          <label nz-radio-button nzValue="1" (click)="getWeekDashboard(1)">Útima semana</label>
-          <label nz-radio-button nzValue="2" (click)="getWeekDashboard(2)">Últimos 15 dias</label>
-          <label nz-radio-button nzValue="3" (click)="getWeekDashboard(3)">Últimos 30 dias</label>
-          <label nz-radio-button nzValue="5" (click)="getWeekDashboard(5)">Últimos trimestre</label>
-          <label nz-radio-button nzValue="6" (click)="getWeekDashboard(6)">Últimos semestre</label>
-          <label nz-radio-button nzValue="7" (click)="getWeekDashboard(7)">Últimos ano</label>
+          <label nz-radio-button nzValue="1" (click)="selectWeek(1)">Útima semana</label>
+          <label nz-radio-button nzValue="2" (click)="selectWeek(2)">Últimos 15 dias</label>
+          <label nz-radio-button nzValue="3" (click)="selectWeek(3)">Últimos 30 dias</label>
+          <label nz-radio-button nzValue="5" (click)="selectWeek(5)">Últimos trimestre</label>
+          <label nz-radio-button nzValue="6" (click)="selectWeek(6)">Últimos semestre</label>
+          <label nz-radio-button nzValue="7" (click)="selectWeek(7)">Últimos ano</label>
         </nz-radio-group>
       </div>
     </div>
@@ -83,7 +83,7 @@
       <div class="col-md-12">
         <h3>Cotações <small>pendentes</small></h3>
       </div>
-      <div class="bar-adjust" *ngIf="penddingInfo.length > 0">
+      <ngx-simplebar class="bar-adjust" *ngIf="penddingInfo.length > 0">
         <div *ngFor="let pedding of penddingInfo" class="col-md-12 card-container">
           <div class="cotation-card">
             <div class="row">
@@ -120,10 +120,11 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="bar-adjust" *ngIf="penddingInfo.length === 0">
-        <nz-empty nzNotFoundImage="simple"></nz-empty>
-      </div>
+        <div class="pagination-container">
+          <nz-pagination (nzPageIndexChange)="getPeddingNextPage($event)" [nzHideOnSinglePage]="true"
+            [nzPageIndex]="PaddingPage" [nzPageSize]="10" [nzTotal]="totalPaddingItens"></nz-pagination>
+        </div>
+      </ngx-simplebar>
     </div>
   </div>
   <div class="col-md-6 recentlyAct">
@@ -131,12 +132,11 @@
       <div class="col-md-12">
         <h3>Atividades <small>recentes</small></h3>
       </div>
-      <div class="bar-adjust" *ngIf="recentlyActList.length > 0">
+      <ngx-simplebar class="bar-adjust" *ngIf="recentlyActList.length > 0">
         <div *ngFor="let recently of recentlyActList" class="col-md-12 rec-info-container">
           <div class="status-circle">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
-              <circle cx="6" cy="6.05566" r="6" fill="#EC7000"
-                [ngClass]="getAction(recently.acao)" />
+              <circle cx="6" cy="6.05566" r="6" fill="#EC7000" [ngClass]="getAction(recently.acao)" />
             </svg>
             <h3>{{recently.acao}}</h3>
           </div>
@@ -145,7 +145,11 @@
           <label class="rec-date" for="destiny">{{recently.dataEntrega | date: "dd/MM/yyyy 'às' HH:mm"}}</label>
           <nz-divider></nz-divider>
         </div>
-      </div>
+        <div class="pagination-container">
+          <nz-pagination (nzPageIndexChange)="getCurrentlyNextPage($event)" [nzHideOnSinglePage]="true"
+            [nzPageIndex]="CurrentlyPage" [nzPageSize]="10" [nzTotal]="totalCurrentlyItens"></nz-pagination>
+        </div>
+      </ngx-simplebar>
       <div class="col-md-12 rec-info-container" *ngIf="recentlyActList.length === 0">
         <nz-empty nzNotFoundImage="simple"></nz-empty>
       </div>

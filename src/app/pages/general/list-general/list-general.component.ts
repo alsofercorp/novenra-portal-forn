@@ -21,17 +21,25 @@ export class ListGeneralComponent implements OnInit {
   weekDashboardSelection: any = DashboardWeek;
   userData: IUserData = {} as IUserData;
   selectedRadioWeek: string = '1';
+  
+  weekSelected: number = DashboardWeek.UltimaSemana;
 
   infoData: IStatistic = {} as IStatistic;
   penddingInfo: IPeddingCotation[] = [];
   recentlyActList: IRecentlyActive[] = [];
+
+  PaddingPage: number = 1
+  CurrentlyPage: number = 1
+
+  totalPaddingItens: number = 0;
+  totalCurrentlyItens: number = 0;
 
   constructor(private router: Router, private service: DashboardService, private loaderService: NoventaLoaderService, private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.userData = this.commonService.getUserInfo();
 
-    this.getWeekDashboard(DashboardWeek.UltimaSemana);
+    this.getWeekDashboard();
   }
 
   answerRequest(id: number) {
@@ -45,15 +53,35 @@ export class ListGeneralComponent implements OnInit {
     return actText.toLocaleLowerCase();
   }
 
-  getWeekDashboard(weekSelected: DashboardWeek) {
+  getPeddingNextPage(pageNumber: number) {
+    this.PaddingPage = pageNumber;
+    this.getWeekDashboard();
+  }
+
+  getCurrentlyNextPage(pageNumber: number) {
+    this.CurrentlyPage = pageNumber;
+    this.getWeekDashboard();
+  }
+
+  selectWeek(week: number) {
+    this.weekSelected = week;
+    this.PaddingPage = 1;
+    this.CurrentlyPage = 1;
+    this.getWeekDashboard();
+  }
+
+  getWeekDashboard() {
     this.loaderService.show();
 
-    this.service.getDashboardByWeek(this.userData.user.id, weekSelected)
+    this.service.getDashboardByWeek(this.userData.user.id, this.weekSelected, this.PaddingPage, this.CurrentlyPage)
       .subscribe({
         next: (filter: IWeekFilter) => {
           this.penddingInfo = filter.pending;
           this.recentlyActList = filter.recently;
           this.infoData = filter.statistic;
+
+          this.totalPaddingItens = filter.totalPendingCotationPage;
+          this.totalCurrentlyItens = filter.totalRecentlyCotationPage;
 
           this.loaderService.hidde();
         },
