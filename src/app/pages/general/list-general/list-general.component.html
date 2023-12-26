@@ -124,6 +124,9 @@
             [nzPageIndex]="PaddingPage" [nzPageSize]="10" [nzTotal]="totalPaddingItens"></nz-pagination>
         </div>
       </ngx-simplebar>
+      <div class="col-md-12 rec-info-container" *ngIf="recentlyActList.length === 0">
+        <nz-empty nzNotFoundImage="simple"></nz-empty>
+      </div>
     </div>
   </div>
   <div class="col-md-6 recentlyAct">
