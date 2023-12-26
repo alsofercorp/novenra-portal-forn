@@ -228,6 +228,7 @@ nz-content {
 
 .main-bar-adjust {
   height: calc(100vh - 7rem);
+  overflow: hidden;
 }
 
 ngx-simplebar {

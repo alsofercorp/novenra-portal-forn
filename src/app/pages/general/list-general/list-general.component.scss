@@ -250,3 +250,8 @@
   flex-direction: row;
   justify-content: center;
 }
+
+.bar-adjust {
+  height: calc(100vh - 500px);
+  border-radius: 20px;
+}

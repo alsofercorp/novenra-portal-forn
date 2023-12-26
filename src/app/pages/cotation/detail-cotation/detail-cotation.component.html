@@ -1,239 +1,258 @@
-<div class="row create-cotation">
-    <div class="col-md-12">
-        <div class="row mb-3">
-            <div class="col-md-12 brad-page-header">
-                <nz-breadcrumb [nzSeparator]="null">
-                    <nz-breadcrumb-item>
-                        <a routerLink="/app/cotacao">Cotação</a>
-                    </nz-breadcrumb-item>
-                    <nz-breadcrumb-separator>></nz-breadcrumb-separator>
-                    <nz-breadcrumb-item>Detalhes da Cotação</nz-breadcrumb-item>
-                </nz-breadcrumb>
-                <div class="right-info">
-                    <span class="regional" style="margin-right: 1rem;">RM {{cotationDetail.cotacao.idCotacao}}</span>
-                    <!-- <button class="btn btn-printer">
+<ngx-simplebar class="bar-adjust" #scrollRef>
+    <div class="row create-cotation">
+        <div class="col-md-12">
+            <div class="row mb-3">
+                <div class="col-md-12 brad-page-header">
+                    <nz-breadcrumb [nzSeparator]="null">
+                        <nz-breadcrumb-item>
+                            <a routerLink="/app/cotacao">Cotação</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-separator>></nz-breadcrumb-separator>
+                        <nz-breadcrumb-item>Detalhes da Cotação</nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                    <div class="right-info">
+                        <span class="regional" style="margin-right: 1rem;">RM
+                            {{cotationDetail.cotacao.idCotacao}}</span>
+                        <!-- <button class="btn btn-printer">
                         <i class="ri-printer-line"></i>
                         Imprimir OC
                     </button> -->
-                    <nz-tag [nzColor]="'blue'">{{cotationDetail.cotacao.nomeStatus}}</nz-tag>
-                </div>
-            </div>
-        </div>
-        <nz-divider></nz-divider>
-        <div class="row user-info">
-            <h3>Dados de Faturamento</h3>
-            <nz-divider></nz-divider>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <b>Razão Social: <span>{{cotationDetail.dadosSolicitante.nome}}</span></b>
-                    </div>
-                    <div class="col-md-6">
-                        <b>Endereço: <span>{{cotationDetail.dadosSolicitante.endereco}}</span></b>
+                        <nz-tag [nzColor]="'blue'">{{cotationDetail.cotacao.nomeStatus}}</nz-tag>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <b>CNPJ: <span>{{cotationDetail.dadosSolicitante.cnpj | mask: '00.000.000/00000-00'}}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>Inscrição Estadual: <span>-</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>CEP: <span>{{cotationDetail.dadosSolicitante.cep}}</span></b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <b>Contato: <span>{{cotationDetail.dadosSolicitante.contato }}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>Telefone: <span>{{cotationDetail.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00) 0 0000-0000'}}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>E-mail: <span>{{cotationDetail.dadosSolicitante.email}}</span></b>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <nz-divider></nz-divider>
-        <div class="row user-info">
-            <h3>Dados do Fornecedor</h3>
-            <nz-divider></nz-divider>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <b>Nome do Fornecedor: <span>{{userData.supplier.razaoSocial}}</span></b>
-                    </div>
-                    <div class="col-md-6">
-                        <b>Endereço: <span>{{userData.supplier.logradouro}}, {{userData.supplier.numero}} - {{userData.supplier.cidade}}({{stateName}})</span></b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <b>CNPJ: <span>{{userData.supplier.cnpjCpf | mask: '000.000.000-00||00.000.000/0000-00'}}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>Inscrição Estadual: <span>{{userData.supplier.inscricaoEstadual}}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>CEP: <span>{{userData.supplier.cep | mask: '00.000-000'}}</span></b>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <b>Contato: <span>{{userData.user.nome}}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>Telefone: <span>{{userData.supplier.telefone | mask: '(00) 0000-0000||(00) 0 0000-0000'}}</span></b>
-                    </div>
-                    <div class="col-md-4">
-                        <b>E-mail: <span>{{userData.user.email}}</span></b>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <nz-divider></nz-divider>
-        <div class="row">
-            <div class="edit-button-cont">
-                <h3>Detalhes dos itens requisitos</h3>
-                <button routerLink="/app/visao-geral/responder-solicitacao" class="btn btn-printer" [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
-                    <i class="ri-pencil-line"></i>
-                    Editar itens
-                </button>
             </div>
             <nz-divider></nz-divider>
-            <div class="col-md-12">
-                <table class="table noventa-table">
-                    <thead>
-                        <tr>
-                            <th>Item Disponiveis</th>
-                            <th>Marca</th>
-                            <th>Qtd. Req.</th>
-                            <th>Prç. Unit.</th>
-                            <th>% Desc.</th>
-                            <th>Incluso IPI?</th>
-                            <th>Valor IPI</th>
-                            <th>%ICMS</th>
-                            <th>Prazo Ent.</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of cotationDetail.material">
-                            <td>{{ data.descricao }}</td>
-                            <td>{{ data.marca }}</td>
-                            <td>{{ data.quantidadeRequisitada }} UND</td>
-                            <td>{{ data.precoUnitario| currency : 'BRL' }}</td>
-                            <td>{{ data.percentualDesconto | percent }}</td>
-                            <td>{{ data.ipiIncluso ? 'Sim' : 'Não' }}</td>
-                            <td>{{ data.valorIpi | percent }}</td>
-                            <td>{{ data.percentualIcms | percent }}</td>
-                            <td>{{ data.prazoEntrega | number }} dia(s)</td>
-                            <td>{{ data.subTotal| currency : 'BRL' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <nz-divider></nz-divider>
-            <div class="col-md-12 unriched">
-                <b>Itens insdisponiveis: <span>CABO FLEXÍVEL 2,5MM 100M VERM 750V</span></b>
-            </div>
-        </div>
-        <nz-divider></nz-divider>
-        <div class="row">
-            <div class="edit-button-cont col-md-9">
-                <h3>Detalhes de Pagamento</h3>
-                <button [routerLink]="['app', 'visao-geral', 'responder-solicitacao', cotationDetail.cotacao.id]" class="btn btn-printer" [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
-                    <i class="ri-pencil-line"></i>
-                    Editar itens
-                </button>
-            </div>
-            <div class="col-md-3">
-                <h3>Resumo</h3>
-            </div>
-            <nz-divider></nz-divider>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-9 details-info">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <b>Formas de pagamento:
-                                    <span>{{cotationDetail.resumoCotacao.formaPagamento}}</span></b>
-                            </div>
-                            <div class="col-md-6">
-                                <b>Descontos: <span>{{cotationDetail.resumoCotacao.valorDesconto | currency: 'BRL'}}</span></b>
-                            </div>
+            <div class="row user-info">
+                <h3>Dados de Faturamento</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Razão Social: <span>{{cotationDetail.dadosSolicitante.nome}}</span></b>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <b>Tipo de frete: <span>{{cotationDetail.cotacao.nomeFrete}}</span></b>
-                            </div>
-                            <div class="col-md-6">
-                                <b>Outras despesas: <span>{{cotationDetail.resumoCotacao.outrasDespesas | currency: 'BRL'}}</span></b>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <b>Valor do frete: <span>{{cotationDetail.resumoCotacao.valorFrete | currency: 'BRL'}}</span></b>
-                            </div>
-                            <div class="col-md-6">
-                                <b>Seguro: <span>{{cotationDetail.resumoCotacao.valorSeguro | currency: 'BRL'}}</span></b>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <b>Data de entrega desejado: <span>{{cotationDetail.cotacao.dataEntregaDesejavel | date: 'dd/MM/yy'}}</span></b>
-                            </div>
-                            <div class="col-md-6">
-                                <b>Prazo maximo da cotação: <span>{{cotationDetail.cotacao.prazoMaximoCotacao | date: 'dd/MM/yy'}}</span></b>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <b>Frete fora da nota: <span>{{cotationDetail.cotacao.valorFreteForaNota | currency: 'BRL'}}</span></b>
-                            </div>
-                            <div class="col-md-6">
-                                <b>Comentários: <span>{{cotationDetail.cotacao.observacao}}</span></b>
-                            </div>
+                        <div class="col-md-6">
+                            <b>Endereço: <span>{{cotationDetail.dadosSolicitante.endereco}}</span></b>
                         </div>
                     </div>
-                    <div class="col-md-3 checkout-info">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>Subtotal itens</span>
-                                <span>(+) {{cotationDetail.resumoCotacao.subTotalItens | currency: 'BRL'}}</span>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>CNPJ: <span>{{cotationDetail.dadosSolicitante.cnpj | mask:
+                                    '00.000.000/00000-00'}}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Inscrição Estadual: <span>-</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>CEP: <span>{{cotationDetail.dadosSolicitante.cep}}</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Contato: <span>{{cotationDetail.dadosSolicitante.contato }}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Telefone: <span>{{cotationDetail.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)
+                                    0 0000-0000'}}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>E-mail: <span>{{cotationDetail.dadosSolicitante.email}}</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row user-info">
+                <h3>Dados do Fornecedor</h3>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Nome do Fornecedor: <span>{{userData.supplier.razaoSocial}}</span></b>
+                        </div>
+                        <div class="col-md-6">
+                            <b>Endereço: <span>{{userData.supplier.logradouro}}, {{userData.supplier.numero}} -
+                                    {{userData.supplier.cidade}}({{stateName}})</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>CNPJ: <span>{{userData.supplier.cnpjCpf | mask:
+                                    '000.000.000-00||00.000.000/0000-00'}}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Inscrição Estadual: <span>{{userData.supplier.inscricaoEstadual}}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>CEP: <span>{{userData.supplier.cep | mask: '00.000-000'}}</span></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <b>Contato: <span>{{userData.user.nome}}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>Telefone: <span>{{userData.supplier.telefone | mask: '(00) 0000-0000||(00) 0
+                                    0000-0000'}}</span></b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>E-mail: <span>{{userData.user.email}}</span></b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont">
+                    <h3>Detalhes dos itens requisitos</h3>
+                    <button routerLink="/app/visao-geral/responder-solicitacao" class="btn btn-printer"
+                        [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
+                        <i class="ri-pencil-line"></i>
+                        Editar itens
+                    </button>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <table class="table noventa-table">
+                        <thead>
+                            <tr>
+                                <th>Item Disponiveis</th>
+                                <th>Marca</th>
+                                <th>Qtd. Req.</th>
+                                <th>Prç. Unit.</th>
+                                <th>% Desc.</th>
+                                <th>Incluso IPI?</th>
+                                <th>Valor IPI</th>
+                                <th>%ICMS</th>
+                                <th>Prazo Ent.</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of cotationDetail.material">
+                                <td>{{ data.descricao }}</td>
+                                <td>{{ data.marca }}</td>
+                                <td>{{ data.quantidadeRequisitada }} UND</td>
+                                <td>{{ data.precoUnitario| currency : 'BRL' }}</td>
+                                <td>{{ data.percentualDesconto | percent }}</td>
+                                <td>{{ data.ipiIncluso ? 'Sim' : 'Não' }}</td>
+                                <td>{{ data.valorIpi | percent }}</td>
+                                <td>{{ data.percentualIcms | percent }}</td>
+                                <td>{{ data.prazoEntrega | number }} dia(s)</td>
+                                <td>{{ data.subTotal| currency : 'BRL' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12 unriched">
+                    <b>Itens insdisponiveis: <span>CABO FLEXÍVEL 2,5MM 100M VERM 750V</span></b>
+                </div>
+            </div>
+            <nz-divider></nz-divider>
+            <div class="row">
+                <div class="edit-button-cont col-md-9">
+                    <h3>Detalhes de Pagamento</h3>
+                    <button [routerLink]="['app', 'visao-geral', 'responder-solicitacao', cotationDetail.cotacao.id]"
+                        class="btn btn-printer"
+                        [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
+                        <i class="ri-pencil-line"></i>
+                        Editar itens
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <h3>Resumo</h3>
+                </div>
+                <nz-divider></nz-divider>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-9 details-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Formas de pagamento:
+                                        <span>{{cotationDetail.resumoCotacao.formaPagamento}}</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Descontos: <span>{{cotationDetail.resumoCotacao.valorDesconto | currency:
+                                            'BRL'}}</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Tipo de frete: <span>{{cotationDetail.cotacao.nomeFrete}}</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Outras despesas: <span>{{cotationDetail.resumoCotacao.outrasDespesas | currency:
+                                            'BRL'}}</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Valor do frete: <span>{{cotationDetail.resumoCotacao.valorFrete | currency:
+                                            'BRL'}}</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Seguro: <span>{{cotationDetail.resumoCotacao.valorSeguro | currency:
+                                            'BRL'}}</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Data de entrega desejado: <span>{{cotationDetail.cotacao.dataEntregaDesejavel |
+                                            date: 'dd/MM/yy'}}</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Prazo maximo da cotação: <span>{{cotationDetail.cotacao.prazoMaximoCotacao |
+                                            date: 'dd/MM/yy'}}</span></b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Frete fora da nota: <span>{{cotationDetail.cotacao.valorFreteForaNota | currency:
+                                            'BRL'}}</span></b>
+                                </div>
+                                <div class="col-md-6">
+                                    <b>Comentários: <span>{{cotationDetail.cotacao.observacao}}</span></b>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>Valor frete</span>
-                                <span>(+) {{cotationDetail.resumoCotacao.valorFrete | currency: 'BRL'}}</span>
+                        <div class="col-md-3 checkout-info">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Subtotal itens</span>
+                                    <span>(+) {{cotationDetail.resumoCotacao.subTotalItens | currency: 'BRL'}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>Seguro</span>
-                                <span>(+) {{cotationDetail.resumoCotacao.valorSeguro | currency: 'BRL'}}</span>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Valor frete</span>
+                                    <span>(+) {{cotationDetail.resumoCotacao.valorFrete | currency: 'BRL'}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>Descontos</span>
-                                <span>(-) {{cotationDetail.resumoCotacao.valorDesconto | currency: 'BRL'}}</span>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Seguro</span>
+                                    <span>(+) {{cotationDetail.resumoCotacao.valorSeguro | currency: 'BRL'}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>Outras despesas</span>
-                                <span>(+) R$ {{cotationDetail.resumoCotacao.outrasDespesas | currency: 'BRL'}}</span>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Descontos</span>
+                                    <span>(-) {{cotationDetail.resumoCotacao.valorDesconto | currency: 'BRL'}}</span>
+                                </div>
                             </div>
-                        </div>
-                        <nz-divider></nz-divider>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <span>Valor total final</span>
-                                <span>{{cotationDetail.resumoCotacao.valorFinalCotacao | currency: 'BRL'}}</span>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Outras despesas</span>
+                                    <span>(+) R$ {{cotationDetail.resumoCotacao.outrasDespesas | currency:
+                                        'BRL'}}</span>
+                                </div>
+                            </div>
+                            <nz-divider></nz-divider>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <span>Valor total final</span>
+                                    <span>{{cotationDetail.resumoCotacao.valorFinalCotacao | currency: 'BRL'}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -241,4 +260,4 @@
             </div>
         </div>
     </div>
-</div>
+</ngx-simplebar>
