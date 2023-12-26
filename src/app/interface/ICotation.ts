@@ -60,6 +60,7 @@ interface IRequesterData {
   dataSolicitacao: string,
   email: string,
   endereco: string,
+  telefone: string,
   estado: string,
   id: number,
   idCotacao: string,
