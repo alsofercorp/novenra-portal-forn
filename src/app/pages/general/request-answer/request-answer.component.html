@@ -79,9 +79,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let data of answerTable.data" >
+                                    <tr *ngFor="let data of answerTable.data">
                                         <td [nzChecked]="data.ativo"></td>
-                                        <td>{{ data.descricao }}</td>
+                                        <td *ngIf="hasShortDescription(data.descricao).short" class="shorter">
+                                            {{ hasShortDescription(data.descricao).short }}
+                                            <span class="show-tip" nz-tooltip [nzTooltipTitle]="hasShortDescription(data.descricao).desc"></span>
+                                        </td>
+                                        <td *ngIf="!hasShortDescription(data.descricao).short">
+                                            {{ data.descricao }}
+                                        </td>
                                         <td>{{ data.nomeFabricante }}</td>
                                         <td>{{ data.quantidadeRequisitada | number }} UND</td>
                                         <td>

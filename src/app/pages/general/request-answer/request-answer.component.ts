@@ -73,4 +73,19 @@ export class RequestAnswerComponent implements OnInit {
         }
       })
   }
+
+  hasShortDescription(description: string): any | null {
+    const shortNumber = 34;
+
+    let shortnes: any = {
+      short: null,
+      desc: description
+    }
+
+    if (description.length > shortNumber) {
+      shortnes.short = description.substring(0, shortNumber);
+    }
+
+    return shortnes;
+  }
 }
