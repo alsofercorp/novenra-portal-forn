@@ -129,7 +129,7 @@
                             <td>{{ data.ipiIncluso ? 'Sim' : 'Não' }}</td>
                             <td>{{ data.valorIpi | percent }}</td>
                             <td>{{ data.percentualIcms | percent }}</td>
-                            <td>{{ data.prazoEntrega | date : 'dd/MM/yy' }}</td>
+                            <td>{{ data.prazoEntrega | number }} dia(s)</td>
                             <td>{{ data.subTotal| currency : 'BRL' }}</td>
                         </tr>
                     </tbody>
