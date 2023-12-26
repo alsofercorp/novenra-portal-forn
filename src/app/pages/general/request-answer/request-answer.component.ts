@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-request-answer',
@@ -17,8 +18,19 @@ import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-
 export class RequestAnswerComponent implements OnInit {
   answerData: IAnswerRequest[] = answerDataList;
   cotation: ICotationById = {} as ICotationById;
-
   value: number = 0;
+  formDelivery: FormGroup = new FormGroup({
+    nomeVendedor: new FormControl('', [Validators.required]),
+    dataEntrega: new FormControl('', [Validators.required]),
+    formaPagamento: new FormControl('', [Validators.required]),
+    tipoFrete: new FormControl('', [Validators.required]),
+    valorFrete: new FormControl('', [Validators.required]),
+    freteForaNota: new FormControl('', [Validators.required]),
+    seguro: new FormControl('', [Validators.required]),
+    desconto: new FormControl('', [Validators.required]),
+    outrasDespesas: new FormControl('', [Validators.required]),
+    observacao: new FormControl('', [])
+  });
 
   constructor(private service: CotationService, private route: ActivatedRoute, private commonService: CommonService, private loaderService: NoventaLoaderService) { }
 
@@ -28,16 +40,9 @@ export class RequestAnswerComponent implements OnInit {
         if (params.id) {
           this.getRequestById(params.id);
         }
-      })
-  }
+      });
 
-  discountCalc(input: IAnswerRequest): number {
-    const totalValue: number = input.requestedQtty * input.unityValue;
-    input.ipiValue = totalValue * (input.ipiPercent);
-    const icms: number = totalValue * input.icmsPercent;
-    const discount: number = (totalValue + input.ipiValue + icms) * input.discount;
 
-    return (totalValue + input.ipiValue + icms) - discount;
   }
 
   sentRequest() {

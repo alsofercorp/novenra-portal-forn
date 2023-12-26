@@ -10,42 +10,40 @@
                         <nz-breadcrumb-separator>></nz-breadcrumb-separator>
                         <nz-breadcrumb-item>Responder Solicitação</nz-breadcrumb-item>
                     </nz-breadcrumb>
-                    <span class="regional">RM 1251</span>
+                    <span class="regional">RM {{cotation.cotacao.idCotacao}}</span>
                 </div>
             </div>
             <div class="row mb-3 header-data noventa-box-shadow">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-8">
-                            <label for="requester">Solicitante: <span id="requester">LB Serviços Mecânicos e Comércios
-                                    de
-                                    Peças LTDA</span></label>
+                            <label for="requester">Solicitante: <span id="requester">{{cotation.dadosSolicitante.nome}}</span></label>
                         </div>
                         <div class="col-md-4">
-                            <label for="requester">CNPJ: <span id="requester">57.848.632/0001-66</span></label>
+                            <label for="requester">CNPJ: <span id="requester">{{cotation.dadosSolicitante.cnpj | mask: '000.000.000-00||00.000.000/0000-00'}}</span></label>
 
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <label for="requester"><i class="ri-calendar-line"></i> Solicitado em: <span
-                                    id="requester">01/10/23 às 14h00</span></label>
+                            <label for="requester"><i class="ri-calendar-line"></i> Solicitado em: <span id="requester"> {{cotation.cotacao.dataCadastro | date: "dd/MM/yy 'ás' HH'h'mm"}}</span></label>
                         </div>
                         <div class="col-md-4">
-                            <label for="requester"><i class="ri-truck-line"></i> Entrega desejada (cliente): <span
-                                    id="requester">23/10/23</span></label>
+                            <label for="requester"><i class="ri-truck-line"></i> Entrega desejada (cliente): <span id="requester">{{cotation.dadosSolicitante.dataEntrega | date: 'dd/MM/yy'}}</span></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <label for="requester"><i class="ri-map-pin-line"></i> Local de destino: <span
-                                    id="requester">Rua São Joaquim, 1780 - Centro -
-                                    CEP: 13.560-300 | São Carlos (SP)</span></label>
+                            <label for="requester"><i class="ri-map-pin-line"></i> Local de destino: <span id="requester">
+                                {{cotation.dadosSolicitante.endereco}}
+                            </span></label>
                         </div>
                         <div class="col-md-4">
-                            <label for="requester"><i class="ri-phone-line"></i> Contato: <span id="requester">(16)
-                                    98765-4321 /
-                                    lb@pecas.com.br</span></label>
+                        <label for="requester">
+                            <i class="ri-phone-line"></i> Contato: 
+                            <span id="requester">{{cotation.dadosSolicitante.contato | mask: '(00) 0000-0000||(00) 0 0000-0000'}} / {{cotation.dadosSolicitante.email}}
+                            </span>
+                        </label>
                         </div>
                     </div>
                 </div>
@@ -54,7 +52,7 @@
                 <div class="col-md-12" style="padding: 0;">
                     <div class="row cotation-body">
                         <ngx-simplebar #scrollRef>
-                            <nz-table class="answerTable" #answerTable [nzData]="answerData" [nzShowPagination]="false">
+                            <nz-table class="answerTable" #answerTable [nzData]="cotation.material" [nzShowPagination]="false">
                                 <thead>
                                     <tr>
                                         <th>Disponib.</th>
@@ -74,48 +72,48 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let data of answerTable.data"
-                                        [class]="!data.disponibility ? 'disabled-line' : ''">
-                                        <td [nzChecked]="data.disponibility" [nzDisabled]="true"
-                                            [class]="!data.disponibility ? 'disabled-chck' : ''"></td>
-                                        <td>{{ data.requestedItem }}</td>
-                                        <td>{{ data.manufacturer }}</td>
-                                        <td>{{ data.requestedQtty | number }} UND</td>
+                                        [class]="!data.ativo ? 'disabled-line' : ''">
+                                        <td [nzChecked]="data.ativo" [nzDisabled]="true"
+                                            [class]="!data.ativo ? 'disabled-chck' : ''"></td>
+                                        <td>{{ data.descricao }}</td>
+                                        <td>{{ data.nomeFabricante }}</td>
+                                        <td>{{ data.quantidadeRequisitada | number }} UND</td>
                                         <td>
                                             <input class="answerTableInput" nz-input
-                                                [value]="data.unityValue | currency : 'BRL'"
-                                                [disabled]="!data.disponibility" type="text">
+                                                [value]="data.precoUnitario | currency : 'BRL'"
+                                                [disabled]="!data.ativo" type="text">
                                         </td>
                                         <td>
-                                            <input class="answerTableInput" nz-input [value]="data.discount | percent"
-                                                [disabled]="!data.disponibility" type="text">
+                                            <input class="answerTableInput" nz-input [value]="data.percentualDesconto | percent"
+                                                [disabled]="!data.ativo" type="text">
                                         </td>
-                                        <td [nzChecked]="data.hasIPI" [nzDisabled]="true"
-                                            [class]="!data.disponibility ? 'disabled-chck' : ''"></td>
+                                        <td [nzChecked]="data.ipiIncluso" [nzDisabled]="true"
+                                            [class]="!data.ativo ? 'disabled-chck' : ''"></td>
                                         <td>
-                                            <input class="answerTableInput" nz-input [value]="data.ipiPercent | percent"
-                                                [disabled]="!data.disponibility" type="text">
-                                        </td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input
-                                                [value]="data.ipiValue | currency : 'BRL'"
-                                                [disabled]="!data.disponibility" type="text">
+                                            <input class="answerTableInput" nz-input [value]="data.valorIpi | percent"
+                                                [disabled]="!data.ativo" type="text">
                                         </td>
                                         <td>
                                             <input class="answerTableInput" nz-input
-                                                [value]="data.icmsPercent | percent" [disabled]="!data.disponibility"
+                                                [value]="data.valorIpi | currency : 'BRL'"
+                                                [disabled]="!data.ativo" type="text">
+                                        </td>
+                                        <td>
+                                            <input class="answerTableInput" nz-input
+                                                [value]="data.percentualIcms | percent" [disabled]="!data.ativo"
                                                 type="text">
                                         </td>
                                         <td>
                                             <input class="answerTableInput date" nz-input
-                                                [value]="data.deliveryDue | date : 'dd/MM/yy'"
-                                                [disabled]="!data.disponibility" type="text">
+                                                [value]="data.prazoEntrega| date : 'dd/MM/yy'"
+                                                [disabled]="!data.ativo" type="text">
                                         </td>
                                         <td>
-                                            <input class="answerTableInput" nz-input [value]="data.brand"
-                                                [disabled]="!data.disponibility" type="text" readonly>
+                                            <input class="answerTableInput" nz-input [value]="data.marca"
+                                                [disabled]="!data.ativo" type="text" readonly>
                                         </td>
                                         <td>
-                                            {{ discountCalc(data) | currency : 'BRL' }}
+                                            {{ data.subTotal| currency : 'BRL' }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -134,19 +132,19 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-8 noventa-box-shadow" style="width: 64.66666667%;">
-                    <form class="formDelivery">
+                    <form [formGroup]="formDelivery" class="formDelivery">
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="vendorName">Nome do vendedor <small>*</small></label>
-                                <input nz-input value="Carolina Bessa" id="vendorName" type="text">
+                                <input formControlName="nomeVendedor" nz-input value="Carolina Bessa" id="vendorName" type="text">
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Data de entrega <small>*</small></label>
-                                <nz-date-picker></nz-date-picker>
+                                <nz-date-picker formControlName="dataEntrega"></nz-date-picker>
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Formas de pagamento <small>*</small></label>
-                                <nz-select [(ngModel)]="value" name="paymentType">
+                                <nz-select formControlName="formaPagamento" ativo name="paymentType">
                                     <nz-option [nzValue]="value" nzLabel="Á Vista (5% de deconto), Até 5x sem Juros"></nz-option>
                                 </nz-select>
                             </div>
@@ -154,35 +152,35 @@
                         <div class="row mb-3">
                             <div class="col-md-2">
                                 <label for="vendorName">Tipo do frete <small>*</small></label>
-                                <nz-select [(ngModel)]="value" name="freigthType">
+                                <nz-select formControlName="tipoFrete" ativo name="freigthType">
                                     <nz-option [nzValue]="value" nzLabel="FOB"></nz-option>
                                 </nz-select>
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Valor do frete <small>*</small></label>
-                                <input nz-input [value]="280 | currency : 'BRL'" id="vendorName" type="text">
+                                <input formControlName="valorFrete" nz-input [value]="280 | currency : 'BRL'" id="vendorName" type="text">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Frete fora da nota</label>
-                                <input nz-input id="vendorName" placeholder="(opcional)" type="text">
+                                <input formControlName="freteForaNota" nz-input id="vendorName" placeholder="(opcional)" type="text">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Seguro</label>
-                                <input nz-input id="vendorName" placeholder="(opcional)" type="text">
+                                <input formControlName="seguro" nz-input id="vendorName" placeholder="(opcional)" type="text">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Desconto</label>
-                                <input nz-input [value]="580 | currency : 'BRL'" id="vendorName" type="text">
+                                <input formControlName="desconto" nz-input [value]="580 | currency : 'BRL'" id="vendorName" type="text">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Outras despesas</label>
-                                <nz-select nzPlaceHolder="Selecione"></nz-select>
+                                <nz-select formControlName="outrasDespesas" nzPlaceHolder="Selecione"></nz-select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 d-flex flex-column">
                                 <label for="vendorName">Observação</label>
-                                <textarea rows="6" style="resize: none;"></textarea>
+                                <textarea formControlName="observacao" rows="6" style="resize: none;"></textarea>
                             </div>
                         </div>
                     </form>
@@ -190,32 +188,32 @@
                 <div class="col-md-4 ml-md-auto checkout-info noventa-box-shadow" style="margin-left: 2%;">
                     <div>
                         <span>Subtotal itens</span>
-                        <span>(+) R$ 16.800,00</span>
+                        <span>(+) {{cotation.resumoCotacao.subTotalItens | currency: 'BRL'}}</span>
                     </div>
                     <div>
                         <span>Valor frete</span>
-                        <span>(+) R$ 280,00</span>
+                        <span>(+) {{cotation.resumoCotacao.valorFrete | currency: 'BRL'}}</span>
                     </div>
                     <div>
                         <span>Seguro</span>
-                        <span>(+) R$ 0,00 </span>
+                        <span>(+) {{cotation.resumoCotacao.valorSeguro | currency: 'BRL'}}</span>
                     </div>
                     <div>
                         <span>Descontos</span>
-                        <span>(-) R$ 580,00</span>
+                        <span>(-) {{cotation.resumoCotacao.valorDesconto | currency: 'BRL'}}</span>
                     </div>
                     <div>
                         <span>Outras despesas</span>
-                        <span>(+) R$ 0,00 </span>
+                        <span>(+) {{cotation.resumoCotacao.outrasDespesas | currency: 'BRL'}}</span>
                     </div>
                     <div>
                         <span>Formas de pagamento</span>
-                        <span>À vista (5% de desconto),<br> Até 5x sem juros</span>
+                        <span>{{cotation.resumoCotacao.formaPagamento}}</span>
                     </div>
                     <nz-divider></nz-divider>
                     <div class="total-value">
                         <span>Valor total final</span>
-                        <span>R$ 17.660,00</span>
+                        <span>{{cotation.resumoCotacao.subTotalItens | currency: 'BRL'}}</span>
                     </div>
                 </div>
             </div>

@@ -126,6 +126,10 @@ export class ListCotationComponent implements OnInit {
     this.router.navigate(['app', 'cotacao', 'detalhes', id]);
   }
 
+  getAnswerCotation(id: string) {
+    this.router.navigate(['app', 'visao-geral', 'responder-solicitacao', id]);
+  }
+
   getNextPreviousPage(pageNumber: number) {
     this.filter.page = pageNumber;
 

@@ -5,7 +5,7 @@ import { GeneralComponent } from './general/general.component';
 import { CotationComponent } from './cotation/cotation.component';
 import { DetailCotationComponent } from './cotation/detail-cotation/detail-cotation.component';
 import { RequestAnswerComponent } from './general/request-answer/request-answer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { IconsProviderModule } from '../icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -53,6 +53,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
     PagesRoutingModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     IconsProviderModule,
     NoventaLoaderModule,

@@ -78,7 +78,7 @@
                   *ngIf="data.status.status !== 2 && data.status.status !== -1">
                   <i class="ri-eye-line"></i>
                 </button>
-                <button class="share" routerLink="/app/visao-geral/responder-solicitacao" nz-button nzType="default"
+                <button class="share" (click)="getAnswerCotation(data.id)" nz-button nzType="default"
                   nzShape="circle" *ngIf="data.status.status === 2 && data.status.status !== -1">
                   <i class="ri-share-forward-fill"></i>
                 </button>

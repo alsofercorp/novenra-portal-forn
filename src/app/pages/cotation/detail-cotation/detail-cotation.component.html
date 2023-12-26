@@ -10,11 +10,11 @@
                     <nz-breadcrumb-item>Detalhes da Cotação</nz-breadcrumb-item>
                 </nz-breadcrumb>
                 <div class="right-info">
-                    <span class="regional">RM {{cotationDetail.cotacao.idCotacao}}</span>
-                    <button class="btn btn-printer">
+                    <span class="regional" style="margin-right: 1rem;">RM {{cotationDetail.cotacao.idCotacao}}</span>
+                    <!-- <button class="btn btn-printer">
                         <i class="ri-printer-line"></i>
                         Imprimir OC
-                    </button>
+                    </button> -->
                     <nz-tag [nzColor]="'blue'">{{cotationDetail.cotacao.nomeStatus}}</nz-tag>
                 </div>
             </div>
@@ -144,7 +144,7 @@
         <div class="row">
             <div class="edit-button-cont col-md-9">
                 <h3>Detalhes de Pagamento</h3>
-                <button routerLink="/app/visao-geral/responder-solicitacao" class="btn btn-printer" [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
+                <button [routerLink]="['app', 'visao-geral', 'responder-solicitacao', cotationDetail.cotacao.id]" class="btn btn-printer" [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
                     <i class="ri-pencil-line"></i>
                     Editar itens
                 </button>
