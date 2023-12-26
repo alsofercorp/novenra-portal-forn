@@ -112,7 +112,6 @@
               <div class="col-md-6 last-info">
                 <i class="ri-truck-line"></i>
                 Data de entrega: {{pedding.dataEntrega | date: 'dd/MM/yy'}}
-
                 <button nz-butto class="shared" (click)="answerRequest(pedding.id)">
                   <i class="ri-share-forward-fill"></i>
                 </button>
@@ -133,16 +132,18 @@
         <h3>Atividades <small>recentes</small></h3>
       </div>
       <ngx-simplebar class="bar-adjust" *ngIf="recentlyActList.length > 0">
-        <div *ngFor="let recently of recentlyActList" class="col-md-12 rec-info-container">
-          <div class="status-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
-              <circle cx="6" cy="6.05566" r="6" fill="#EC7000" [ngClass]="getAction(recently.acao)" />
-            </svg>
-            <h3>{{recently.acao}}</h3>
-          </div>
-          <label for="destiny">Solicitante: {{recently.solicitante}}</label>
-          <label for="destiny">Destino: {{recently.localEntrega}}</label>
-          <label class="rec-date" for="destiny">{{recently.dataSolicitacao | date: "dd/MM/yyyy 'às' HH:mm"}}</label>
+        <div class="col-md-12" *ngFor="let recently of recentlyActList">
+          <a (click)="cotationDetail(recently.id)" class="rec-info-container">
+            <div class="status-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 13" fill="none">
+                <circle cx="6" cy="6.05566" r="6" fill="#EC7000" [ngClass]="getAction(recently.acao)" />
+              </svg>
+              <h3>{{recently.acao}}</h3>
+            </div>
+            <label for="destiny">Solicitante: {{recently.solicitante}}</label>
+            <label for="destiny">Destino: {{recently.localEntrega}}</label>
+            <label class="rec-date" for="destiny">{{recently.dataSolicitacao | date: "dd/MM/yyyy 'às' HH:mm"}}</label>
+          </a>
           <nz-divider></nz-divider>
         </div>
         <div class="pagination-container">

@@ -46,6 +46,10 @@ export class ListGeneralComponent implements OnInit {
     this.router.navigate(['app', 'visao-geral', 'responder-solicitacao', id]);
   }
 
+  cotationDetail(id: number) {
+    this.router.navigate(['app', 'cotacao', 'detalhes', id]);
+  }
+
   getAction(action: string) {
     const act: any = action.split(' ');
     const actText: string = act[act.length - 1];
