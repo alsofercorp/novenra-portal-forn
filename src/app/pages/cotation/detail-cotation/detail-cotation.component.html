@@ -45,7 +45,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <b>Contato: <span>-</span></b>
+                        <b>Contato: <span>{{cotationDetail.dadosSolicitante.contato | mask: '(00) 0000-0000||(00) 0 0000-0000'}}</span></b>
                     </div>
                     <div class="col-md-4">
                         <b>Telefone: <span>{{cotationDetail.dadosSolicitante.contato | mask: '(00) 0000-0000||(00) 0 0000-0000'}}</span></b>

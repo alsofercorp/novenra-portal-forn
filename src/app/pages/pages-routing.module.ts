@@ -42,7 +42,7 @@ const routes: Routes = [
             title: 'Visão Geral',
           },
           {
-            path: 'responder-solicitacao',
+            path: 'responder-solicitacao/:id',
             component: RequestAnswerComponent,
             title: 'Responder Solicitação'
           }
@@ -65,7 +65,11 @@ const routes: Routes = [
         ],
       }
     ]
-  }
+  },
+  {
+    path: '**',
+    redirectTo: 'visao-geral',
+  },
 ];
 
 @NgModule({

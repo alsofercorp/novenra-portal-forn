@@ -43,7 +43,7 @@ export class ListGeneralComponent implements OnInit {
   }
 
   answerRequest(id: number) {
-    this.router.navigate(['app', 'visao-geral', 'responder-solicitacao']);
+    this.router.navigate(['app', 'visao-geral', 'responder-solicitacao', id]);
   }
 
   getAction(action: string) {
