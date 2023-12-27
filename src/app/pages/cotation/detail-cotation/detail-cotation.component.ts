@@ -54,7 +54,7 @@ export class DetailCotationComponent implements OnInit {
         },
         error: (err: HttpErrorResponse) => {
           this.loaderService.hidde();
-          this.commonService.ToastError(err.error);
+          this.commonService.ToastError(err.error.msg);
         }
       })
   }

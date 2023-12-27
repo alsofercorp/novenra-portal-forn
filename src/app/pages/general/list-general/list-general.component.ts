@@ -90,7 +90,7 @@ export class ListGeneralComponent implements OnInit {
           this.loaderService.hidde();
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error);
+          this.commonService.ToastError(err.error.msg);
           this.loaderService.hidde();
         },
       });

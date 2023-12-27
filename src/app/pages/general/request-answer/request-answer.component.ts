@@ -114,7 +114,7 @@ export class RequestAnswerComponent implements OnInit {
           });
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error.title);
+          this.commonService.ToastError(err.error.msg);
           this.loaderService.hidde();
         }
       });
@@ -157,7 +157,7 @@ export class RequestAnswerComponent implements OnInit {
           this.loaderService.hidde();
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error.title);
+          this.commonService.ToastError(err.error.msg);
           this.loaderService.hidde();
         }
       })

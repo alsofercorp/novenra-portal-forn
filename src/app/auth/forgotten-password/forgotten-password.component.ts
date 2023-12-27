@@ -34,7 +34,7 @@ export class ForgottenPasswordComponent implements OnInit {
           this.router.navigate(['usuario', 'confirmar-dados']);
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error);
+          this.commonService.ToastError(err.error.msg);
           this.loadService.hidde();
         }
       })

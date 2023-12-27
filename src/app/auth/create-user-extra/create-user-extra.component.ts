@@ -63,7 +63,7 @@ export class CreateUserExtraComponent implements OnInit {
           .subscribe((states: IState[]) => {
             this.stateList = states;
           }, (err: HttpErrorResponse) => {
-            this.commonService.ToastError(err.error);
+            this.commonService.ToastError(err.error.msg);
           });
       } else {
         this.router.navigate(['usuario', 'dados-basicos']);
@@ -180,7 +180,7 @@ export class CreateUserExtraComponent implements OnInit {
           this.loadService.hidde();
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error);
+          this.commonService.ToastError(err.error.msg);
           this.loadService.hidde();
         }
       });

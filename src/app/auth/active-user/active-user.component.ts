@@ -39,7 +39,7 @@ export class ActiveUserComponent implements OnInit {
           this.loaderService.hidde();
           this.router.navigate(['auth', 'login']);
 
-          this.commonService.ToastError(err.error);
+          this.commonService.ToastError(err.error.msg);
         }
       })
   }

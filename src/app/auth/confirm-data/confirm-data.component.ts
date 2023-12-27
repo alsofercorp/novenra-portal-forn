@@ -39,7 +39,7 @@ export class ConfirmDataComponent implements OnInit {
           this.router.navigate(['auth', 'login'])
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error);
+          this.commonService.ToastError(err.error.msg);
           this.loaderService.hidde();
         },
         complete: () => {

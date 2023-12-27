@@ -40,7 +40,7 @@ export class CreateUserComponent implements OnInit {
           this.nextStep();
         },
         error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error)
+          this.commonService.ToastError(err.error.msg)
         }
       });
   }
