@@ -232,7 +232,7 @@ export class RequestAnswerComponent implements OnInit {
 
     this.validatePortage();
 
-    if (!this.cotation.cotacao.cotacaoExpirada) {
+    if (this.cotation.cotacao.cotacaoExpirada) {
       (this.formMaterial.get('materials') as FormArray).controls.forEach((control: AbstractControl) => {
         control.disable();
       });
