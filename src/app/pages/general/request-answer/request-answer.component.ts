@@ -59,7 +59,6 @@ export class RequestAnswerComponent implements OnInit {
   }
 
   sentRequest(materials: any, user: any) {
-    debugger
     Swal.fire({
       html: `
       <img src="../../../../assets/img/answer_request.png">
@@ -83,8 +82,8 @@ export class RequestAnswerComponent implements OnInit {
       cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
       vendedor: this.formDelivery.get('nomeVendedor')?.value,
       dataPostagem: this.cotation.cotacao.dataPostagem,
-      condicoesPagamento_Id: this.cotation.cotacao.condicoesPagamento_Id,
-      frete_Id: this.cotation.cotacao.frete_Id,
+      condicoesPagamento_Id: this.formDelivery.get('formaPagamento')?.value,
+      frete_Id: this.formDelivery.get('tipoFrete')?.value,
       outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
       valorFrete: this.formDelivery.get('valorFrete')?.value,
       valorFreteForaNota: this.formDelivery.get('freteForaNota')?.value,
@@ -104,11 +103,10 @@ export class RequestAnswerComponent implements OnInit {
     this.service.putSaveDraft(input)
       .subscribe({
         next: () => {
-          debugger
+          this.commonService.ToastSucess('Rascunho salvo com sucesso!');
           this.loaderService.hidde();
         },
         error: (err: HttpErrorResponse) => {
-          debugger
           this.commonService.ToastError(err.error.title);
           this.loaderService.hidde();
         }
@@ -162,8 +160,6 @@ export class RequestAnswerComponent implements OnInit {
 
       subTotal = subTotal + valorComIpi;
     }
-
-    subTotal += (grossValue * (formSelected.get('percentualIcms')?.value / 100))
 
     formSelected.patchValue({
       subTotal: subTotal
@@ -236,7 +232,7 @@ export class RequestAnswerComponent implements OnInit {
 
     this.validatePortage();
 
-    if (this.cotation.cotacao.cotacaoExpirada) {
+    if (!this.cotation.cotacao.cotacaoExpirada) {
       (this.formMaterial.get('materials') as FormArray).controls.forEach((control: AbstractControl) => {
         control.disable();
       });
