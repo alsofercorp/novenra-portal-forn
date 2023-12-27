@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { switchMap } from 'rxjs';
+import { IUserData } from 'src/app/interface/IUserRegister';
 
 @Component({
   selector: 'app-request-answer',
@@ -41,6 +42,7 @@ export class RequestAnswerComponent implements OnInit {
   answerData: IAnswerRequest[] = answerDataList;
   cotation: ICotationById = {} as ICotationById;
   materialsList: any;
+  userData: IUserData = {} as IUserData;
 
   portageList: IPortage[] = [];
   paymentList: IPaymentCondition[] = [];
@@ -50,6 +52,8 @@ export class RequestAnswerComponent implements OnInit {
     private paymentService: PaymentConditionService) { }
 
   ngOnInit(): void {
+    this.userData = this.commonService.getUserInfo();
+    
     this.route.params
       .subscribe((params: any) => {
         if (params.id) {
@@ -77,11 +81,11 @@ export class RequestAnswerComponent implements OnInit {
     const input: ICotationDraf = {
       id: this.cotation.cotacao.id,
       fornecedor_Id: this.cotation.cotacao.fornecedor_Id,
-      erpCotacao_Id: '',
+      erpCotacao_Id: this.cotation.cotacao.idCotacao,
       motivo_Id: this.cotation.cotacao.motivo_Id,
       cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
       vendedor: this.formDelivery.get('nomeVendedor')?.value,
-      dataPostagem: this.cotation.cotacao.dataPostagem,
+      dataPostagem: this.formDelivery.get('dataEntrega')?.value,
       condicoesPagamento_Id: this.formDelivery.get('formaPagamento')?.value,
       frete_Id: this.formDelivery.get('tipoFrete')?.value,
       outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
@@ -90,12 +94,12 @@ export class RequestAnswerComponent implements OnInit {
       valorSeguro: this.formDelivery.get('valorSeguro')?.value,
       valorDesconto: this.formDelivery.get('valorDesconto')?.value,
       prazoMaximoCotacao: this.cotation.cotacao.prazoMaximoCotacao,
-      dataEntregaDesejavel: this.formDelivery.get('dataEntrega')?.value,
+      dataEntregaDesejavel: this.cotation.cotacao.dataEntregaDesejavel,
       observacao: this.formDelivery.get('observacao')?.value,
       nomeUsuarioCadastro: this.cotation.cotacao.nomeUsuarioCadastro,
       dataCadastro: this.cotation.cotacao.dataCadastro,
-      nomeUsuarioAlteracao: this.cotation.cotacao.nomeUsuarioAlteracao,
-      dataAlteracao: this.cotation.cotacao.dataAlteracao,
+      nomeUsuarioAlteracao: this.userData.user.nome,
+      dataAlteracao: new Date(),
       guid: this.cotation.cotacao.guid,
       materialCotacao: (this.formMaterial.get('materials') as FormArray).value
     }
@@ -229,6 +233,19 @@ export class RequestAnswerComponent implements OnInit {
       control.get('percentualIpi')?.disable();
       control.get('valorIpi')?.disable();
     });
+    debugger
+    this.formDelivery.patchValue({
+      nomeVendedor: this.cotation.cotacao.vendedor,
+      dataEntrega: this.cotation.cotacao.dataPostagem,
+      formaPagamento: this.cotation.cotacao.condicoesPagamento_Id,
+      tipoFrete: this.cotation.cotacao.frete_Id,
+      valorFrete: this.cotation.cotacao.valorFrete,
+      freteForaNota: this.cotation.cotacao.valorFreteForaNota,
+      valorSeguro: this.cotation.cotacao.valorSeguro,
+      valorDesconto: this.cotation.cotacao.valorDesconto,
+      outrasDespesas: this.cotation.resumoCotacao.outrasDespesas,
+      observacao: this.cotation.cotacao.observacao
+    })
 
     this.validatePortage();
 
@@ -239,6 +256,8 @@ export class RequestAnswerComponent implements OnInit {
 
       this.formDelivery.disable();
     }
+
+    this.resumeCalc();
   }
 
   hasShortDescription(form: any): any | null {
