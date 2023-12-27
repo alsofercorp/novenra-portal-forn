@@ -47,8 +47,7 @@
                         <div class="col-md-4">
                             <label for="requester">
                                 <i class="ri-phone-line"></i> Contato:
-                                <span id="requester">{{cotation.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)0
-                                    0000-0000'}} / {{cotation.dadosSolicitante.email}}
+                                <span id="requester">{{cotation.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)00000-0000'}} / {{cotation.dadosSolicitante.email}}
                                 </span>
                             </label>
                         </div>
@@ -98,41 +97,81 @@
                                             <td>{{ getFormControlValue('quantidadeRequisitada', $index) | number }} UND
                                             </td>
                                             <td>
-                                                <input class="answerTableInput unitValue" nz-input currencyMask
-                                                    formControlName="precoUnitario" type="text"
-                                                    (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput unitValue" nz-input currencyMask [options]="{ precision: 4 }" formControlName="precoUnitario" type="text" (keyup)="updateMaterial($index)"
+                                                [class]="(getMaterialFormArray[$index].get('precoUnitario')?.invalid && getMaterialFormArray[$index].get('precoUnitario')?.errors && (getMaterialFormArray[$index].get('precoUnitario')?.dirty || getMaterialFormArray[$index].get('precoUnitario')?.touched)) ? 'hasError' : ''" >
+                                                <div
+                                                    *ngIf="getMaterialFormArray[$index].get('precoUnitario')?.invalid && getMaterialFormArray[$index].get('precoUnitario')?.errors && (getMaterialFormArray[$index].get('precoUnitario')?.dirty || getMaterialFormArray[$index].get('precoUnitario')?.touched)">
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('precoUnitario')?.hasError('required')">
+                                                        * O campo é obrigatorio.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('precoUnitario')?.hasError('min')">
+                                                        * O valor minimo é 0,0001.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('precoUnitario')?.hasError('max')">
+                                                        * O valor maximo é 999,9999.
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" nz-input suffix="%" mask="00"
-                                                    formControlName="percentualDesconto" type="text"
-                                                    (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" nz-input suffix="%" mask="separator.2" decimalMarker="," formControlName="percentualDesconto" type="text" (keyup)="updateMaterial($index)"
+                                                [class]="(getMaterialFormArray[$index].get('percentualDesconto')?.invalid && getMaterialFormArray[$index].get('percentualDesconto')?.errors && (getMaterialFormArray[$index].get('percentualDesconto')?.dirty || getMaterialFormArray[$index].get('percentualDesconto')?.touched)) ? 'hasError' : ''" >
+                                                <div
+                                                    *ngIf="getMaterialFormArray[$index].get('percentualDesconto')?.invalid && getMaterialFormArray[$index].get('percentualDesconto')?.errors && (getMaterialFormArray[$index].get('percentualDesconto')?.dirty || getMaterialFormArray[$index].get('percentualDesconto')?.touched)">
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('percentualDesconto')?.hasError('required')">
+                                                        * O campo é obrigatorio.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('percentualDesconto')?.hasError('max')">
+                                                        * O valor maximo é 99.99%.
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td class="text-center">
-                                                <span formControlName="ipiIncluso" nz-checkbox
-                                                    (change)="allowIpiPercent($index)"></span>
+                                                <span formControlName="ipiIncluso" nz-checkbox (change)="allowIpiPercent($index)"></span>
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input
-                                                    formControlName="percentualIpi" type="text"
-                                                    (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" suffix="%" mask="99" nz-input formControlName="percentualIpi" type="text" (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput unitValue" currencyMask nz-input
-                                                    formControlName="valorIpi" type="text"
-                                                    (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput unitValue" currencyMask nz-input formControlName="valorIpi" type="text">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input
-                                                    formControlName="percentualIcms" type="text"
-                                                    (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" suffix="%" mask="separator.2" decimalMarker="," nz-input formControlName="percentualIcms" type="text" (keyup)="updateMaterial($index)"
+                                                [class]="(getMaterialFormArray[$index].get('percentualIcms')?.invalid && getMaterialFormArray[$index].get('percentualIcms')?.errors && (getMaterialFormArray[$index].get('percentualIcms')?.dirty || getMaterialFormArray[$index].get('percentualIcms')?.touched)) ? 'hasError' : ''" >
+                                                <div
+                                                    *ngIf="getMaterialFormArray[$index].get('percentualIcms')?.invalid && getMaterialFormArray[$index].get('percentualIcms')?.errors && (getMaterialFormArray[$index].get('percentualIcms')?.dirty || getMaterialFormArray[$index].get('percentualIcms')?.touched)">
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('percentualIcms')?.hasError('required')">
+                                                        * O campo é obrigatorio.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('percentualIcms')?.hasError('max')">
+                                                        * O valor maximo é 99.99%.
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td>
-                                                <input class="answerTableInput date" mask="000" suffix=" Dia(s)" nz-input
-                                                    formControlName="prazoEntrega" type="text"
-                                                    (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput date" mask="099" suffix=" Dia(s)" nz-input formControlName="prazoEntrega" type="text" (keyup)="updateMaterial($index)"
+                                                [class]="(getMaterialFormArray[$index].get('prazoEntrega')?.invalid && getMaterialFormArray[$index].get('prazoEntrega')?.errors && (getMaterialFormArray[$index].get('prazoEntrega')?.dirty || getMaterialFormArray[$index].get('prazoEntrega')?.touched)) ? 'hasError' : ''" >
+                                                <div
+                                                    *ngIf="getMaterialFormArray[$index].get('prazoEntrega')?.invalid && getMaterialFormArray[$index].get('prazoEntrega')?.errors && (getMaterialFormArray[$index].get('prazoEntrega')?.dirty || getMaterialFormArray[$index].get('prazoEntrega')?.touched)">
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('prazoEntrega')?.hasError('required')">
+                                                        * O campo é obrigatorio.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('prazoEntrega')?.hasError('min')">
+                                                        * O valor minimo e de 1 dia.
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td>
-                                                <input class="answerTableInput" nz-input formControlName="marca" type="text">
+                                                <input class="answerTableInput" nz-input formControlName="marca" type="text"
+                                                [class]="(getMaterialFormArray[$index].get('marca')?.invalid && getMaterialFormArray[$index].get('marca')?.errors && (getMaterialFormArray[$index].get('marca')?.dirty || getMaterialFormArray[$index].get('marca')?.touched)) ? 'hasError' : ''" >
+                                                <div
+                                                    *ngIf="getMaterialFormArray[$index].get('marca')?.invalid && getMaterialFormArray[$index].get('marca')?.errors && (getMaterialFormArray[$index].get('marca')?.dirty || getMaterialFormArray[$index].get('marca')?.touched)">
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('marca')?.hasError('required')">
+                                                        * O campo é obrigatorio.
+                                                    </small>
+                                                    <small class="text-danger" *ngIf="getMaterialFormArray[$index].get('marca')?.hasError('maxlength')">
+                                                        * O campo deve ter no maximo 30 caracteres.
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td>
                                                 {{ getFormControlValue('subTotal', $index) | currency : 'BRL' }}
@@ -158,40 +197,76 @@
                     <form [formGroup]="formDelivery" class="formDelivery">
                         <div class="row mb-3">
                             <div class="col-md-4">
-                                <label for="vendorName">Nome do vendedor <small>*</small></label>
-                                <input formControlName="nomeVendedor" nz-input value="Carolina Bessa" id="vendorName"
-                                    type="text" [ngClass]="">
+                                <label for="nomeVendedor">Nome do vendedor <small>*</small></label>
+                                <input formControlName="nomeVendedor" id="nomeVendedor" nz-input type="text"
+                                [class]="(formDelivery.get('nomeVendedor')?.invalid && formDelivery.get('nomeVendedor')?.errors && (formDelivery.get('nomeVendedor')?.dirty || formDelivery.get('nomeVendedor')?.touched)) ? 'hasError' : ''" >
+                                <div
+                                    *ngIf="formDelivery.get('nomeVendedor')?.invalid && formDelivery.get('nomeVendedor')?.errors && (formDelivery.get('nomeVendedor')?.dirty || formDelivery.get('nomeVendedor')?.touched)">
+                                    <small class="text-danger" *ngIf="formDelivery.get('nomeVendedor')?.hasError('required')">
+                                        * O campo é obrigatorio.
+                                    </small>
+                                    <small class="text-danger" *ngIf="formDelivery.get('nomeVendedor')?.hasError('maxlength')">
+                                        * O campo deve ter no maximo 30 caracteres.
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Data de entrega <small>*</small></label>
-                                <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataEntrega"></nz-date-picker>
+                                <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataEntrega"
+                                [class]="(formDelivery.get('dataEntrega')?.invalid && formDelivery.get('dataEntrega')?.errors && (formDelivery.get('dataEntrega')?.dirty || formDelivery.get('dataEntrega')?.touched)) ? 'hasError' : ''" ></nz-date-picker>
+                                <div
+                                    *ngIf="formDelivery.get('dataEntrega')?.invalid && formDelivery.get('dataEntrega')?.errors && (formDelivery.get('dataEntrega')?.dirty || formDelivery.get('dataEntrega')?.touched)">
+                                    <small class="text-danger" *ngIf="formDelivery.get('dataEntrega')?.hasError('required')">
+                                        * O campo é obrigatorio.
+                                    </small>
+                                    <small class="text-danger" *ngIf="formDelivery.get('dataEntrega')?.hasError('datevalidation')">
+                                        * A data nao pode ser inferior a hoje.
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Formas de pagamento <small>*</small></label>
-                                <nz-select formControlName="formaPagamento" ativo name="paymentType"
-                                    (ngModelChange)="resumeCalc()">
-                                    <nz-option *ngFor="let payment of paymentList" [nzValue]="payment.id"
-                                        [nzLabel]="payment.statusCondicoesPagamento"></nz-option>
+                                <nz-select formControlName="formaPagamento" ativo name="paymentType" (ngModelChange)="resumeCalc()"
+                                [class]="(formDelivery.get('formaPagamento')?.invalid && formDelivery.get('formaPagamento')?.errors && (formDelivery.get('formaPagamento')?.dirty || formDelivery.get('formaPagamento')?.touched)) ? 'hasError' : ''" >
+                                    <nz-option *ngFor="let payment of paymentList" [nzValue]="payment.id" [nzLabel]="payment.statusCondicoesPagamento"></nz-option>
                                 </nz-select>
+                                <div
+                                    *ngIf="formDelivery.get('formaPagamento')?.invalid && formDelivery.get('formaPagamento')?.errors && (formDelivery.get('formaPagamento')?.dirty || formDelivery.get('formaPagamento')?.touched)">
+                                    <small class="text-danger" *ngIf="formDelivery.get('formaPagamento')?.hasError('required')">
+                                        * O campo é obrigatorio.
+                                    </small>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-2">
                                 <label for="vendorName">Tipo do frete <small>*</small></label>
-                                <nz-select formControlName="tipoFrete" ativo name="freigthType" (ngModelChange)="validatePortage()">
+                                <nz-select formControlName="tipoFrete" ativo name="freigthType" (ngModelChange)="validatePortage()"
+                                [class]="(formDelivery.get('tipoFrete')?.invalid && formDelivery.get('tipoFrete')?.errors && (formDelivery.get('tipoFrete')?.dirty || formDelivery.get('tipoFrete')?.touched)) ? 'hasError' : ''" >
                                     <nz-option *ngFor="let portage of portageList" [nzValue]="portage.id"
                                         [nzLabel]="portage.tipoFrete"></nz-option>
                                 </nz-select>
+                                <div
+                                    *ngIf="formDelivery.get('tipoFrete')?.invalid && formDelivery.get('tipoFrete')?.errors && (formDelivery.get('tipoFrete')?.dirty || formDelivery.get('tipoFrete')?.touched)">
+                                    <small class="text-danger" *ngIf="formDelivery.get('tipoFrete')?.hasError('required')">
+                                        * O campo é obrigatorio.
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Valor do frete <small>*</small></label>
-                                <input formControlName="valorFrete" class="value" nz-input currencyMask type="text"
-                                    (keyup)="resumeCalc()">
+                                <input formControlName="valorFrete" class="value" nz-input currencyMask type="text" (keyup)="resumeCalc()"
+                                [class]="(formDelivery.get('valorFrete')?.invalid && formDelivery.get('valorFrete')?.errors && (formDelivery.get('valorFrete')?.dirty || formDelivery.get('valorFrete')?.touched)) ? 'hasError' : ''" >
+                                <div
+                                    *ngIf="formDelivery.get('valorFrete')?.invalid && formDelivery.get('valorFrete')?.errors && (formDelivery.get('valorFrete')?.dirty || formDelivery.get('valorFrete')?.touched)">
+                                    <small class="text-danger" *ngIf="formDelivery.get('valorFrete')?.hasError('required')">
+                                        * O campo é obrigatorio.
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Frete fora da nota</label>
-                                <input formControlName="freteForaNota" currencyMask class="value" nz-input
-                                    placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
+                                <input formControlName="freteForaNota" currencyMask class="value" nz-input placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Seguro</label>
@@ -212,7 +287,14 @@
                         <div class="row">
                             <div class="col-md-12 d-flex flex-column">
                                 <label for="vendorName">Observação</label>
-                                <textarea formControlName="observacao" rows="6" style="resize: none;"></textarea>
+                                <textarea formControlName="observacao" rows="6" style="resize: none;"
+                                [class]="(formDelivery.get('observacao')?.invalid && formDelivery.get('observacao')?.errors && (formDelivery.get('observacao')?.dirty || formDelivery.get('observacao')?.touched)) ? 'hasError' : ''" ></textarea>
+                                <div
+                                    *ngIf="formDelivery.get('observacao')?.invalid && formDelivery.get('observacao')?.errors && (formDelivery.get('observacao')?.dirty || formDelivery.get('observacao')?.touched)">
+                                    <small class="text-danger" *ngIf="formDelivery.get('observacao')?.hasError('maxlength')">
+                                        * O campo deve conter no maximo 255 caracteres.
+                                    </small>
+                                </div>
                             </div>
                         </div>
                     </form>

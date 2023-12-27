@@ -40,4 +40,8 @@ export class CotationService {
   putSaveDraft(cotation: ICotationDraf) {
     return this.http.post(`${this.apiUrl}/Cotacao/SalvarPreenchimentoCotacao`, cotation);
   }
+
+  postUpdateCotation(cotation: ICotationDraf) {
+    return this.http.post(`${this.apiUrl}/Cotacao/AtualizarCotacao`, cotation);
+  }
 }
