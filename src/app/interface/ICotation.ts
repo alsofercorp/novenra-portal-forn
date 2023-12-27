@@ -94,5 +94,32 @@ interface ICotation {
   valorFreteForaNota: number,
   valorSeguro: number,
   vendedor: string,
+  guid: string,
   cotacaoExpirada: boolean
+}
+
+export interface ICotationDraf {
+  id: number,
+  fornecedor_Id: number,
+  erpCotacao_Id: string,
+  motivo_Id: number,
+  cotacaoStatus_Id: number,
+  vendedor: string,
+  dataPostagem: string | Date,
+  condicoesPagamento_Id: number,
+  frete_Id: number,
+  outrasDespesas: number,
+  valorFrete: number,
+  valorFreteForaNota: number,
+  valorSeguro: number,
+  valorDesconto: number,
+  prazoMaximoCotacao: string | Date,
+  dataEntregaDesejavel: string | Date,
+  observacao: string,
+  nomeUsuarioCadastro: string,
+  dataCadastro: string | Date,
+  nomeUsuarioAlteracao: string,
+  dataAlteracao: string | Date,
+  guid: string,
+  materialCotacao: IMaterial[]
 }

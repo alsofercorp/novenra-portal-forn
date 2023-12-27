@@ -3,7 +3,7 @@ import { PaymentConditionService } from './../../../services/payment-condition.s
 import { IPortage } from './../../../interface/IPortage';
 import { PortageService } from './../../../services/portage.service';
 import { CommonService } from './../../../services/common.service';
-import { ICotationById, IMaterial } from './../../../interface/ICotation';
+import { ICotationById, ICotationDraf, IMaterial } from './../../../interface/ICotation';
 import { CotationService } from './../../../services/cotation.service';
 import Swal from 'sweetalert2';
 import { answerDataList } from './../../../../assets/data/answerData';
@@ -76,6 +76,49 @@ export class RequestAnswerComponent implements OnInit {
       confirmButtonColor: "#EC7000",
       showCloseButton: true
     });
+  }
+
+  saveDraft() {
+    this.loaderService.show();
+
+    const input: ICotationDraf = {
+      id: this.cotation.cotacao.id,
+      fornecedor_Id: this.cotation.cotacao.fornecedor_Id,
+      erpCotacao_Id: '',
+      motivo_Id: this.cotation.cotacao.motivo_Id,
+      cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
+      vendedor: this.formDelivery.get('nomeVendedor')?.value,
+      dataPostagem: this.cotation.cotacao.dataPostagem,
+      condicoesPagamento_Id: this.cotation.cotacao.condicoesPagamento_Id,
+      frete_Id: this.cotation.cotacao.frete_Id,
+      outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
+      valorFrete: this.formDelivery.get('valorFrete')?.value,
+      valorFreteForaNota: this.formDelivery.get('freteForaNota')?.value,
+      valorSeguro: this.formDelivery.get('valorSeguro')?.value,
+      valorDesconto: this.formDelivery.get('valorDesconto')?.value,
+      prazoMaximoCotacao: this.cotation.cotacao.prazoMaximoCotacao,
+      dataEntregaDesejavel: this.formDelivery.get('dataEntrega')?.value,
+      observacao: this.formDelivery.get('observacao')?.value,
+      nomeUsuarioCadastro: this.cotation.cotacao.nomeUsuarioCadastro,
+      dataCadastro: this.cotation.cotacao.dataCadastro,
+      nomeUsuarioAlteracao: this.cotation.cotacao.nomeUsuarioAlteracao,
+      dataAlteracao: this.cotation.cotacao.dataAlteracao,
+      guid: this.cotation.cotacao.guid,
+      materialCotacao: (this.formMaterial.get('materials') as FormArray).value
+    }
+
+    this.service.putSaveDraft(input)
+      .subscribe({
+        next: () => {
+          debugger
+          this.loaderService.hidde();
+        },
+        error: (err: HttpErrorResponse) => {
+          debugger
+          this.commonService.ToastError(err.error.title);
+          this.loaderService.hidde();
+        }
+      })
   }
 
   getRequestById(id: string) {
