@@ -53,6 +53,12 @@
         background: var(--Light-Gray, #E9EEF6);
     }
 
+    input {
+        &.value {
+            text-align: center !important;
+        }
+    }
+
     nz-date-picker {
         padding: 10px 8px !important;
     }
@@ -182,5 +188,15 @@
             max-height: 20px;
             min-height: 20px;
         }
+    }
+}
+
+.no-border {
+    padding-top: 1.2rem;
+    border: none;
+    background-color: transparent !important;
+
+    :hover {
+        background-color: transparent !important;
     }
 }

@@ -1,3 +1,4 @@
+import { CustomCurrencyMaskConfig } from './../../assets/data/currencyOpt';
 import { NoventaLoaderModule } from './../components/noventa-loader/noventa-loader.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -36,6 +37,7 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NgxMaskModule } from 'ngx-mask';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     IconsProviderModule,
     NoventaLoaderModule,
     NgxMaskModule.forRoot(),
+    CurrencyMaskModule,
     NzLayoutModule,
     NzMenuModule,
     NzButtonModule,
@@ -79,6 +82,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     NzStepsModule,
     NzEmptyModule,
     NzToolTipModule
+  ],
+  providers: [
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ],
   exports: [],
 })

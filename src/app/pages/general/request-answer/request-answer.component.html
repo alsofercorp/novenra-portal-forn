@@ -47,8 +47,7 @@
                         <div class="col-md-4">
                             <label for="requester">
                                 <i class="ri-phone-line"></i> Contato:
-                                <span id="requester">{{cotation.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)
-                                    0 0000-0000'}} / {{cotation.dadosSolicitante.email}}
+                                <span id="requester">{{cotation.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)0 0000-0000'}} / {{cotation.dadosSolicitante.email}}
                                 </span>
                             </label>
                         </div>
@@ -59,72 +58,75 @@
                 <div class="col-md-12" style="padding: 0;">
                     <div class="row cotation-body">
                         <ngx-simplebar #scrollRef>
-                            <nz-table class="answerTable" #answerTable [nzData]="cotation.material"
-                                [nzShowPagination]="false">
-                                <thead>
-                                    <tr>
-                                        <th>Disponib.</th>
-                                        <th>Item Requisitado</th>
-                                        <th>Fabricante</th>
-                                        <th>Qtd. Req.</th>
-                                        <th>Prç. Unit.</th>
-                                        <th>% Desc.</th>
-                                        <th>Incluso IPI?</th>
-                                        <th>% IPI</th>
-                                        <th>Valor IPI</th>
-                                        <th>%ICMS</th>
-                                        <th>Prazo Ent.</th>
-                                        <th>Marca</th>
-                                        <th>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let data of answerTable.data">
-                                        <td [nzChecked]="data.ativo"></td>
-                                        <td *ngIf="hasShortDescription(data.descricao).short" class="shorter">
-                                            {{ hasShortDescription(data.descricao).short }}
-                                            <span class="show-tip" nz-tooltip [nzTooltipTitle]="hasShortDescription(data.descricao).desc"></span>
-                                        </td>
-                                        <td *ngIf="!hasShortDescription(data.descricao).short">
-                                            {{ data.descricao }}
-                                        </td>
-                                        <td>{{ data.nomeFabricante }}</td>
-                                        <td>{{ data.quantidadeRequisitada | number }} UND</td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input
-                                                [value]="data.precoUnitario | currency : 'BRL'" type="text">
-                                        </td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input
-                                                [value]="data.percentualDesconto | percent" type="text">
-                                        </td>
-                                        <td [nzChecked]="data.ipiIncluso"></td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input [value]="data.valorIpi | percent"
-                                                type="text">
-                                        </td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input
-                                                [value]="data.valorIpi | currency : 'BRL'" type="text">
-                                        </td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input
-                                                [value]="data.percentualIcms | percent" type="text">
-                                        </td>
-                                        <td>
-                                            <input class="answerTableInput date" nz-input
-                                                [value]="data.prazoEntrega| date : 'dd/MM/yy'" type="text">
-                                        </td>
-                                        <td>
-                                            <input class="answerTableInput" nz-input [value]="data.marca" type="text"
-                                                readonly>
-                                        </td>
-                                        <td>
-                                            {{ data.subTotal| currency : 'BRL' }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </nz-table>
+                            <form [formGroup]="formMaterial" *ngIf="formMaterial">
+                                <nz-table class="answerTable" #answerTable [nzData]="getMaterialFormArray"
+                                    [nzShowPagination]="false">
+                                    <thead>
+                                        <tr>
+                                            <th>Disponib.</th>
+                                            <th>Item Requisitado</th>
+                                            <th>Fabricante</th>
+                                            <th>Qtd. Req.</th>
+                                            <th>Preço. Unit.</th>
+                                            <th>% Desc.</th>
+                                            <th>Incluso IPI?</th>
+                                            <th>% IPI</th>
+                                            <th>Valor IPI</th>
+                                            <th>%ICMS</th>
+                                            <th>Prazo Ent.</th>
+                                            <th>Marca</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody formArrayName="materials" class="formMaterials">
+                                        <tr *ngFor="let data of answerTable.data; let $index = index"
+                                            [formGroupName]="$index">
+
+                                            <td class="text-center">
+                                                <span formControlName="ativo" nz-checkbox></span>
+                                            </td>
+                                            <td *ngIf="hasShortDescription(data).short" class="shorter">
+                                                {{ hasShortDescription(data).short }}
+                                                <span class="show-tip" nz-tooltip
+                                                    [nzTooltipTitle]="hasShortDescription(data).desc"></span>
+                                            </td>
+                                            <td *ngIf="!hasShortDescription(data).short">
+                                                {{ hasShortDescription(data).desc }}
+                                            </td>
+                                            <td>{{ getFormControlValue('nomeFabricante', $index) }}</td>
+                                            <td>{{ getFormControlValue('quantidadeRequisitada', $index) | number }} UND
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput unitValue" nz-input currencyMask formControlName="precoUnitario" type="text" (keyup)="updateMaterial($index)">
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput percent" nz-input suffix="%" mask="00" formControlName="percentualDesconto" type="text" (keyup)="updateMaterial($index)">
+                                            </td>
+                                            <td class="text-center">
+                                                <span formControlName="ipiIncluso" nz-checkbox (change)="allowIpiPercent($index)"></span>
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input formControlName="percentualIpi" type="text" (keyup)="updateMaterial($index)">
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput unitValue" currencyMask nz-input formControlName="valorIpi" type="text" (keyup)="updateMaterial($index)">
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input formControlName="percentualIcms" type="text" (keyup)="updateMaterial($index)">
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput date" mask="00/00/00" nz-input formControlName="prazoEntrega" type="text" (keyup)="updateMaterial($index)">
+                                            </td>
+                                            <td>
+                                                <input class="answerTableInput" nz-input formControlName="marca" type="text" readonly>
+                                            </td>
+                                            <td>
+                                                {{ getFormControlValue('subTotal', $index) | currency : 'BRL' }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </form>
                         </ngx-simplebar>
                     </div>
                 </div>
@@ -143,8 +145,7 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="vendorName">Nome do vendedor <small>*</small></label>
-                                <input formControlName="nomeVendedor" nz-input value="Carolina Bessa" id="vendorName"
-                                    type="text">
+                                <input formControlName="nomeVendedor" nz-input value="Carolina Bessa" id="vendorName" type="text">
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Data de entrega <small>*</small></label>
@@ -152,9 +153,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Formas de pagamento <small>*</small></label>
-                                <nz-select formControlName="formaPagamento" ativo name="paymentType">
-                                    <nz-option [nzValue]="value"
-                                        nzLabel="Á Vista (5% de deconto), Até 5x sem Juros"></nz-option>
+                                <nz-select formControlName="formaPagamento" ativo name="paymentType" (ngModelChange)="resumeCalc()">
+                                    <nz-option [nzValue]="'Á Vista (5% de deconto), Até 5x sem Juros'" nzLabel="Á Vista (5% de deconto), Até 5x sem Juros"></nz-option>
                                 </nz-select>
                             </div>
                         </div>
@@ -167,27 +167,23 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Valor do frete <small>*</small></label>
-                                <input formControlName="valorFrete" nz-input [value]="280 | currency : 'BRL'"
-                                    id="vendorName" type="text">
+                                <input formControlName="valorFrete" class="value" nz-input currencyMask type="text" (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Frete fora da nota</label>
-                                <input formControlName="freteForaNota" nz-input id="vendorName" placeholder="(opcional)"
-                                    type="text">
+                                <input formControlName="freteForaNota" currencyMask class="value" nz-input placeholder="(opcional)" type="text">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Seguro</label>
-                                <input formControlName="seguro" nz-input id="vendorName" placeholder="(opcional)"
-                                    type="text">
+                                <input formControlName="valorSeguro" nz-input currencyMask class="value" placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Desconto</label>
-                                <input formControlName="desconto" nz-input [value]="580 | currency : 'BRL'"
-                                    id="vendorName" type="text">
+                                <input formControlName="valorDesconto" nz-input currencyMask class="value" type="text" (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Outras despesas</label>
-                                <nz-select formControlName="outrasDespesas" nzPlaceHolder="Selecione"></nz-select>
+                                <input formControlName="outrasDespesas" nz-input currencyMask class="value" placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
                             </div>
                         </div>
                         <div class="row">
@@ -226,14 +222,14 @@
                     <nz-divider></nz-divider>
                     <div class="total-value">
                         <span>Valor total final</span>
-                        <span>{{cotation.resumoCotacao.subTotalItens | currency: 'BRL'}}</span>
+                        <span>{{cotation.resumoCotacao.valorFinalCotacao | currency: 'BRL'}}</span>
                     </div>
                 </div>
             </div>
             <div class="row submit-field">
                 <div class="col-md-12">
                     <button class="btn">Voltar</button>
-                    <button class="btn" (click)="sentRequest()">Enviar Cotação</button>
+                    <button class="btn" (click)="sentRequest(formMaterial.value, null)">Enviar Cotação</button>
                 </div>
             </div>
         </div>

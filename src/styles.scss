@@ -174,13 +174,21 @@ nz-table {
 
   .answerTableInput {
     width: 70px;
-    text-align: center;
+    text-align: center !important;
     border-radius: 10px;
     background: var(--Light-Gray, #E9EEF6);
     border: none;
 
     &.date {
-      width: 85px;
+      width: 90px;
+    }
+
+    &.unitValue {
+      width: 106px;
+    }
+
+    &.percent {
+      width: 50px;
     }
   }
 
