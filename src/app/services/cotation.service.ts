@@ -1,4 +1,4 @@
-import { ICotationModel, ICotationById } from './../interface/ICotation';
+import { ICotationModel, ICotationById, ICotationDraf } from './../interface/ICotation';
 import { IStatus } from './../interface/IStatus';
 import { IReason } from './../interface/IReason';
 import { HttpClient } from '@angular/common/http';
@@ -35,5 +35,9 @@ export class CotationService {
 
   getCotationById(id: string): Observable<ICotationById> {
     return this.http.post<ICotationById>(`${this.apiUrl}/Cotacao/ListarCotacaoId?Id=${id}`, {});
+  }
+
+  putSaveDraft(cotation: ICotationDraf) {
+    return this.http.post(`${this.apiUrl}/Cotacao/SalvarPreenchimentoCotacao`, cotation);
   }
 }
