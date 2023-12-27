@@ -226,12 +226,16 @@ export class RequestAnswerComponent implements OnInit {
         valorIpi: new FormControl(item.valorIpi, [Validators.required]),
       });
 
+      debugger
+
       arrayControl.push(newGroup);
     });
 
     (this.formMaterial.get('materials') as FormArray).controls.forEach((control: AbstractControl) => {
-      control.get('percentualIpi')?.disable();
-      control.get('valorIpi')?.disable();
+      if (!control.get('ipiIncluso')?.value) {
+        control.get('percentualIpi')?.disable();
+        control.get('valorIpi')?.disable();
+      }
     });
     debugger
     this.formDelivery.patchValue({
