@@ -234,8 +234,9 @@ export class RequestAnswerComponent implements OnInit {
     (this.formMaterial.get('materials') as FormArray).controls.forEach((control: AbstractControl) => {
       if (!control.get('ipiIncluso')?.value) {
         control.get('percentualIpi')?.disable();
-        control.get('valorIpi')?.disable();
       }
+
+      control.get('valorIpi')?.disable();
     });
     debugger
     this.formDelivery.patchValue({
