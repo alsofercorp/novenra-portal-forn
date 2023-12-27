@@ -15,72 +15,6 @@ export interface ICotationList {
   cotacoesPendentesPageCount: number
 }
 
-export class CotationById implements ICotationById {
-  cotacao: ICotation
-  dadosSolicitante: IRequesterData
-  material: IMaterial[]
-  resumoCotacao: IResume
-
-  constructor() {
-    this.material = [] as IMaterial[];
-
-    this.resumoCotacao = {
-      formaPagamento: '',
-      outrasDespesas: 0,
-      subTotalItens: 0,
-      valorDesconto: 0,
-      valorFinalCotacao: 0,
-      valorFrete: 0,
-      valorSeguro: 0,
-    }
-
-    this.dadosSolicitante = {
-      cep: '',
-      cidade: '',
-      cnpj: '',
-      contato: '',
-      dataEntrega: '',
-      dataSolicitacao: '',
-      email: '',
-      endereco: '',
-      estado: '',
-      id: 0,
-      idCotacao: '',
-      nome: '',
-      telefone: '',
-    }
-
-    this.cotacao = {
-      idCotacao: '0',
-      condicoesPagamento_Id: 0,
-      cotacaoStatus_Id: 0,
-      dataAlteracao: '',
-      dataCadastro: '',
-      dataEntregaDesejavel: '',
-      dataPostagem: '',
-      fornecedor_Id: 0,
-      frete_Id: 0,
-      id: 0,
-      motivo_Id: 0,
-      nomeCondicaoPagamento: '',
-      nomeFornecedor: '',
-      nomeFrete: '',
-      nomeMotivo: '',
-      nomeStatus: '',
-      nomeUsuarioAlteracao: '',
-      nomeUsuarioCadastro: '',
-      observacao: '',
-      outrasDespesas: '',
-      prazoMaximoCotacao: '',
-      valorDesconto: 0,
-      valorFrete: 0,
-      valorFreteForaNota: 0,
-      valorSeguro: 0,
-      vendedor: ''
-    }
-  }
-}
-
 export interface ICotationById {
   cotacao: ICotation,
   dadosSolicitante: IRequesterData,
@@ -159,5 +93,6 @@ interface ICotation {
   valorFrete: number,
   valorFreteForaNota: number,
   valorSeguro: number,
-  vendedor: string
+  vendedor: string,
+  cotacaoExpirada: boolean
 }

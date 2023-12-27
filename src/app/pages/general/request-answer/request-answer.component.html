@@ -47,7 +47,8 @@
                         <div class="col-md-4">
                             <label for="requester">
                                 <i class="ri-phone-line"></i> Contato:
-                                <span id="requester">{{cotation.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)0 0000-0000'}} / {{cotation.dadosSolicitante.email}}
+                                <span id="requester">{{cotation.dadosSolicitante.telefone | mask: '(00) 0000-0000||(00)0
+                                    0000-0000'}} / {{cotation.dadosSolicitante.email}}
                                 </span>
                             </label>
                         </div>
@@ -97,28 +98,42 @@
                                             <td>{{ getFormControlValue('quantidadeRequisitada', $index) | number }} UND
                                             </td>
                                             <td>
-                                                <input class="answerTableInput unitValue" nz-input currencyMask formControlName="precoUnitario" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput unitValue" nz-input currencyMask
+                                                    formControlName="precoUnitario" type="text"
+                                                    (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" nz-input suffix="%" mask="00" formControlName="percentualDesconto" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" nz-input suffix="%" mask="00"
+                                                    formControlName="percentualDesconto" type="text"
+                                                    (keyup)="updateMaterial($index)">
                                             </td>
                                             <td class="text-center">
-                                                <span formControlName="ipiIncluso" nz-checkbox (change)="allowIpiPercent($index)"></span>
+                                                <span formControlName="ipiIncluso" nz-checkbox
+                                                    (change)="allowIpiPercent($index)"></span>
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input formControlName="percentualIpi" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input
+                                                    formControlName="percentualIpi" type="text"
+                                                    (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput unitValue" currencyMask nz-input formControlName="valorIpi" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput unitValue" currencyMask nz-input
+                                                    formControlName="valorIpi" type="text"
+                                                    (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input formControlName="percentualIcms" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" suffix="%" mask="00" nz-input
+                                                    formControlName="percentualIcms" type="text"
+                                                    (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput date" mask="00/00/00" nz-input formControlName="prazoEntrega" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput date" mask="000" suffix=" Dia(s)" nz-input
+                                                    formControlName="prazoEntrega" type="text"
+                                                    (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput" nz-input formControlName="marca" type="text" readonly>
+                                                <input class="answerTableInput" nz-input formControlName="marca"
+                                                    type="text" readonly>
                                             </td>
                                             <td>
                                                 {{ getFormControlValue('subTotal', $index) | currency : 'BRL' }}
@@ -145,45 +160,54 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="vendorName">Nome do vendedor <small>*</small></label>
-                                <input formControlName="nomeVendedor" nz-input value="Carolina Bessa" id="vendorName" type="text">
+                                <input formControlName="nomeVendedor" nz-input value="Carolina Bessa" id="vendorName"
+                                    type="text" [ngClass]="">
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Data de entrega <small>*</small></label>
-                                <nz-date-picker formControlName="dataEntrega"></nz-date-picker>
+                                <nz-date-picker nzFormat="dd/MM/yyyy" formControlName="dataEntrega"></nz-date-picker>
                             </div>
                             <div class="col-md-4">
                                 <label for="vendorName">Formas de pagamento <small>*</small></label>
-                                <nz-select formControlName="formaPagamento" ativo name="paymentType" (ngModelChange)="resumeCalc()">
-                                    <nz-option [nzValue]="'Á Vista (5% de deconto), Até 5x sem Juros'" nzLabel="Á Vista (5% de deconto), Até 5x sem Juros"></nz-option>
+                                <nz-select formControlName="formaPagamento" ativo name="paymentType"
+                                    (ngModelChange)="resumeCalc()">
+                                    <nz-option *ngFor="let payment of paymentList" [nzValue]="payment.id"
+                                        [nzLabel]="payment.statusCondicoesPagamento"></nz-option>
                                 </nz-select>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-2">
                                 <label for="vendorName">Tipo do frete <small>*</small></label>
-                                <nz-select formControlName="tipoFrete" ativo name="freigthType">
-                                    <nz-option [nzValue]="value" nzLabel="FOB"></nz-option>
+                                <nz-select formControlName="tipoFrete" ativo name="freigthType" (ngModelChange)="validatePortage()">
+                                    <nz-option *ngFor="let portage of portageList" [nzValue]="portage.id"
+                                        [nzLabel]="portage.tipoFrete"></nz-option>
                                 </nz-select>
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Valor do frete <small>*</small></label>
-                                <input formControlName="valorFrete" class="value" nz-input currencyMask type="text" (keyup)="resumeCalc()">
+                                <input formControlName="valorFrete" class="value" nz-input currencyMask type="text"
+                                    (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Frete fora da nota</label>
-                                <input formControlName="freteForaNota" currencyMask class="value" nz-input placeholder="(opcional)" type="text">
+                                <input formControlName="freteForaNota" currencyMask class="value" nz-input
+                                    placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Seguro</label>
-                                <input formControlName="valorSeguro" nz-input currencyMask class="value" placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
+                                <input formControlName="valorSeguro" nz-input currencyMask class="value"
+                                    placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Desconto</label>
-                                <input formControlName="valorDesconto" nz-input currencyMask class="value" type="text" (keyup)="resumeCalc()">
+                                <input formControlName="valorDesconto" nz-input currencyMask class="value" type="text"
+                                    (keyup)="resumeCalc()">
                             </div>
                             <div class="col-md-2">
                                 <label for="vendorName">Outras despesas</label>
-                                <input formControlName="outrasDespesas" nz-input currencyMask class="value" placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
+                                <input formControlName="outrasDespesas" nz-input currencyMask class="value"
+                                    placeholder="(opcional)" type="text" (keyup)="resumeCalc()">
                             </div>
                         </div>
                         <div class="row">
@@ -229,7 +253,10 @@
             <div class="row submit-field">
                 <div class="col-md-12">
                     <button class="btn">Voltar</button>
-                    <button class="btn" (click)="sentRequest(formMaterial.value, null)">Enviar Cotação</button>
+                    <div class="save-container">
+                        <button class="btn" (click)="sentRequest(formMaterial.value, null)">Salvar Rascunho</button>
+                        <button class="btn" (click)="sentRequest(formMaterial.value, null)">Enviar Cotação</button>
+                    </div>
                 </div>
             </div>
         </div>

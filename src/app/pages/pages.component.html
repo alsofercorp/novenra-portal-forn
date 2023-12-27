@@ -19,18 +19,18 @@
       <div class="user-info">
         <img class="rounded-image" src="./../assets/img/profile.png" alt="avatar">
         <div class="info">
-          <a class="dropdown" nz-dropdown [nzDropdownMenu]="menu">
+          <a class="dropdown" nz-dropdown>
             {{userInfo.nome}}
             <span nz-icon nzType="down"></span>
           </a>
-          <nz-dropdown-menu #menu="nzDropdownMenu">
+          <!-- <nz-dropdown-menu #menu="nzDropdownMenu">
             <ul nz-menu>
               <li nz-menu-item>1st menu item</li>
               <li nz-menu-item>2nd menu item</li>
               <li nz-menu-divider></li>
               <li nz-menu-item nzDisabled>3rd menu item</li>
             </ul>
-          </nz-dropdown-menu>
+          </nz-dropdown-menu> -->
           <nz-tag class="noventa-orange">
             <span nz-icon nzType="shopping" nzTheme="outline"></span>
             {{captalizeCompanyName(companyData.razaoSocial)}}

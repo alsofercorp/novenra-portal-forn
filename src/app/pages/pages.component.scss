@@ -202,6 +202,13 @@ nz-content {
         line-height: 25px;
         color: black;
         font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        span {
+          margin-left: 0.275rem;
+        }
       }
 
       .user-name {

@@ -157,6 +157,20 @@
                 }
             }
         }
+
+        .save-container {
+            display: flex;
+            flex-direction: row;
+            width: 33%;
+
+            .btn {
+                width: 100%;
+
+                &:first-child {
+                    margin-right: 1rem;
+                }
+            }
+        }
     }
 }
 
@@ -171,6 +185,7 @@
 
     .show-tip {
         margin-left: 1rem;
+
         &::before {
             content: "+";
             border-radius: 50%;

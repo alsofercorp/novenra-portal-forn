@@ -1,3 +1,7 @@
+import { IPaymentCondition } from './../../../interface/IPaymentCondition';
+import { PaymentConditionService } from './../../../services/payment-condition.service';
+import { IPortage } from './../../../interface/IPortage';
+import { PortageService } from './../../../services/portage.service';
 import { CommonService } from './../../../services/common.service';
 import { ICotationById, IMaterial } from './../../../interface/ICotation';
 import { CotationService } from './../../../services/cotation.service';
@@ -6,9 +10,10 @@ import { answerDataList } from './../../../../assets/data/answerData';
 import { IAnswerRequest } from './../../../interface/IAnswerRequest';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-request-answer',
@@ -30,6 +35,9 @@ export class RequestAnswerComponent implements OnInit {
 
   materialsList: any;
 
+  portageList: IPortage[] = [];
+  paymentList: IPaymentCondition[] = [];
+
   formDelivery: FormGroup = new FormGroup({
     nomeVendedor: new FormControl('', [Validators.required]),
     dataEntrega: new FormControl('', [Validators.required]),
@@ -43,7 +51,9 @@ export class RequestAnswerComponent implements OnInit {
     observacao: new FormControl('', [])
   });
 
-  constructor(private service: CotationService, private route: ActivatedRoute, private commonService: CommonService, private loaderService: NoventaLoaderService, private formBuilder: FormBuilder) { }
+  constructor(private service: CotationService, private route: ActivatedRoute, private commonService: CommonService,
+    private loaderService: NoventaLoaderService, private formBuilder: FormBuilder, private portageService: PortageService,
+    private paymentService: PaymentConditionService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -70,14 +80,24 @@ export class RequestAnswerComponent implements OnInit {
 
   getRequestById(id: string) {
     this.loaderService.show();
-    
-    this.service.getCotationById(id)
+
+    this.portageService.getPortage(id)
+      .pipe(switchMap((portages: IPortage[]) => {
+        this.portageList = portages;
+
+        return this.paymentService.getPaymentContion(id);
+      }))
+      .pipe(switchMap((payments: IPaymentCondition[]) => {
+        this.paymentList = payments;
+
+        return this.service.getCotationById(id);
+      }))
       .subscribe({
         next: (cotation: ICotationById) => {
           this.cotation = cotation;
 
           this.generateReactiveForm(cotation.material);
-          
+
           this.loaderService.hidde();
         },
         error: (err: HttpErrorResponse) => {
@@ -91,7 +111,7 @@ export class RequestAnswerComponent implements OnInit {
     // (Subtotal do Item) = (Quantidade Requisitada) x (Preço unitário) - (Valor calculado caso o fornecedor informe algum % de desconto) + (Valor do IPI, caso o item possua valor de IPI e a coluna “Incluso IPI” esteja ativa)
     const formSelected: AbstractControl = (this.formMaterial.get('materials') as FormArray).controls[form];
     let subTotal: number = 0;
-    
+
     const grossValue: number = (formSelected.get('quantidadeRequisitada')?.value * formSelected.get('precoUnitario')?.value);
     subTotal = grossValue - (grossValue * (formSelected.get('percentualDesconto')?.value / 100));
 
@@ -116,7 +136,7 @@ export class RequestAnswerComponent implements OnInit {
   }
 
   resumeCalc() {
-    const cotationMap: ICotationById = {...this.cotation};
+    const cotationMap: ICotationById = { ...this.cotation };
 
     cotationMap.resumoCotacao.subTotalItens = 0;
     cotationMap.resumoCotacao.valorFinalCotacao = 0;
@@ -125,16 +145,22 @@ export class RequestAnswerComponent implements OnInit {
       cotationMap.resumoCotacao.subTotalItens += control.get('subTotal')?.value;
     });
 
-    debugger
-
     cotationMap.resumoCotacao.valorFrete = this.formDelivery.get('valorFrete')?.value;
     cotationMap.resumoCotacao.valorSeguro = this.formDelivery.get('valorSeguro')?.value;
     cotationMap.resumoCotacao.valorDesconto = this.formDelivery.get('valorDesconto')?.value;
     cotationMap.resumoCotacao.outrasDespesas = this.formDelivery.get('outrasDespesas')?.value;
 
-    cotationMap.resumoCotacao.formaPagamento = this.formDelivery.get('formaPagamento')?.value
+    cotationMap.cotacao.valorFrete = this.formDelivery.get('valorFrete')?.value;
+    cotationMap.cotacao.valorSeguro = this.formDelivery.get('valorSeguro')?.value;
+    cotationMap.cotacao.valorDesconto = this.formDelivery.get('valorDesconto')?.value;
+    cotationMap.cotacao.outrasDespesas = this.formDelivery.get('outrasDespesas')?.value;
+    cotationMap.cotacao.valorFreteForaNota = this.formDelivery.get('freteForaNota')?.value;
 
-    cotationMap.resumoCotacao.valorFinalCotacao = (cotationMap.resumoCotacao.subTotalItens + cotationMap.resumoCotacao.valorFrete + cotationMap.resumoCotacao.valorSeguro) - cotationMap.resumoCotacao.valorDesconto + cotationMap.resumoCotacao.outrasDespesas
+    const hasPayment: IPaymentCondition | undefined = this.paymentList.find((pl: IPaymentCondition) => pl.id === this.formDelivery.get('formaPagamento')?.value);
+
+    cotationMap.resumoCotacao.formaPagamento = hasPayment ? hasPayment.statusCondicoesPagamento : '';
+
+    cotationMap.resumoCotacao.valorFinalCotacao = (cotationMap.resumoCotacao.subTotalItens + (cotationMap.resumoCotacao.valorFrete - cotationMap.cotacao.valorFreteForaNota) + cotationMap.resumoCotacao.valorSeguro) - cotationMap.resumoCotacao.valorDesconto + cotationMap.resumoCotacao.outrasDespesas
 
     this.cotation = cotationMap;
   }
@@ -142,9 +168,9 @@ export class RequestAnswerComponent implements OnInit {
   generateReactiveForm(inputArray: IMaterial[]) {
     const arrayControl = <FormArray>this.formMaterial.controls['materials'];
     let newGroup: FormGroup;
-    
+
     inputArray.forEach((item: IMaterial) => {
-       newGroup = this.formBuilder.group({
+      newGroup = this.formBuilder.group({
         ativo: new FormControl(item.ativo, [Validators.required]),
         cotacao_Id: new FormControl(item.cotacao_Id, [Validators.required]),
         descricao: new FormControl(item.descricao, [Validators.required]),
@@ -165,17 +191,27 @@ export class RequestAnswerComponent implements OnInit {
 
       arrayControl.push(newGroup);
     });
-    
+
     (this.formMaterial.get('materials') as FormArray).controls.forEach((control: AbstractControl) => {
       control.get('percentualIpi')?.disable();
       control.get('valorIpi')?.disable();
     });
+
+    this.validatePortage();
+
+    if (!this.cotation.cotacao.cotacaoExpirada) {
+      (this.formMaterial.get('materials') as FormArray).controls.forEach((control: AbstractControl) => {
+        control.disable();
+      });
+
+      this.formDelivery.disable();
+    }
   }
 
   hasShortDescription(form: any): any | null {
     const description: string = form.get('descricao')?.value;
     const shortNumber = 34;
-    
+
     let shortnes: any = {
       short: null,
       desc: description
@@ -190,7 +226,7 @@ export class RequestAnswerComponent implements OnInit {
 
   allowIpiPercent(form: number) {
     const hasIpi: Boolean = this.getFormControlValue('ipiIncluso', form);
-    
+
     if (hasIpi) {
       (this.formMaterial.get('materials') as FormArray).controls[form].get('percentualIpi')?.enable();
     } else {
@@ -202,6 +238,23 @@ export class RequestAnswerComponent implements OnInit {
     }
 
     this.updateMaterial(form);
+  }
+
+  validatePortage() {
+    if (this.formDelivery.get('tipoFrete')?.value === 1) {
+      this.formDelivery.get('valorFrete')?.enable();
+      this.formDelivery.get('freteForaNota')?.enable();
+    } else {
+      this.formDelivery.get('valorFrete')?.disable();
+      this.formDelivery.get('freteForaNota')?.disable();
+
+      this.formDelivery.patchValue({
+        valorFrete: 0,
+        freteForaNota: 0
+      })
+    }
+
+    this.resumeCalc();
   }
 
   get getMaterialFormArray() {
