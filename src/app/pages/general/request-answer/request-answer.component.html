@@ -132,8 +132,7 @@
                                                     (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
-                                                <input class="answerTableInput" nz-input formControlName="marca"
-                                                    type="text" readonly>
+                                                <input class="answerTableInput" nz-input formControlName="marca" type="text">
                                             </td>
                                             <td>
                                                 {{ getFormControlValue('subTotal', $index) | currency : 'BRL' }}
@@ -254,8 +253,8 @@
                 <div class="col-md-12">
                     <button class="btn">Voltar</button>
                     <div class="save-container">
-                        <button class="btn" (click)="saveDraft()">Salvar Rascunho</button>
-                        <button class="btn" (click)="sentRequest(formMaterial.value, null)">Enviar Cotação</button>
+                        <button class="btn" [disabled]="cotation.cotacao.cotacaoExpirada" (click)="saveDraft()">Salvar Rascunho</button>
+                        <button class="btn" [disabled]="cotation.cotacao.cotacaoExpirada" (click)="sentRequest(formMaterial.value, null)">Enviar Cotação</button>
                     </div>
                 </div>
             </div>

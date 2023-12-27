@@ -21,22 +21,9 @@ import { switchMap } from 'rxjs';
   styleUrls: ['./request-answer.component.scss']
 })
 export class RequestAnswerComponent implements OnInit {
-  answerData: IAnswerRequest[] = answerDataList;
-  cotation: ICotationById = {} as ICotationById;
-  subscription: EventEmitter<IMaterial[]> = new EventEmitter();
-
-  value: number = 0;
-
-  resumeSubTotalItens: number = 0;
-
   formMaterial: FormGroup = new FormGroup({
     materials: new FormArray([])
   });
-
-  materialsList: any;
-
-  portageList: IPortage[] = [];
-  paymentList: IPaymentCondition[] = [];
 
   formDelivery: FormGroup = new FormGroup({
     nomeVendedor: new FormControl('', [Validators.required]),
@@ -50,6 +37,13 @@ export class RequestAnswerComponent implements OnInit {
     outrasDespesas: new FormControl(0, [Validators.required]),
     observacao: new FormControl('', [])
   });
+
+  answerData: IAnswerRequest[] = answerDataList;
+  cotation: ICotationById = {} as ICotationById;
+  materialsList: any;
+
+  portageList: IPortage[] = [];
+  paymentList: IPaymentCondition[] = [];
 
   constructor(private service: CotationService, private route: ActivatedRoute, private commonService: CommonService,
     private loaderService: NoventaLoaderService, private formBuilder: FormBuilder, private portageService: PortageService,
