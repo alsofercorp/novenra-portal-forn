@@ -104,11 +104,6 @@
             <div class="row">
                 <div class="edit-button-cont">
                     <h3>Detalhes dos itens requisitos</h3>
-                    <button routerLink="/app/visao-geral/responder-solicitacao" class="btn btn-printer"
-                        [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
-                        <i class="ri-pencil-line"></i>
-                        Editar itens
-                    </button>
                 </div>
                 <nz-divider></nz-divider>
                 <div class="col-md-12">
@@ -152,12 +147,6 @@
             <div class="row">
                 <div class="edit-button-cont col-md-9">
                     <h3>Detalhes de Pagamento</h3>
-                    <button [routerLink]="['app', 'visao-geral', 'responder-solicitacao', cotationDetail.cotacao.id]"
-                        class="btn btn-printer"
-                        [disabled]="cotationDetail.cotacao.nomeStatus.toLowerCase() !== 'pendente'">
-                        <i class="ri-pencil-line"></i>
-                        Editar itens
-                    </button>
                 </div>
                 <div class="col-md-3">
                     <h3>Resumo</h3>
