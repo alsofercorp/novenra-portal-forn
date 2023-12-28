@@ -8,7 +8,7 @@ import { CotationService } from './../../../services/cotation.service';
 import Swal from 'sweetalert2';
 import { answerDataList } from './../../../../assets/data/answerData';
 import { IAnswerRequest } from './../../../interface/IAnswerRequest';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NoventaLoaderService } from 'src/app/components/noventa-loader/noventa-loader.service';
@@ -69,98 +69,102 @@ export class RequestAnswerComponent implements OnInit {
     } else {
       this.loaderService.show();
 
-    const input: ICotationDraf = {
-      id: this.cotation.cotacao.id,
-      fornecedor_Id: this.cotation.cotacao.fornecedor_Id,
-      erpCotacao_Id: this.cotation.cotacao.idCotacao,
-      motivo_Id: this.cotation.cotacao.motivo_Id,
-      cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
-      vendedor: this.formDelivery.get('nomeVendedor')?.value,
-      dataPostagem: this.formDelivery.get('dataEntrega')?.value,
-      condicoesPagamento_Id: this.formDelivery.get('formaPagamento')?.value,
-      frete_Id: this.formDelivery.get('tipoFrete')?.value,
-      outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
-      valorFrete: this.formDelivery.get('valorFrete')?.value,
-      valorFreteForaNota: this.formDelivery.get('freteForaNota')?.value,
-      valorSeguro: this.formDelivery.get('valorSeguro')?.value,
-      valorDesconto: this.formDelivery.get('valorDesconto')?.value,
-      prazoMaximoCotacao: this.cotation.cotacao.prazoMaximoCotacao,
-      dataEntregaDesejavel: this.cotation.cotacao.dataEntregaDesejavel,
-      observacao: this.formDelivery.get('observacao')?.value,
-      nomeUsuarioCadastro: this.cotation.cotacao.nomeUsuarioCadastro,
-      dataCadastro: this.cotation.cotacao.dataCadastro,
-      nomeUsuarioAlteracao: this.userData.user.nome,
-      dataAlteracao: new Date(),
-      guid: this.cotation.cotacao.guid,
-      materialCotacao: (this.formMaterial.get('materials') as FormArray).value
-    }
+      const input: ICotationDraf = {
+        id: this.cotation.cotacao.id,
+        fornecedor_Id: this.cotation.cotacao.fornecedor_Id,
+        erpCotacao_Id: this.cotation.cotacao.idCotacao,
+        motivo_Id: this.cotation.cotacao.motivo_Id,
+        cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
+        vendedor: this.formDelivery.get('nomeVendedor')?.value,
+        dataPostagem: this.formDelivery.get('dataEntrega')?.value,
+        condicoesPagamento_Id: this.formDelivery.get('formaPagamento')?.value,
+        frete_Id: this.formDelivery.get('tipoFrete')?.value,
+        outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
+        valorFrete: this.formDelivery.get('valorFrete')?.value,
+        valorFreteForaNota: this.formDelivery.get('freteForaNota')?.value,
+        valorSeguro: this.formDelivery.get('valorSeguro')?.value,
+        valorDesconto: this.formDelivery.get('valorDesconto')?.value,
+        prazoMaximoCotacao: this.cotation.cotacao.prazoMaximoCotacao,
+        dataEntregaDesejavel: this.cotation.cotacao.dataEntregaDesejavel,
+        observacao: this.formDelivery.get('observacao')?.value,
+        nomeUsuarioCadastro: this.cotation.cotacao.nomeUsuarioCadastro,
+        dataCadastro: this.cotation.cotacao.dataCadastro,
+        nomeUsuarioAlteracao: this.userData.user.nome,
+        dataAlteracao: new Date(),
+        guid: this.cotation.cotacao.guid,
+        materialCotacao: (this.formMaterial.get('materials') as FormArray).value
+      }
 
-    this.service.postUpdateCotation(input)
-      .subscribe({
-        next: () => {
-          this.loaderService.hidde();
+      this.service.postUpdateCotation(input)
+        .subscribe({
+          next: () => {
+            this.loaderService.hidde();
 
-          Swal.fire({
-            html: `
+            Swal.fire({
+              html: `
             <img src="../../../../assets/img/answer_request.png">
             <h3>Sua cotação foi enviada com sucesso</h3>
             <p>Consulte mais detalhes e acompanhe o status da operação no painel <b>Cotações.</b> Você será notificado caso o solicitante aprove a Ordem de Compra.</p>`,
-            customClass: "answerAlert",
-            confirmButtonText: "Concluir",
-            confirmButtonColor: "#EC7000",
-            showCloseButton: true,
-          }).then((result: any) => {
-            this.router.navigate(['app', 'visao-geral']);
-          });
-        },
-        error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error.msg);
-          this.loaderService.hidde();
-        }
-      });
+              customClass: "answerAlert",
+              confirmButtonText: "Concluir",
+              confirmButtonColor: "#EC7000",
+              showCloseButton: true,
+            }).then((result: any) => {
+              this.router.navigate(['app', 'visao-geral']);
+            });
+          },
+          error: (err: HttpErrorResponse) => {
+            this.commonService.ToastError(err.error.msg);
+            this.loaderService.hidde();
+          }
+        });
     }
   }
 
   saveDraft() {
-    this.loaderService.show();
+    if (this.validateFormArrayError()) {
+      this.commonService.ToastWarning('Atencao, existem campos obrigatorios a serem preenchidos');
+    } else {
+      this.loaderService.show();
 
-    const input: ICotationDraf = {
-      id: this.cotation.cotacao.id,
-      fornecedor_Id: this.cotation.cotacao.fornecedor_Id,
-      erpCotacao_Id: this.cotation.cotacao.idCotacao,
-      motivo_Id: this.cotation.cotacao.motivo_Id,
-      cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
-      vendedor: this.formDelivery.get('nomeVendedor')?.value,
-      dataPostagem: this.formDelivery.get('dataEntrega')?.value,
-      condicoesPagamento_Id: this.formDelivery.get('formaPagamento')?.value,
-      frete_Id: this.formDelivery.get('tipoFrete')?.value,
-      outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
-      valorFrete: this.formDelivery.get('valorFrete')?.value,
-      valorFreteForaNota: this.formDelivery.get('freteForaNota')?.value,
-      valorSeguro: this.formDelivery.get('valorSeguro')?.value,
-      valorDesconto: this.formDelivery.get('valorDesconto')?.value,
-      prazoMaximoCotacao: this.cotation.cotacao.prazoMaximoCotacao,
-      dataEntregaDesejavel: this.cotation.cotacao.dataEntregaDesejavel,
-      observacao: this.formDelivery.get('observacao')?.value,
-      nomeUsuarioCadastro: this.cotation.cotacao.nomeUsuarioCadastro,
-      dataCadastro: this.cotation.cotacao.dataCadastro,
-      nomeUsuarioAlteracao: this.userData.user.nome,
-      dataAlteracao: new Date(),
-      guid: this.cotation.cotacao.guid,
-      materialCotacao: (this.formMaterial.get('materials') as FormArray).value
+      const input: ICotationDraf = {
+        id: this.cotation.cotacao.id,
+        fornecedor_Id: this.cotation.cotacao.fornecedor_Id,
+        erpCotacao_Id: this.cotation.cotacao.idCotacao,
+        motivo_Id: this.cotation.cotacao.motivo_Id,
+        cotacaoStatus_Id: this.cotation.cotacao.cotacaoStatus_Id,
+        vendedor: this.formDelivery.get('nomeVendedor')?.value,
+        dataPostagem: this.formDelivery.get('dataEntrega')?.value,
+        condicoesPagamento_Id: this.formDelivery.get('formaPagamento')?.value,
+        frete_Id: this.formDelivery.get('tipoFrete')?.value,
+        outrasDespesas: this.formDelivery.get('outrasDespesas')?.value,
+        valorFrete: this.formDelivery.get('valorFrete')?.value,
+        valorFreteForaNota: this.formDelivery.get('freteForaNota')?.value,
+        valorSeguro: this.formDelivery.get('valorSeguro')?.value,
+        valorDesconto: this.formDelivery.get('valorDesconto')?.value,
+        prazoMaximoCotacao: this.cotation.cotacao.prazoMaximoCotacao,
+        dataEntregaDesejavel: this.cotation.cotacao.dataEntregaDesejavel,
+        observacao: this.formDelivery.get('observacao')?.value,
+        nomeUsuarioCadastro: this.cotation.cotacao.nomeUsuarioCadastro,
+        dataCadastro: this.cotation.cotacao.dataCadastro,
+        nomeUsuarioAlteracao: this.userData.user.nome,
+        dataAlteracao: new Date(),
+        guid: this.cotation.cotacao.guid,
+        materialCotacao: (this.formMaterial.get('materials') as FormArray).value
+      }
+
+      this.service.putSaveDraft(input)
+        .subscribe({
+          next: () => {
+            this.commonService.ToastSucess('Rascunho salvo com sucesso!');
+            this.loaderService.hidde();
+          },
+          error: (err: HttpErrorResponse) => {
+            this.commonService.ToastError(err.error.msg);
+            this.loaderService.hidde();
+          }
+        })
     }
-
-    this.service.putSaveDraft(input)
-      .subscribe({
-        next: () => {
-          this.commonService.ToastSucess('Rascunho salvo com sucesso!');
-          this.loaderService.hidde();
-        },
-        error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error.msg);
-          this.loaderService.hidde();
-        }
-      })
   }
 
   getRequestById(id: string) {
@@ -262,11 +266,11 @@ export class RequestAnswerComponent implements OnInit {
         marca: new FormControl(item.marca, [Validators.required, Validators.maxLength(30)]),
         material_Id: new FormControl(item.cotacao_Id, [Validators.required]),
         nomeFabricante: new FormControl(item.nomeFabricante, [Validators.required]),
-        percentualDesconto: new FormControl(item.percentualDesconto, [Validators.required, Validators.max(99.99)]),
-        percentualIcms: new FormControl(item.percentualIcms, [Validators.required, Validators.max(99.99)]),
+        percentualDesconto: new FormControl(item.percentualDesconto, []),
+        percentualIcms: new FormControl(item.percentualIcms, []),
         percentualIpi: new FormControl(item.percentualIpi, []),
-        prazoEntrega: new FormControl(item.prazoEntrega, [Validators.required, Validators.min(1)]),
-        precoUnitario: new FormControl(item.precoUnitario, [Validators.required, Validators.max(999.9999), Validators.min(0.0001)]),
+        prazoEntrega: new FormControl(item.prazoEntrega, [Validators.required]),
+        precoUnitario: new FormControl(item.precoUnitario, [Validators.required]),
         quantidadeRequisitada: new FormControl(item.quantidadeRequisitada, []),
         subTotal: new FormControl(item.subTotal, []),
         valorIpi: new FormControl(item.valorIpi, []),
@@ -392,20 +396,12 @@ export class RequestAnswerComponent implements OnInit {
             form.get(field)?.setValidators([Validators.required])
           }
 
-          if (field === 'percentualDesconto') {
-            form.get(field)?.setValidators([Validators.required, Validators.max(99.99)])
-          }
-
-          if (field === 'percentualIcms') {
-            form.get(field)?.setValidators([Validators.required, Validators.max(99.99)])
-          }
-
           if (field === 'prazoEntrega') {
-            form.get(field)?.setValidators([Validators.required, Validators.min(1)])
+            form.get(field)?.setValidators([Validators.required])
           }
 
           if (field === 'precoUnitario') {
-            form.get(field)?.setValidators([Validators.required, Validators.max(999.9999), Validators.min(0.0001)])
+            form.get(field)?.setValidators([Validators.required])
           }
 
           form.get(field)?.updateValueAndValidity();

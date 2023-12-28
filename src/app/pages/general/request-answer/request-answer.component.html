@@ -129,7 +129,7 @@
                                                 <span formControlName="ipiIncluso" nz-checkbox (change)="allowIpiPercent($index)"></span>
                                             </td>
                                             <td>
-                                                <input class="answerTableInput percent" suffix="%" mask="99" nz-input formControlName="percentualIpi" type="text" (keyup)="updateMaterial($index)">
+                                                <input class="answerTableInput percent" suffix="%" mask="separator.2" decimalMarker="," nz-input formControlName="percentualIpi" type="text" (keyup)="updateMaterial($index)">
                                             </td>
                                             <td>
                                                 <input class="answerTableInput unitValue" currencyMask nz-input formControlName="valorIpi" type="text">
