@@ -20,6 +20,11 @@ export interface ICotationById {
   dadosSolicitante: IRequesterData,
   material: IMaterial[],
   resumoCotacao: IResume,
+  itensIndisponivel: IItensIndisponiveis[]
+}
+
+interface IItensIndisponiveis {
+  itemIndisponivel: string
 }
 
 interface IResume {
