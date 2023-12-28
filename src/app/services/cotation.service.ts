@@ -26,7 +26,14 @@ export class CotationService {
     return this.http.get<IReason[]>(`${this.apiUrl}/Filtros/ListarMotivo`)
       .pipe(map((res: any) => {
         return res.data.motivo;
-      }))
+      }));
+  }
+
+  getCotationByGuid(guid: string): Observable<number> {
+    return this.http.post<number>(`${this.apiUrl}/Cotacao/ListarCotacaoGuid?Id=${guid}`, {})
+      .pipe(map((data: any) => {
+        return data.cotacao.id
+      }));
   }
 
   getCotation(filter: ICotationFilter): Observable<ICotationModel> {

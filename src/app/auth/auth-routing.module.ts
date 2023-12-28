@@ -16,6 +16,7 @@ const routes: Routes = [
     component: AuthComponent,
     children: [
       { path: 'login', component: LoginComponent, title: 'Login' },
+      { path: 'login/:guid', component: LoginComponent, title: 'Login' },
       { path: 'dados-basicos', component: CreateUserComponent, title: 'Cadastro - Dados Basicos' },
       { path: 'dados-complementares', component: CreateUserExtraComponent, title: 'Cadastro - Dados Complementares' },
       { path: 'validar', component: ForgottenPasswordComponent, title: 'Senha - Validação de usuario' },

@@ -1,9 +1,10 @@
+import { CotationService } from './../../services/cotation.service';
 import { SupplierService } from './../../services/supplier.service';
 import { ISupplier } from './../../interface/ISupplier';
 import { CommonService } from './../../services/common.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IUserRegister } from '../../interface/IUserRegister';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,36 +27,76 @@ export class LoginComponent implements OnInit {
     supplier: null
   };
 
-  constructor(private router: Router, private authService: AuthService, private supplierService: SupplierService, private commonService: CommonService, private loaderService: NoventaLoaderService) { }
+  cotationRequestId: string = '';
+  private cotationId: number = 0;
+
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, 
+    private supplierService: SupplierService, private commonService: CommonService, private loaderService: NoventaLoaderService,
+    private cotationService: CotationService) { }
 
   ngOnInit(): void {
     localStorage.clear();
+
+    this.route.params
+      .subscribe((params: any) => {
+        if (params.guid) {
+          this.cotationRequestId = params.guid
+        }
+      })
   }
 
   login() {
     this.loaderService.show();
 
-    this.authService
-      .authenticate(this.loginForm.value)
-      .pipe(switchMap((user: IUserRegister) => {
-        this.userData.user = user;
+    if (this.cotationRequestId !== '') {
+      this.authService
+        .authenticate(this.loginForm.value)
+        .pipe(switchMap((user: IUserRegister) => {
+          this.userData.user = user;
 
-        return this.supplierService.getSupplierById(user.id);
-      }))
-      .subscribe({
-        next: (supplier: ISupplier) => {
-          this.userData.supplier = supplier;
+          return this.cotationService.getCotationByGuid(this.cotationRequestId);
+        }))
+        .pipe(switchMap((cotationId: number) => {
+          this.cotationId = cotationId;
 
-          localStorage.setItem('userData', JSON.stringify(this.userData));
-          this.authService.userInfo.emit(this.userData.user);
-          this.router.navigate(['app', 'visao-geral']);
-          this.loaderService.hidde();
-        },
-        error: (err: HttpErrorResponse) => {
-          this.commonService.ToastError(err.error.msg);
-          this.loaderService.hidde();
-        }
-      });
+          return this.supplierService.getSupplierById(this.userData.user.id);
+        }))
+        .subscribe({
+          next: (supplier: ISupplier) => {
+            this.userData.supplier = supplier;
+
+            localStorage.setItem('userData', JSON.stringify(this.userData));
+            this.authService.userInfo.emit(this.userData.user);
+            this.router.navigate(['app', 'visao-geral', 'responder-solicitacao', this.cotationId]);
+            this.loaderService.hidde();
+          },
+          error: (err: HttpErrorResponse) => {
+            this.commonService.ToastError(err.error.msg);
+            this.loaderService.hidde();
+          }
+        });
+    } else {
+      this.authService
+        .authenticate(this.loginForm.value)
+        .pipe(switchMap((user: IUserRegister) => {
+          this.userData.user = user;
+
+          return this.supplierService.getSupplierById(user.id);
+        }))
+        .subscribe({
+          next: (supplier: ISupplier) => {
+            this.userData.supplier = supplier;
+
+            localStorage.setItem('userData', JSON.stringify(this.userData));
+            this.authService.userInfo.emit(this.userData.user);
+            this.router.navigate(['app', 'visao-geral']);
+            this.loaderService.hidde();
+          },
+          error: (err: HttpErrorResponse) => {
+            this.commonService.ToastError(err.error.msg);
+            this.loaderService.hidde();
+          }
+        });
+    }
   }
-
 }
