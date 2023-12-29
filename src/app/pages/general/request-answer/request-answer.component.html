@@ -333,7 +333,7 @@
             </div>
             <div class="row submit-field">
                 <div class="col-md-12">
-                    <button class="btn">Voltar</button>
+                    <button class="btn" routerLink="/app/visao-geral">Voltar</button>
                     <div class="save-container">
                         <button class="btn" [disabled]="cotation.cotacao.cotacaoExpirada" (click)="saveDraft()">Salvar Rascunho</button>
                         <button class="btn" [disabled]="cotation.cotacao.cotacaoExpirada" (click)="sentRequest(formMaterial.value, null)">Enviar Cotação</button>

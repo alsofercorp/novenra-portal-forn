@@ -16,6 +16,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ConfirmPasswordChangeComponent } from './confirm-password-change/confirm-password-change.component';
 import { ActiveUserComponent } from './active-user/active-user.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     NzCheckboxModule,
     HttpClientJsonpModule,
     NzSpinModule,
+    NzPopoverModule,
+    NzInputModule,
     NgxMaskModule.forRoot(),
   ]
 })

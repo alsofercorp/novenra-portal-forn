@@ -47,6 +47,19 @@
 
         <div class="input-container">
           <label class="input-label" for="pass">Senha</label>
+          <i class="ri-question-line question"
+          nz-popover nzType="primary" nzPopoverTitle="Dica" [nzPopoverContent]="contentTemplate"></i>
+          <ng-template #contentTemplate>
+            <div>
+              <ul>
+                <li>Verifica se a senha tem de 8 a 12 caracteres</li>
+                <li>Verifica se existe pelo menos um número na senha</li>
+                <li>Verifica se existe apenas uma letra maiuscula</li>
+                <li>Verifica se existe apenas uma letra minuscula</li>
+                <li>Verifica se nao existe algum caractere especial</li>
+              </ul>
+            </div>
+          </ng-template>
           <input id="pass" formControlName="password" nz-input class="form-control noventa-input"
             placeholder="Insira pelo menos 8 caracteres" type="password"
             [class]="(userForm.get('password')?.invalid && userForm.get('password')?.errors && (userForm.get('password')?.dirty || userForm.get('password')?.touched)) ? 'hasError' : ''" />

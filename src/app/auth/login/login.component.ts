@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
     supplier: null
   };
 
+  remenberUser: boolean = false;
+
   cotationRequestId: string = '';
   private cotationId: number = 0;
 
@@ -42,7 +44,15 @@ export class LoginComponent implements OnInit {
         if (params.guid) {
           this.cotationRequestId = params.guid
         }
-      })
+      });
+
+    if (this.commonService.getCookie('userEmail')) {
+      this.loginForm.patchValue({
+        email: this.commonService.getCookie('userEmail')
+      });
+
+      this.remenberUser = true;
+    }
   }
 
   login() {
@@ -64,6 +74,8 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: (supplier: ISupplier) => {
             this.userData.supplier = supplier;
+
+            this.remenberMe();
 
             localStorage.setItem('userData', JSON.stringify(this.userData));
             this.authService.userInfo.emit(this.userData.user);
@@ -97,6 +109,15 @@ export class LoginComponent implements OnInit {
             this.loaderService.hidde();
           }
         });
+    }
+  }
+
+  remenberMe() {
+    if (this.remenberUser) {
+      this.commonService.setCookie('userEmail', this.loginForm.get('email')?.value);
+    } else {
+      debugger
+      this.commonService.deleteCookie('userEmail');
     }
   }
 }
