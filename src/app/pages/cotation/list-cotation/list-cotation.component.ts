@@ -49,11 +49,12 @@ export class ListCotationComponent implements OnInit {
     this.loaderService.show();
 
     this.userData = this.commonService.getUserInfo();
+    this.filter.idFornecedor = this.userData.user.id;
 
     this.service.getStatus()
       .pipe(switchMap((status: IStatus[]) => {
         this.statusList = status.map((stt: IStatus) => ({ name: stt.nomeStatus, value: stt.id }));
-
+        
         return this.service.getCotation(this.filter);
       }))
       .subscribe({
