@@ -417,8 +417,6 @@ export class RequestAnswerComponent implements OnInit {
       this.formDelivery.get(field)?.markAsTouched();
     });
 
-    debugger
-
     const formMaterial: any = (this.formMaterial.get('materials') as FormArray);
 
     return ((!this.formDelivery.valid && !formMaterial.valid) || (this.formDelivery.valid && !formMaterial.valid) || (!this.formDelivery.valid && formMaterial.valid));

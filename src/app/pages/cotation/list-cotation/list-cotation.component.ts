@@ -54,13 +54,6 @@ export class ListCotationComponent implements OnInit {
       .pipe(switchMap((status: IStatus[]) => {
         this.statusList = status.map((stt: IStatus) => ({ name: stt.nomeStatus, value: stt.id }));
 
-        return this.service.getReason();
-      }))
-      .pipe(switchMap((reason: IReason[]) => {
-        this.reasonList = reason.map((rea: IReason) => ({ name: rea.nomeMotivo, value: rea.id }));
-        
-        this.filter.idFornecedor = this.userData.user.id;
-        
         return this.service.getCotation(this.filter);
       }))
       .subscribe({
@@ -89,11 +82,11 @@ export class ListCotationComponent implements OnInit {
   }
 
   onErase() {
-    if (this.filter.statusId !== null && this.filter.statusId.length === 0)  {
+    if (this.filter.statusId !== null && this.filter.statusId.length === 0) {
       this.filter.statusId = null;
     }
 
-    if (this.filter.motivoId !== null && this.filter.motivoId.length === 0)  {
+    if (this.filter.motivoId !== null && this.filter.motivoId.length === 0) {
       this.filter.motivoId = null;
     }
 
@@ -108,7 +101,7 @@ export class ListCotationComponent implements OnInit {
       .subscribe({
         next: (cotation: ICotationModel) => {
           this.totalItens = cotation.totalPage;
-          
+
           this.cotationData = cotation.cotacoes.map((cot: ICotationList) => {
             cot.status = this.getStatus(cot.status.toLocaleLowerCase())
             return cot;
@@ -138,31 +131,31 @@ export class ListCotationComponent implements OnInit {
 
   private getStatus(status: string): any {
     switch (status) {
-        case cotationStatusEnum.approved:
-            return {
-                status: 0,
-                name: 'Aprovado',
-                tag: 'orange'
-            }
-        case cotationStatusEnum.sented:
-            return {
-                status: 1,
-                name: 'Enviado',
-                tag: 'blue'
-            }
-        case cotationStatusEnum.pending:
-            return {
-                status: 2,
-                name: 'Pendente',
-                tag: 'green'
-            }
-        case cotationStatusEnum.notApproved:
-            return {
-                status: 3,
-                name: 'Não Aprovado',
-                tag: 'red'
-            }
+      case cotationStatusEnum.approved:
+        return {
+          status: 0,
+          name: 'Aprovado',
+          tag: 'orange'
+        }
+      case cotationStatusEnum.sented:
+        return {
+          status: 1,
+          name: 'Enviado',
+          tag: 'blue'
+        }
+      case cotationStatusEnum.pending:
+        return {
+          status: 2,
+          name: 'Pendente',
+          tag: 'green'
+        }
+      case cotationStatusEnum.notApproved:
+        return {
+          status: 3,
+          name: 'Não Aprovado',
+          tag: 'red'
+        }
     }
-}
+  }
 
 }

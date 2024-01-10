@@ -3,7 +3,7 @@
     <div class="row mb-4 mt-3">
       <div class="col-md-12 filter">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <label for="search">
               Pesquisar
             </label>
@@ -28,14 +28,6 @@
           </div>
           <div class="col-md-3">
             <label for="search">
-              Motivo
-            </label>
-            <nz-select class="form-control" nzMode="multiple" nzPlaceHolder="Selecione um motivo" [nzMaxTagCount]="2" [(ngModel)]="filter.motivoId" (ngModelChange)="onErase()">
-              <nz-option *ngFor="let item of reasonList" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
-            </nz-select>
-          </div>
-          <div class="col-md-2">
-            <label for="search">
               Periodo
             </label>
             <nz-range-picker class="form-control" [nzFormat]="brazilianFormat" [nzRanges]="range" [(ngModel)]="selectedDate" (ngModelChange)="onDateSelected($event)"></nz-range-picker>
@@ -54,7 +46,6 @@
               <th>Local de Destino</th>
               <th>Data de Solicitação</th>
               <th>Entrega Desejada</th>
-              <th>Motivo</th>
               <th>Contato</th>
               <th>Status</th>
               <th></th>
@@ -66,7 +57,6 @@
               <td>{{data.localDestino}}</td>
               <td>{{data.dataSolicitacao | date: "dd/MM/yy 'às' HH:mm"}}</td>
               <td>{{data.dataEntrega | date: "dd/MM/yy"}}</td>
-              <td>{{data.motivo}}</td>
               <td>{{data.contato | mask : '(00) 0 0000-0000'}}</td>
               <td>
                 <nz-tag [nzColor]="data.status.tag">
